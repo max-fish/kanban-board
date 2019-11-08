@@ -1,5 +1,4 @@
-package ui;
-
+import com.jfoenix.controls.JFXDecorator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,8 +16,11 @@ public class KanbanBoard extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("layouts/kanban_board_ui.fxml"));
-        primaryStage.setTitle("Kanban Board");
-        Scene scene = new Scene(root, 1200, 600);
+        JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
+        jfxDecorator.setCustomMaximize(true);
+        jfxDecorator.setTitle("Kanban Board");
+        Scene scene = new Scene(jfxDecorator, 1200, 600);
+        scene.getStylesheets().add(getClass().getResource("styling/scene_styling.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
 

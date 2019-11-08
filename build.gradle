@@ -7,8 +7,8 @@ plugins {
 group 'com.5ccs2seg.teamthistle.kanbanboard'
 version '1.0-SNAPSHOT'
 
+mainClassName="KanbanBoard"
 sourceCompatibility = 1.8
-mainClassName = 'KanbanBoard'
 
 repositories {
     mavenCentral()
