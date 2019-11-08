@@ -1,0 +1,21 @@
+
+@font-face {
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+#BoardName{
+    -fx-font-family: "Roboto";
+    -fx-font-size: 36;
+    -fx-text-fill: white;
+    -fx-font-smoothing-type: gray;
+}
+
+#root{
+    -fx-background-color: #7e57c2;
+}
+
+#AddColumnButton{
+    -fx-background-color: white;
+    -fx-background-radius: 100;
+    -fx-padding: 5,5,5,5;
+}
