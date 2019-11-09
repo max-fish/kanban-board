@@ -1,13 +1,12 @@
 
 @font-face {
-    src: url("../fonts/Roboto-Regular.ttf");
+    src: url("../fonts/Roboto-Light.ttf");
 }
 
 #BoardName{
-    -fx-font-family: "Roboto";
-    -fx-font-size: 36;
+    -fx-font-family: "Roboto Light";
+    -fx-font-size: 34;
     -fx-text-fill: white;
-    -fx-font-smoothing-type: gray;
 }
 
 #root{
@@ -18,4 +17,8 @@
     -fx-background-color: white;
     -fx-background-radius: 100;
     -fx-padding: 5,5,5,5;
+}
+
+.jfx-tool-bar .tool-bar-left-box{
+    -fx-padding: 10, 0, 0, 0;
 }

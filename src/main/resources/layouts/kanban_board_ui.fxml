@@ -10,9 +10,9 @@
 <BorderPane id="root" prefHeight="600" prefWidth="1000" stylesheets="@../styling/board_styling.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.KanbanBoardController">
 
     <top>
-        <JFXToolbar prefWidth="Infinity" prefHeight="NaN" maxWidth="Infinity" maxHeight="Infinity">
+        <JFXToolbar prefWidth="Infinity" prefHeight="NaN" maxWidth="Infinity" maxHeight="Infinity" >
             <leftItems>
-            <Label id="BoardName" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200" text="Board Name" />
+                <Label id="BoardName" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200" text="Board Name" />
 <!-- might add more buttons here later-->
             </leftItems>
             <rightItems>

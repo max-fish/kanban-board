@@ -15,6 +15,7 @@ public class KanbanBoard extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        System.setProperty("prism.lcdtext", "false"); //for better font rendering
         Parent root = FXMLLoader.load(getClass().getResource("layouts/kanban_board_ui.fxml"));
         JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
