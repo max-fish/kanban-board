@@ -31,6 +31,10 @@
         </JFXToolbar>
     </top>
     <center>
+        <HBox fx:id="columns" prefHeight="600" prefWidth="1000" >
+        </HBox>
+    </center>
+    <right>
         <JFXButton id="AddColumnButton" onMousePressed="#makeNewColumn" maxHeight="40" maxWidth="40" prefHeight="30" prefWidth="30" BorderPane.alignment="TOP_LEFT" buttonType="RAISED">
             <graphic>
                 <FontIcon iconLiteral= "gmi-add" iconColor= "#7e57c2" iconSize="30" />
@@ -42,5 +46,5 @@
                 </Insets>
             </BorderPane.margin>
         </JFXButton>
-    </center>
+    </right>
 </BorderPane>
