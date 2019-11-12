@@ -1,0 +1,10 @@
+#AddCardButton{
+    -fx-background-color: white;
+    -fx-background-radius: 100;
+
+    -fx-padding: 5,5,5,5;
+}
+
+#column_root{
+    -fx-background-color: "#b085f5" ;
+}

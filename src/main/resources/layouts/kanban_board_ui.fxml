@@ -31,6 +31,19 @@
         </JFXToolbar>
     </top>
     <center>
+        <ScrollPane fx:id="columnsScrollPane"  id="columnsScrollPane" stylesheets="@../styling/scrollpane_styling.css" prefHeight="400" prefWidth="1000" visible = "false">
+            <HBox fx:id="columns" id="Columns" prefHeight="400" prefWidth="1000" >
+                <BorderPane.margin>
+                    <Insets>
+                        <right>20</right>
+                        <left>15</left>
+                        <bottom>15</bottom>
+                    </Insets>
+                </BorderPane.margin>
+            </HBox>
+        </ScrollPane>
+    </center>
+    <right>
         <JFXButton id="AddColumnButton" onMousePressed="#makeNewColumn" maxHeight="40" maxWidth="40" prefHeight="30" prefWidth="30" BorderPane.alignment="TOP_LEFT" buttonType="RAISED">
             <graphic>
                 <FontIcon iconLiteral= "gmi-add" iconColor= "#7e57c2" iconSize="30" />
@@ -42,5 +55,5 @@
                 </Insets>
             </BorderPane.margin>
         </JFXButton>
-    </center>
+    </right>
 </BorderPane>
