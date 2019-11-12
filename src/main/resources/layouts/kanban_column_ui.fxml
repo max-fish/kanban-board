@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+
+<BorderPane id="column_root" prefHeight="400" prefWidth="200" minHeight="400" minWidth="200" stylesheets="@../styling/column_styling.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ColumnController">
+    <top>
+        <Label id="ColumnName" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200" text="Column Name" />
+        <Label id="ColumnRole" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200" text="Column Role" />
+    </top>
+    <center>
+        <VBox id="card_list" prefHeight="600" prefWidth="100">
+            <JFXButton id="AddCardButton" onMousePressed="#makeNewCard" maxHeight="40" maxWidth="40" prefHeight="30" prefWidth="30" BorderPane.alignment="TOP_LEFT" buttonType="RAISED">
+                <graphic>
+                    <FontIcon iconLiteral= "gmi-add" iconColor= "#7e57c2" iconSize="30" />
+                </graphic>
+            </JFXButton>
+        </VBox>
+    </center>
+</BorderPane>

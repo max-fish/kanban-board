@@ -1,17 +1,25 @@
 package controllers;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import ui.KanbanColumn;
 
+import javafx.scene.control.*;
 import java.io.IOException;
 
 
 public class KanbanBoardController {
     @FXML
+    private ScrollPane columnsScrollPane;
+
+    @FXML
     private HBox columns;
 
 
+
+    private boolean hasColumn = false;
     @FXML
     public void goToHomeScreen(){
         //TODO implement action to home screen
@@ -20,8 +28,12 @@ public class KanbanBoardController {
     @FXML
     public void makeNewColumn() throws IOException
     {
+        if(!hasColumn){
+            columnsScrollPane.setVisible(true);
+        }
         KanbanColumn column = new KanbanColumn();
-        columns.getChildren().add(column.create());
-
+        BorderPane toInsert = column.create();
+        columns.getChildren().add(toInsert);
+        columns.setMargin(toInsert, new Insets(10));
     }
 }
