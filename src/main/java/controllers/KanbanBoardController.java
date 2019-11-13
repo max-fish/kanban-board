@@ -1,7 +1,9 @@
 package controllers;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import ui.KanbanColumn;
@@ -11,6 +13,8 @@ import java.io.IOException;
 
 
 public class KanbanBoardController {
+    public BorderPane rootPane;
+    public JFXTextField boardTitle;
     @FXML
     private ScrollPane columnsScrollPane;
 
@@ -34,6 +38,11 @@ public class KanbanBoardController {
         KanbanColumn column = new KanbanColumn();
         BorderPane toInsert = column.create();
         columns.getChildren().add(toInsert);
-        columns.setMargin(toInsert, new Insets(10));
+        HBox.setMargin(toInsert, new Insets(10));
+        hasColumn = true;
+    }
+
+    public void requestFocus(MouseEvent mouseEvent) {
+
     }
 }
