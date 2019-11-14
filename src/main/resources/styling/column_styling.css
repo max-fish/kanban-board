@@ -1,10 +1,35 @@
 #AddCardButton{
     -fx-background-color: white;
-    -fx-background-radius: 100;
+    -fx-background-radius: 80;
 
     -fx-padding: 5,5,5,5;
 }
 
-#column_root{
+#Column_root{
+    -fx-border-radius: 3 3 3 3;
+    -fx-background-radius: 3 3 3 3;
     -fx-background-color: "#b085f5" ;
 }
+
+
+#ColumnName, #ColumnRole{
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent;
+}
+
+#ColumnRole{
+    -fx-font-size: 16;
+}
+
+#ColumnName{
+   -fx-font-size: 19;
+}
+
+
+#ColumnName .input-line, #ColumnRole .input_line{
+    -fx-background-color: transparent;
+}
+
