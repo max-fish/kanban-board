@@ -1,9 +1,12 @@
 package controllers;
 
-import ComponentUtils.ComponentMaker;
+import utils.ComponentMaker;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+
+import java.io.IOException;
 
 
 public class HomePageController {
@@ -19,7 +22,9 @@ public class HomePageController {
 
     @FXML
     public void goToHomeScreen() {
-
+        if(rootPane.getCenter() instanceof BorderPane){
+            rootPane.setCenter(boardGrid);
+        }
     }
 
     @FXML
@@ -28,7 +33,16 @@ public class HomePageController {
             rowCounter++;
             colCounter = 0;
         }
-        boardGrid.add(ComponentMaker.makeBoardCard("board name"), colCounter, rowCounter);
+        StackPane newBoardCard = ComponentMaker.makeBoardCard("board name");
+
+        newBoardCard.setOnMouseClicked(event -> {
+            try {
+                rootPane.setCenter(ComponentMaker.makeBoard());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        boardGrid.add(newBoardCard, colCounter, rowCounter);
         colCounter++;
     }
 }

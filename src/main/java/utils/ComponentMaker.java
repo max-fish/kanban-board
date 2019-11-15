@@ -1,15 +1,14 @@
-package ComponentUtils;
+package utils;
 
-import ColorUtils.MaterialColors;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import java.io.IOException;
 
 public class ComponentMaker {
     public static StackPane makeBoardCard(String title) {
@@ -28,5 +27,13 @@ public class ComponentMaker {
 
         boardCard.setBackground(new Background(new BackgroundFill(MaterialColors.colorLight, new CornerRadii(5), Insets.EMPTY)));
         return boardCard;
+    }
+
+    public static BorderPane makeBoard() throws IOException {
+        return FXMLLoader.load(ComponentMaker.class.getResource("/layouts/kanban_board_ui.fxml"));
+    }
+
+    public static BorderPane makeColumn() throws IOException {
+        return FXMLLoader.load(ComponentMaker.class.getResource("/layouts/kanban_column_ui.fxml"));
     }
 }

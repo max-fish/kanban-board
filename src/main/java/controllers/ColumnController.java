@@ -1,10 +1,7 @@
 package controllers;
 
-import javafx.fxml.FXML;
-
 public class ColumnController {
-    @FXML
-    public void makeNewCard(){
-        //TODO implement making a new card
+    public void makeNewCard() {
+        //TODO Implement the generation of a new card
     }
 }

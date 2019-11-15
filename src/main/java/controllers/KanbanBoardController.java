@@ -6,9 +6,11 @@ import javafx.geometry.Insets;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import ui.KanbanColumn;
+import javafx.scene.layout.VBox;
 
 import javafx.scene.control.*;
+import utils.ComponentMaker;
+
 import java.io.IOException;
 
 
@@ -35,8 +37,7 @@ public class KanbanBoardController {
         if(!hasColumn){
             columnsScrollPane.setVisible(true);
         }
-        KanbanColumn column = new KanbanColumn();
-        BorderPane toInsert = column.create();
+        BorderPane toInsert = ComponentMaker.makeColumn();
         columns.getChildren().add(toInsert);
         HBox.setMargin(toInsert, new Insets(10));
         hasColumn = true;
