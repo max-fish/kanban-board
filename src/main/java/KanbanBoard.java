@@ -1,5 +1,3 @@
-package ui;
-
 import com.jfoenix.controls.JFXDecorator;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
