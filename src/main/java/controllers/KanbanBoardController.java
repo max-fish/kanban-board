@@ -17,9 +17,12 @@ public class KanbanBoardController {
     @FXML
     private HBox columns;
 
-
-
     private boolean hasColumn = false;
+
+    public void deleteColumn(){
+        columns.getChildren().remove(0);
+    }
+
     @FXML
     public void goToHomeScreen(){
         //TODO implement action to home screen
