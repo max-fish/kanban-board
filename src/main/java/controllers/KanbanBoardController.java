@@ -15,21 +15,16 @@ import java.io.IOException;
 
 
 public class KanbanBoardController {
-    public BorderPane rootPane;
-    public JFXTextField boardTitle;
+    @FXML
+    private BorderPane rootPane;
+    @FXML
+    private JFXTextField boardTitle;
     @FXML
     private ScrollPane columnsScrollPane;
-
     @FXML
     private HBox columns;
 
-
-
     private boolean hasColumn = false;
-    @FXML
-    public void goToHomeScreen(){
-        //TODO implement action to home screen
-    }
 
     @FXML
     public void makeNewColumn() throws IOException
@@ -43,7 +38,7 @@ public class KanbanBoardController {
         hasColumn = true;
     }
 
-    public void requestFocus(MouseEvent mouseEvent) {
-
+    public void changeTitle(String title){
+        boardTitle.setText(title);
     }
 }

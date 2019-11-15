@@ -1,5 +1,6 @@
 package utils;
 
+import controllers.KanbanBoardController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -29,8 +30,13 @@ public class ComponentMaker {
         return boardCard;
     }
 
-    public static BorderPane makeBoard() throws IOException {
-        return FXMLLoader.load(ComponentMaker.class.getResource("/layouts/kanban_board_ui.fxml"));
+    public static BorderPane makeBoard(String title) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(ComponentMaker.class.getResource("/layouts/kanban_board_ui.fxml"));
+        BorderPane board = fxmlLoader.load();
+        KanbanBoardController kanbanBoardController = fxmlLoader.getController();
+        kanbanBoardController.changeTitle(title);
+        return board;
     }
 
     public static BorderPane makeColumn() throws IOException {

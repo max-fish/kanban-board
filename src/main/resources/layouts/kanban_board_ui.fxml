@@ -9,7 +9,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <BorderPane fx:id="rootPane" id="root" prefHeight="600" prefWidth="1000" stylesheets="@../styling/board_styling.css"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="controllers.KanbanBoardController" onMouseClicked="#requestFocus">
+            fx:controller="controllers.KanbanBoardController">
     <top>
         <JFXTextField fx:id="boardTitle" id="BoardName" promptText="Board Name" prefWidth="200" prefHeight="50"
                       maxWidth="400" maxHeight="50"/>

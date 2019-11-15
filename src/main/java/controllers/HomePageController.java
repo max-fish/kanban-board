@@ -10,8 +10,10 @@ import java.io.IOException;
 
 
 public class HomePageController {
-    public BorderPane rootPane;
-    public GridPane boardGrid;
+    @FXML
+    private BorderPane rootPane;
+    @FXML
+    private GridPane boardGrid;
     private int colCounter = 0;
     private int rowCounter = 0;
 
@@ -37,7 +39,7 @@ public class HomePageController {
 
         newBoardCard.setOnMouseClicked(event -> {
             try {
-                rootPane.setCenter(ComponentMaker.makeBoard());
+                rootPane.setCenter(ComponentMaker.makeBoard("board name"));
             } catch (IOException e) {
                 e.printStackTrace();
             }
