@@ -35,7 +35,7 @@ public class KanbanBoardController {
             columnsScrollPane.setVisible(true);
         }
         KanbanColumn column = new KanbanColumn();
-        BorderPane toInsert = column.create();
+        BorderPane toInsert = column.create(this);
         columns.getChildren().add(toInsert);
         columns.setMargin(toInsert, new Insets(10));
     }
