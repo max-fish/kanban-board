@@ -1,52 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import com.jfoenix.controls.JFXToolbar?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.geometry.Insets?>
-<BorderPane id="root" prefHeight="600" prefWidth="1000" stylesheets="@../styling/board_styling.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.KanbanBoardController">
-
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.ScrollPane?>
+<fx:root type="javafx.scene.layout.BorderPane" fx:id="rootPane" id="root" prefHeight="600" prefWidth="1000" stylesheets="@../styling/board_styling.css"
+            xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.KanbanBoardController">
     <top>
-        <JFXToolbar prefWidth="Infinity" prefHeight="NaN" maxWidth="Infinity" maxHeight="Infinity" >
-            <leftItems>
-                <Label id="BoardName" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200" text="Board Name" />
-<!-- might add more buttons here later-->
-            </leftItems>
-            <rightItems>
-                <JFXButton onMousePressed="#goToHomeScreen" maxWidth="20" maxHeight="20" prefWidth="20" prefHeight="20" buttonType="FLAT">
-                    <graphic>
-                        <FontIcon iconLiteral="gmi-home" iconColor="white" iconSize="30" />
-                    </graphic>
-                    <BorderPane.margin>
-                        <Insets>
-                            <right>20</right>
-                            <top>10</top>
-                        </Insets>
-                    </BorderPane.margin>
-                </JFXButton>
-            </rightItems>
-        </JFXToolbar>
+        <JFXTextField fx:id="boardTitle" id="BoardName" promptText="Board Name" prefWidth="200" prefHeight="50"
+                      maxWidth="400" maxHeight="50"/>
     </top>
     <center>
-        <ScrollPane fx:id="columnsScrollPane"  id="columnsScrollPane" stylesheets="@../styling/scrollpane_styling.css" prefHeight="400" prefWidth="1000" visible = "false">
-            <HBox fx:id="columns" id="Columns" prefHeight="400" prefWidth="1000" >
-                <BorderPane.margin>
-                    <Insets>
-                        <right>20</right>
-                        <left>15</left>
-                        <bottom>15</bottom>
-                    </Insets>
-                </BorderPane.margin>
-            </HBox>
-        </ScrollPane>
+        <ScrollPane fx:id="columnsScrollPane" id="columnsScrollPane" stylesheets="@../styling/scrollpane_styling.css" prefHeight="400" prefWidth="1000" visible="false">
+        <HBox fx:id="columns" id="Columns" prefHeight="600" prefWidth="1000">
+            <BorderPane.margin>
+                <Insets>
+                    <right>20</right>
+                    <left>15</left>
+                    <bottom>15</bottom>
+                </Insets>
+            </BorderPane.margin>
+        </HBox>
+    </ScrollPane>
     </center>
     <right>
-        <JFXButton id="AddColumnButton" onMousePressed="#makeNewColumn" maxHeight="40" maxWidth="40" prefHeight="30" prefWidth="30" BorderPane.alignment="TOP_LEFT" buttonType="RAISED">
+        <JFXButton id="AddColumnButton" onMouseClicked="#makeNewColumn" maxHeight="40" maxWidth="40" prefHeight="30"
+                   prefWidth="30" buttonType="RAISED">
             <graphic>
-                <FontIcon iconLiteral= "gmi-add" iconColor= "#7e57c2" iconSize="30" />
+                <FontIcon iconLiteral="gmi-add" iconColor="#7e57c2" iconSize="30"/>
             </graphic>
             <BorderPane.margin>
                 <Insets>
@@ -56,4 +41,4 @@
             </BorderPane.margin>
         </JFXButton>
     </right>
-</BorderPane>
+</fx:root>

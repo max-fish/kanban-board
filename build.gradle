@@ -7,8 +7,9 @@ plugins {
 group 'com.5ccs2seg.teamthistle.kanbanboard'
 version '1.0-SNAPSHOT'
 
-mainClassName="KanbanBoard"
+mainClassName="ui.HomePage"
 sourceCompatibility = 1.8
+gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
 
 repositories {
     mavenCentral()

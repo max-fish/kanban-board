@@ -3,15 +3,13 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.Node;
+import ui.KanbanColumn;
+
 
 
 public class ColumnController {
-    private KanbanBoardController kanbanBoardController;
-
-    public void setController(KanbanBoardController controller){
-        this.kanbanBoardController = controller;
-    }
+    @FXML
+    private BorderPane rootPane;
 
     @FXML
     public void makeNewCard(){
@@ -20,7 +18,7 @@ public class ColumnController {
 
     @FXML
     public void deleteColumn(MouseEvent ev){
-        //The method depends on the fact that the scene diagram isn't changed
-        kanbanBoardController.deleteColumn( (BorderPane) ((Node) ev.getSource()).getParent().getParent());
+        KanbanColumn columnToDelete = (KanbanColumn) rootPane;
+        columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
     }
 }
