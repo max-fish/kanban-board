@@ -19,8 +19,8 @@ public class KanbanBoardController {
 
     private boolean hasColumn = false;
 
-    public void deleteColumn(){
-        columns.getChildren().remove(0);
+    public void deleteColumn(BorderPane pane){
+        columns.getChildren().remove(pane);
     }
 
     @FXML
