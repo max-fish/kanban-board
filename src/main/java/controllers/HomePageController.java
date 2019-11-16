@@ -1,5 +1,6 @@
 package controllers;
 
+import ui.KanbanBoard;
 import utils.ComponentMaker;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -39,7 +40,7 @@ public class HomePageController {
 
         newBoardCard.setOnMouseClicked(event -> {
             try {
-                rootPane.setCenter(ComponentMaker.makeBoard("board name"));
+                rootPane.setCenter(new KanbanBoard());
             } catch (IOException e) {
                 e.printStackTrace();
             }

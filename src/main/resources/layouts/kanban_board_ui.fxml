@@ -7,7 +7,7 @@
 <?import javafx.geometry.Insets?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ScrollPane?>
-<BorderPane fx:id="rootPane" id="root" prefHeight="600" prefWidth="1000" stylesheets="@../styling/board_styling.css"
+<fx:root type="javafx.scene.layout.BorderPane" fx:id="rootPane" id="root" prefHeight="600" prefWidth="1000" stylesheets="@../styling/board_styling.css"
             xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="controllers.KanbanBoardController">
     <top>
@@ -41,4 +41,4 @@
             </BorderPane.margin>
         </JFXButton>
     </right>
-</BorderPane>
+</fx:root>

@@ -3,12 +3,12 @@ package controllers;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import javafx.scene.control.*;
+import ui.KanbanBoard;
+import ui.KanbanColumn;
 import utils.ComponentMaker;
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class KanbanBoardController {
         if(!hasColumn){
             columnsScrollPane.setVisible(true);
         }
-        BorderPane toInsert = ComponentMaker.makeColumn();
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
         columns.getChildren().add(toInsert);
         HBox.setMargin(toInsert, new Insets(10));
         hasColumn = true;
@@ -40,5 +40,9 @@ public class KanbanBoardController {
 
     public void changeTitle(String title){
         boardTitle.setText(title);
+    }
+
+    void deleteColumn(KanbanColumn column){
+        columns.getChildren().remove(column);
     }
 }
