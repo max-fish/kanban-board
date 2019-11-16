@@ -17,9 +17,12 @@ public class KanbanBoardController {
     @FXML
     private HBox columns;
 
-
-
     private boolean hasColumn = false;
+
+    public void deleteColumn(BorderPane pane){
+        columns.getChildren().remove(pane);
+    }
+
     @FXML
     public void goToHomeScreen(){
         //TODO implement action to home screen
@@ -32,7 +35,7 @@ public class KanbanBoardController {
             columnsScrollPane.setVisible(true);
         }
         KanbanColumn column = new KanbanColumn();
-        BorderPane toInsert = column.create();
+        BorderPane toInsert = column.create(this);
         columns.getChildren().add(toInsert);
         columns.setMargin(toInsert, new Insets(10));
     }

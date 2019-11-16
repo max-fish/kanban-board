@@ -25,6 +25,5 @@ public class KanbanBoard extends Application {
         scene.getStylesheets().add(getClass().getResource("styling/scene_styling.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
-
     }
 }
