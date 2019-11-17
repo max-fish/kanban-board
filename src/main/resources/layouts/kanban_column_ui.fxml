@@ -24,8 +24,8 @@
                     </graphic>
                 </JFXButton>
             </AnchorPane>
-            <JFXTextField styleClass="column-header" id="ColumnName" maxWidth="180" prefHeight="50" promptText="Add column name"/>
-            <JFXTextField styleClass="column-header" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add column role"/>
+            <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="180" prefHeight="50" promptText="Add column name"/>
+            <JFXTextField styleClass="column-header" fx:id ="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add column role"/>
         </VBox>
     </top>
     <center>
