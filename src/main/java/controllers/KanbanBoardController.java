@@ -32,7 +32,6 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private HBox columns;
 
-    private boolean hasColumn = false;
     private Board board;
     private Label homePageLabel;
 
@@ -53,16 +52,12 @@ public class KanbanBoardController implements Initializable {
 
     @FXML
     public void makeNewColumn() throws IOException {
-        if(!hasColumn){
-            columnsScrollPane.setVisible(true);
-        }
       
         KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
         columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
         columns.getChildren().add(addButton);
 
         HBox.setMargin(toInsert, new Insets(10));
-        hasColumn = true;
 
         Column newColumn = new Column(board);
         board.addColumn(newColumn);
