@@ -16,11 +16,6 @@ public class Board{
         columns = new ArrayList<>();
     }
 
-    public Board()
-    {
-        this("New Board");
-    }
-
     public void addColumn(Column column)
     {
         columns.add(column);

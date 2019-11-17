@@ -10,6 +10,7 @@ import javafx.scene.control.*;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import utils.ComponentMaker;
+import model.Board;
 
 import java.io.IOException;
 
@@ -25,6 +26,7 @@ public class KanbanBoardController {
     private HBox columns;
 
     private boolean hasColumn = false;
+    private Board board;
 
     @FXML
     public void makeNewColumn() throws IOException
@@ -44,5 +46,10 @@ public class KanbanBoardController {
 
     void deleteColumn(KanbanColumn column){
         columns.getChildren().remove(column);
+    }
+
+    public void setBoard(Board board)
+    {
+        this.board = board;
     }
 }

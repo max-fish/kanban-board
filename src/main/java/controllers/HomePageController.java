@@ -1,6 +1,8 @@
 package controllers;
 
 import ui.KanbanBoard;
+import model.KanbanModel;
+import model.Board;
 import utils.ComponentMaker;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
@@ -32,20 +34,27 @@ public class HomePageController {
 
     @FXML
     public void makeNewBoard() {
-        if(colCounter == 4){
-            rowCounter++;
-            colCounter = 0;
-        }
-        StackPane newBoardCard = ComponentMaker.makeBoardCard("board name");
+        try {
+            KanbanBoard board = new KanbanBoard();
 
-        newBoardCard.setOnMouseClicked(event -> {
-            try {
-                rootPane.setCenter(new KanbanBoard());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(colCounter == 4){
+                rowCounter++;
+                colCounter = 0;
             }
-        });
-        boardGrid.add(newBoardCard, colCounter, rowCounter);
-        colCounter++;
+            String boardName = "New Board";
+            StackPane newBoardCard = ComponentMaker.makeBoardCard(boardName);
+
+            Board boardModel = new Board(boardName);
+            KanbanModel.instance().addBoard(boardModel);
+            board.getController().setBoard(boardModel);
+            board.getController().changeTitle(boardName);
+
+            newBoardCard.setOnMouseClicked(event -> { rootPane.setCenter(board); });
+
+            boardGrid.add(newBoardCard, colCounter, rowCounter);
+            colCounter++;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
