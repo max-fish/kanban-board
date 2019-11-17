@@ -1,5 +1,6 @@
 package controllers;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -10,6 +11,10 @@ import model.Column;
 public class ColumnController {
     @FXML
     private BorderPane rootPane;
+    @FXML
+    private JFXTextField columnName;
+    @FXML
+    private JFXTextField columnRole;
 
     private Column column;
 
@@ -30,5 +35,19 @@ public class ColumnController {
     public void setColumn(Column column)
     {
         this.column = column;
+    }
+
+    public void setNameChangeListener()
+    {
+        columnName.textProperty().addListener((observable, oldValue, newValue) -> {
+            column.setName(newValue);
+        });
+    }
+
+    public void setRoleChangeListener()
+    {
+        columnRole.textProperty().addListener((observable, oldValue, newValue) -> {
+            column.setRole(newValue);
+        });
     }
 }

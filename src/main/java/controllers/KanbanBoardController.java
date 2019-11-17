@@ -45,6 +45,8 @@ public class KanbanBoardController {
         board.addColumn(newColumn);
 
         toInsert.getController().setColumn(newColumn);
+        toInsert.getController().setNameChangeListener();
+        toInsert.getController().setRoleChangeListener();
     }
 
     public void changeTitle(String title){
