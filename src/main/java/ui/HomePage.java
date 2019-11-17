@@ -2,6 +2,7 @@ package ui;
 
 import com.jfoenix.controls.JFXDecorator;
 import controllers.HomePageController;
+import model.KanbanModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,6 +19,8 @@ public class HomePage extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        KanbanModel.instance(); // create the model for the application
+
         System.setProperty("prism.lcdtext", "false"); //for better font rendering
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/layouts/home_page_ui.fxml"));
