@@ -22,8 +22,6 @@ public class HomePage extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/layouts/home_page_ui.fxml"));
         Parent root = fxmlLoader.load();
-        HomePageController homePageController = fxmlLoader.getController();
-        homePageController.initConfig();
         JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
         jfxDecorator.setTitle("Kanban Board");
