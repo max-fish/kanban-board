@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.control.Label;
 
 import java.io.IOException;
 
@@ -41,13 +42,17 @@ public class HomePageController {
                 rowCounter++;
                 colCounter = 0;
             }
-            String boardName = "New Board";
-            StackPane newBoardCard = ComponentMaker.makeBoardCard(boardName);
+            Label boardLabel = new Label("New Board");
+            StackPane newBoardCard = ComponentMaker.makeBoardCard(boardLabel);
 
-            Board boardModel = new Board(boardName);
+            Board boardModel = new Board(boardLabel.getText());
             KanbanModel.instance().addBoard(boardModel);
+
             board.getController().setBoard(boardModel);
-            board.getController().changeTitle(boardName);
+            board.getController().changeTitle(boardLabel.getText());
+
+            board.getController().setHomePageLabel(boardLabel);
+            board.getController().setTitleChangeListener();
 
             newBoardCard.setOnMouseClicked(event -> { rootPane.setCenter(board); });
 

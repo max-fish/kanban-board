@@ -27,6 +27,7 @@ public class KanbanBoardController {
 
     private boolean hasColumn = false;
     private Board board;
+    private Label homePageLabel;
 
     @FXML
     public void makeNewColumn() throws IOException
@@ -44,6 +45,14 @@ public class KanbanBoardController {
         boardTitle.setText(title);
     }
 
+    public void setTitleChangeListener()
+    {
+        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+            board.setName(newValue);
+            homePageLabel.setText(newValue);
+        });
+    }
+
     void deleteColumn(KanbanColumn column){
         columns.getChildren().remove(column);
     }
@@ -51,5 +60,10 @@ public class KanbanBoardController {
     public void setBoard(Board board)
     {
         this.board = board;
+    }
+
+    public void setHomePageLabel(Label label)
+    {
+        homePageLabel = label;
     }
 }

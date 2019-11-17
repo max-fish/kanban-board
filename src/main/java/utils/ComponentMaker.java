@@ -8,14 +8,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class ComponentMaker {
-    public static StackPane makeBoardCard(String title) {
+    public static StackPane makeBoardCard(Label title) {
         StackPane boardCard = new StackPane();
         boardCard.setPrefWidth(185);
         boardCard.setPrefHeight(80);
         boardCard.setMaxWidth(185);
         boardCard.setMaxHeight(80);
 
-        Label titleLabel = new Label(title);
+        Label titleLabel = title;
         titleLabel.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
         titleLabel.setTextFill(Color.WHITE);
 
