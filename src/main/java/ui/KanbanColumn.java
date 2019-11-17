@@ -1,17 +1,28 @@
 package ui;
 
-
+import controllers.ColumnController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+
 import java.io.IOException;
 
+public class KanbanColumn extends BorderPane {
+    private KanbanBoard parent;
+    private ColumnController columnController;
 
-public class KanbanColumn {
+    public KanbanColumn(KanbanBoard parent) throws IOException {
+        this.parent = parent;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/kanban_column_ui.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.load();
+        columnController = fxmlLoader.getController();
+    }
 
-    public BorderPane create() throws IOException
-    {
-        System.setProperty("prism.lcdtext", "false"); //for better font rendering
-        return FXMLLoader.load(getClass().getResource("/layouts/kanban_column_ui.fxml"));
+    public ColumnController getController() {
+        return columnController;
+    }
+
+    public KanbanBoard getBoard() {
+        return parent;
     }
 }
-

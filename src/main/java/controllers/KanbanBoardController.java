@@ -1,29 +1,30 @@
 package controllers;
 
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import ui.KanbanColumn;
 
 import javafx.scene.control.*;
+import ui.KanbanBoard;
+import ui.KanbanColumn;
+import utils.ComponentMaker;
+
 import java.io.IOException;
 
 
 public class KanbanBoardController {
     @FXML
+    private BorderPane rootPane;
+    @FXML
+    private JFXTextField boardTitle;
+    @FXML
     private ScrollPane columnsScrollPane;
-
     @FXML
     private HBox columns;
 
-
-
     private boolean hasColumn = false;
-    @FXML
-    public void goToHomeScreen(){
-        //TODO implement action to home screen
-    }
 
     @FXML
     public void makeNewColumn() throws IOException
@@ -31,9 +32,17 @@ public class KanbanBoardController {
         if(!hasColumn){
             columnsScrollPane.setVisible(true);
         }
-        KanbanColumn column = new KanbanColumn();
-        BorderPane toInsert = column.create();
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
         columns.getChildren().add(toInsert);
-        columns.setMargin(toInsert, new Insets(10));
+        HBox.setMargin(toInsert, new Insets(10));
+        hasColumn = true;
+    }
+
+    public void changeTitle(String title){
+        boardTitle.setText(title);
+    }
+
+    void deleteColumn(KanbanColumn column){
+        columns.getChildren().remove(column);
     }
 }

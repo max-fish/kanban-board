@@ -7,6 +7,13 @@
     -fx-font-family: "Roboto Light";
     -fx-font-size: 34;
     -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent;
+}
+
+#BoardName .input-line{
+    -fx-background-color: transparent;
 }
 
 #root{
@@ -18,14 +25,3 @@
     -fx-background-radius: 100;
     -fx-padding: 5,5,5,5;
 }
-
-
-
-#Columns{
-    -fx-background-insets: 20;
-}
-
-.jfx-tool-bar .tool-bar-left-box{
-    -fx-padding: 10, 0, 0, 0;
-}
-
