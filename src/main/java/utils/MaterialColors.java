@@ -12,4 +12,6 @@ public class MaterialColors {
     public static final Color colorDark = Color.web("#4d2c91");
     public static final Color colorDarkLight = Color.web("#744cb5");
     public static final Color colorLighter = Color.web("#ccb7ed");
+    public static final Color colorAccent = Color.web("#ffeb3b");
+    public static final Color colorAccentLight = Color.web("#ffff72");
 }

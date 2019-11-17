@@ -1,46 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import org.kordamp.ikonli.javafx.FontIcon?>
-
-
-<?import javafx.geometry.Insets?>
-<?import com.jfoenix.controls.JFXTextField?>
-<fx:root type="javafx.scene.layout.BorderPane" fx:id="rootPane" id="Column_root" prefHeight="400" prefWidth="200" minHeight="400" minWidth="200" stylesheets="@../styling/column_styling.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ColumnController">
+<fx:root id="Column_root" fx:id="rootPane" minWidth="200" prefHeight="NaN" prefWidth="200"
+         stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
+         xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="controllers.ColumnController">
     <top>
-        <VBox id="Column_header" prefHeight="50" prefWidth="100">
-            <JFXButton id="DeleteColumnButton" onMousePressed="#deleteColumn" maxHeight="40" maxWidth="40" prefHeight="30" prefWidth="30" BorderPane.alignment="TOP_LEFT" buttonType="RAISED">
-                <graphic>
-                    <FontIcon iconLiteral= "gmi-delete" iconColor= "#7e57c2" iconSize="30" />
-                </graphic>
-                <VBox.margin>
-                    <Insets top= "10.0" bottom="10.0" left="10.0" right ="10.0" />
-                </VBox.margin>
-            </JFXButton>
-            <JFXTextField fx:id="columnName" id="ColumnName" promptText="Add column name" prefWidth="200" prefHeight="50">
-                <VBox.margin>
-                    <Insets left="10.0" top="3.0"/>
-                </VBox.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="columnRole" id="ColumnRole" promptText="Add column role" prefWidth="200" prefHeight="50">
-                <VBox.margin>
-                    <Insets left="10.0" />
-                </VBox.margin>
-            </JFXTextField>
+        <VBox id="Column_header" prefHeight="50" prefWidth="Infinity" spacing="5" alignment="CENTER">
+            <AnchorPane>
+                <JFXButton id="DeleteColumn" buttonType="FLAT" maxHeight="40" maxWidth="40"
+                           onMouseClicked="#deleteColumn" prefHeight="30" prefWidth="30" AnchorPane.leftAnchor="0.0">
+                    <graphic>
+                        <FontIcon iconColor="white" iconLiteral="gmi-delete" iconSize="30"/>
+                    </graphic>
+                </JFXButton>
+                <JFXButton buttonType="FLAT" maxHeight="40" maxWidth="40" onMousePressed="#makeNewCard" prefHeight="30"
+                           prefWidth="30" AnchorPane.rightAnchor="0.0">
+                    <graphic>
+                        <FontIcon iconColor="white" iconLiteral="gmi-add" iconSize="30"/>
+                    </graphic>
+                </JFXButton>
+            </AnchorPane>
+            <JFXTextField styleClass="column-header" id="ColumnName" maxWidth="180" prefHeight="50" promptText="Add column name"/>
+            <JFXTextField styleClass="column-header" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add column role"/>
         </VBox>
     </top>
     <center>
-        <VBox id="card_list" prefHeight="600" prefWidth="100">
-            <JFXButton id="AddCardButton" onMousePressed="#makeNewCard" maxHeight="40" maxWidth="40" prefHeight="30" prefWidth="30" BorderPane.alignment="TOP_LEFT" buttonType="RAISED">
-                <graphic>
-                    <FontIcon iconLiteral= "gmi-add" iconColor= "#7e57c2" iconSize="30" />
-                </graphic>
-                <VBox.margin>
-                    <Insets top= "10.0" bottom="10.0" left="10.0" right ="10.0" />
-                </VBox.margin>
-            </JFXButton>
-        </VBox>
+        <VBox id="card_list" prefHeight="NaN" prefWidth="100" alignment="CENTER"/>
     </center>
 </fx:root>
