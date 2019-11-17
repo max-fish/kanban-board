@@ -21,6 +21,11 @@ public class Board{
         columns.add(column);
     }
 
+    public void deleteColumn(Column column)
+    {
+        columns.remove(column);
+    }
+
     public void setName(String name)
     {
         this.name = name;

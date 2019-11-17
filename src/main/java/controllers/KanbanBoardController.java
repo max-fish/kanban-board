@@ -11,6 +11,7 @@ import ui.KanbanBoard;
 import ui.KanbanColumn;
 import utils.ComponentMaker;
 import model.Board;
+import model.Column;
 
 import java.io.IOException;
 
@@ -35,10 +36,15 @@ public class KanbanBoardController {
         if(!hasColumn){
             columnsScrollPane.setVisible(true);
         }
-        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
         columns.getChildren().add(toInsert);
         HBox.setMargin(toInsert, new Insets(10));
         hasColumn = true;
+
+        Column newColumn = new Column(board);
+        board.addColumn(newColumn);
+
+        toInsert.getController().setColumn(newColumn);
     }
 
     public void changeTitle(String title){
