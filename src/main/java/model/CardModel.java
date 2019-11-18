@@ -1,6 +1,6 @@
 package model;
 
-public class Card{
+public class CardModel {
     // the id of the next card, ids increase chronologically
     public static int nextId = 1;
 
@@ -11,7 +11,7 @@ public class Card{
     /**
      *
      */
-    public Card(String title, String description)
+    public CardModel(String title, String description)
     {
         this.title = title;
         this.description = description;
@@ -20,12 +20,12 @@ public class Card{
         nextId++;
     }
 
-    public Card(String title)
+    public CardModel(String title)
     {
         this(title, "");
     }
 
-    public Card()
+    public CardModel()
     {
         this("New Card", "");
     }

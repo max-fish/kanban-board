@@ -1,15 +1,22 @@
 package controllers;
 
+import callbacks.BoardNamePopupCallBack;
+import com.jfoenix.controls.*;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import ui.KanbanBoard;
 import model.KanbanModel;
-import model.Board;
+import model.BoardModel;
 import utils.ComponentMaker;
 import javafx.fxml.FXML;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.control.Label;
+import utils.MaterialColors;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,30 +33,57 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        KanbanModel.instance(); // create the model for the application
         boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
         boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
     }
 
     @FXML
     public void goToHomeScreen() {
-        if(rootPane.getCenter() instanceof BorderPane){
+        if (rootPane.getCenter() instanceof BorderPane) {
             rootPane.setCenter(boardGrid);
         }
     }
 
+    public void askToNameBoard() {
+        ComponentMaker.makeBoardNamePopup(new BoardNamePopupCallBack() {
+            @Override
+            public void onStart(StackPane stackPane) {
+                rootPane.setCenter(stackPane);
+            }
+
+            @Override
+            public void onValidName(String boardTitle) {
+                makeNewBoard(boardTitle);
+                rootPane.setCenter(boardGrid);
+            }
+
+            @Override
+            public void onInvalidName() {
+
+            }
+
+            @Override
+            public void onCancel() {
+                rootPane.setCenter(boardGrid);
+            }
+        });
+
+    }
+
     @FXML
-    public void makeNewBoard() {
+    private void makeNewBoard(String title) {
         try {
             KanbanBoard board = new KanbanBoard();
 
-            if(colCounter == 4){
+            if (colCounter == 4) {
                 rowCounter++;
                 colCounter = 0;
             }
-            Label boardLabel = new Label("New Board");
+            Label boardLabel = new Label(title);
             StackPane newBoardCard = ComponentMaker.makeBoardCard(boardLabel);
 
-            Board boardModel = new Board(boardLabel.getText());
+            BoardModel boardModel = new BoardModel(boardLabel.getText());
             KanbanModel.instance().addBoard(boardModel);
 
             board.getController().setBoard(boardModel);
@@ -58,7 +92,7 @@ public class HomePageController implements Initializable {
             board.getController().setHomePageLabel(boardLabel);
             board.getController().setTitleChangeListener();
 
-            newBoardCard.setOnMouseClicked(event -> { rootPane.setCenter(board); });
+            newBoardCard.setOnMouseClicked(event -> rootPane.setCenter(board));
 
             boardGrid.add(newBoardCard, colCounter, rowCounter);
             colCounter++;

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class KanbanModel{
     private static KanbanModel instance = null;
 
-    private List<Board> boards;
+    private List<BoardModel> boards;
 
     public static KanbanModel instance()
     {
@@ -28,7 +28,7 @@ public class KanbanModel{
         boards = new ArrayList<>();
     }
 
-    public void addBoard(Board board)
+    public void addBoard(BoardModel board)
     {
         boards.add(board);
     }
