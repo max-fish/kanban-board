@@ -61,11 +61,11 @@ public class ComponentMaker {
         boardNameTextField.setStyle("-fx-prompt-text-fill: white; -fx-text-fill: white");
         boardNameTextField.setFocusColor(MaterialColors.colorAccent);
         boardNameTextField.setUnFocusColor(MaterialColors.colorLight);
-        boardNameTextField.setFont(Font.loadFont(HomePageController.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 16));
+        boardNameTextField.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 16));
 
         Label header = new Label("Name your board");
         header.setTextFill(Color.WHITE);
-        header.setFont(Font.loadFont(HomePageController.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 14));
+        header.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 14));
         content.setHeading(header);
         content.setBody(boardNameTextField);
         content.setPrefSize(400, 100);
@@ -74,7 +74,7 @@ public class ComponentMaker {
         stackPane.setPrefSize(400, 100);
         JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
 
-        Font buttonFont = Font.loadFont(HomePageController.class.getResource("/fonts/Roboto-Bold.ttf").toExternalForm(), 14);
+        Font buttonFont = Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Bold.ttf").toExternalForm(), 14);
         JFXButton okButton = new JFXButton("Ok");
         okButton.setTextFill(Color.WHITE);
         okButton.setFont(buttonFont);

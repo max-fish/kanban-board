@@ -1,23 +1,14 @@
 package controllers;
 
 import callbacks.BoardNamePopupCallBack;
-import com.jfoenix.controls.*;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.geometry.VPos;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import ui.KanbanBoard;
 import model.KanbanModel;
 import model.BoardModel;
 import utils.ComponentMaker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import utils.MaterialColors;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -56,11 +47,6 @@ public class HomePageController implements Initializable {
             public void onValidName(String boardTitle) {
                 makeNewBoard(boardTitle);
                 rootPane.setCenter(boardGrid);
-            }
-
-            @Override
-            public void onInvalidName() {
-
             }
 
             @Override
