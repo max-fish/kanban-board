@@ -2,10 +2,20 @@
     src: url("../fonts/Roboto-Light.ttf");
 }
 
+@font-face {
+    src: url("../fonts/Roboto-Bold.ttf");
+}
+
 #HomePageLabel{
     -fx-font-family: "Roboto Light";
     -fx-font-size: 34;
     -fx-text-fill: white;
+}
+
+#LoadFromFile {
+    -fx-font-family: "Roboto Bold";
+    -fx-background-color: white;
+    -fx-text-fill: #4d2c91;
 }
 
 #root{

@@ -3,39 +3,35 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
-public class ColumnModel {
+public class Column{
     private String name;
     private String role;
-    private List<CardModel> cardModels;
-    private BoardModel parentBoard;
+    private List<Card> cards;
 
     /**
      *
      */
-    public ColumnModel(BoardModel parentBoard, String name, String role)
+    public Column(String name, String role)
     {
         this.name = name;
         this.role = role;
-        cardModels = new ArrayList<>();
-        this.parentBoard = parentBoard;
+        cards = new ArrayList<>();
     }
 
-    public ColumnModel(BoardModel parentBoard, String name)
+    public Column(String name)
     {
-        this(parentBoard, name, "");
+        this(name, "");
     }
 
-    public ColumnModel(BoardModel parentBoard)
+    public Column()
     {
-        this(parentBoard, "New Column", "");
+        this("New Column", "");
     }
 
-    public void addCard(CardModel cardModel)
+    public void addCard(Card card)
     {
-        cardModels.add(cardModel);
+        cards.add(card);
     }
-
-    public void deleteCard(CardModel cardModel){cardModels.remove(cardModel);}
 
     public void setName(String name)
     {
@@ -47,10 +43,13 @@ public class ColumnModel {
         this.role = role;
     }
 
-    public BoardModel getBoard()
+    public String getName()
     {
-        return parentBoard;
+        return name;
     }
 
+    public String getRole()
+    {
+        return role;
+    }
 }
-
