@@ -1,10 +1,25 @@
-#AddCardButton{
-    -fx-background-color: white;
-    -fx-background-radius: 100;
-
-    -fx-padding: 5,5,5,5;
+#Column_root{
+    -fx-background-radius: 5;
+    -fx-background-color: "#b085f5";
 }
 
-#column_root{
-    -fx-background-color: "#b085f5" ;
+
+#ColumnRole{
+    -fx-font-size: 16;
+}
+
+#ColumnName{
+   -fx-font-size: 19;
+}
+
+.input-focused-line{
+    -fx-pref-height: 1px;
+}
+
+.column-header {
+    -fx-font-family: "Roboto Regular";
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: #ffff72;
+    -jfx-unfocus-color: transparent;
 }
