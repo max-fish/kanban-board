@@ -87,4 +87,10 @@ public class HomePageController {
     {
         KanbanModel.instance().loadJSON();
     }
+
+    @FXML
+    public void saveJSON()
+    {
+        KanbanModel.instance().saveJSON();
+    }
 }
