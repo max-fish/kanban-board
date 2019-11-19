@@ -25,16 +25,26 @@ public class ColumnController {
 
     @FXML
     public void deleteColumn(MouseEvent ev){
-        column.getBoard().deleteColumn(column);
+        KanbanColumn columnToDelete = (KanbanColumn) rootPane;
+        columnToDelete.getBoard().getController().getBoardModel().deleteColumn(column);
         column = null;
 
-        KanbanColumn columnToDelete = (KanbanColumn) rootPane;
         columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
     }
 
     public void setColumn(Column column)
     {
         this.column = column;
+    }
+
+    public void setColumnName(String name)
+    {
+        columnName.setText(name);
+    }
+
+    public void setColumnRole(String role)
+    {
+        columnRole.setText(role);
     }
 
     public void setNameChangeListener()

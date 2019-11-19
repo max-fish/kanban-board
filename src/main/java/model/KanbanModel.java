@@ -1,7 +1,13 @@
 package model;
 
+import utils.JSONLoader;
+import controllers.HomePageController;
+
 import java.util.List;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
+import javafx.scene.control.Label;
 
 /**
  * Class KanbanModel - the class stores the current state
@@ -14,6 +20,7 @@ public class KanbanModel{
     private static KanbanModel instance = null;
 
     private List<Board> boards;
+    private HomePageController homePageController;
 
     public static KanbanModel instance()
     {
@@ -26,10 +33,28 @@ public class KanbanModel{
     private KanbanModel()
     {
         boards = new ArrayList<>();
+        homePageController = null;
+    }
+
+    public void setHomePageController(HomePageController controller)
+    {
+        homePageController = controller;
     }
 
     public void addBoard(Board board)
     {
         boards.add(board);
+    }
+
+    public void loadJSON()
+    {
+        ArrayList<Board> newBoards = JSONLoader.instance().loadFile();
+        if(newBoards == null)
+            return;
+
+        for(Board board : newBoards)
+            homePageController.makeNewBoard(board, new Label(board.getName()));
+
+        boards.addAll(newBoards);
     }
 }

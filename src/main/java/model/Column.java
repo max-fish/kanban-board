@@ -7,27 +7,25 @@ public class Column{
     private String name;
     private String role;
     private List<Card> cards;
-    private Board parentBoard;
 
     /**
      *
      */
-    public Column(Board parentBoard, String name, String role)
+    public Column(String name, String role)
     {
         this.name = name;
         this.role = role;
         cards = new ArrayList<>();
-        this.parentBoard = parentBoard;
     }
 
-    public Column(Board parentBoard, String name)
+    public Column(String name)
     {
-        this(parentBoard, name, "");
+        this(name, "");
     }
 
-    public Column(Board parentBoard)
+    public Column()
     {
-        this(parentBoard, "New Column", "");
+        this("New Column", "");
     }
 
     public void addCard(Card card)
@@ -45,8 +43,13 @@ public class Column{
         this.role = role;
     }
 
-    public Board getBoard()
+    public String getName()
     {
-        return parentBoard;
+        return name;
+    }
+
+    public String getRole()
+    {
+        return role;
     }
 }

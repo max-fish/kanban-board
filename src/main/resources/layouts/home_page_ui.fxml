@@ -17,6 +17,7 @@
                        text="Your Boards"/>
             </leftItems>
             <rightItems>
+                <JFXButton id="LoadFromFile" onMouseClicked="#loadJSON" maxWidth="100" maxHeight="20" prefHeight="20" prefWidth="100" buttonType="RAISED" text="Import JSON" />
                 <JFXButton onMouseClicked="#makeNewBoard" maxWidth="20" maxHeight="20" prefHeight="20" prefWidth="20" buttonType="FLAT">
                     <graphic>
                         <FontIcon iconLiteral="gmi-add" iconColor="white" iconSize="30" />

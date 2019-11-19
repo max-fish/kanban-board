@@ -26,8 +26,31 @@ public class Board{
         columns.remove(column);
     }
 
+    public boolean contains(Column column)
+    {
+        return columns.contains(column);
+    }
+
+    public boolean hasColumns()
+    {
+        if(columns.size() > 0)
+            return true;
+        else
+            return false;
+    }
+
+    public List<Column> getColumns()
+    {
+        return columns;
+    }
+
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 }

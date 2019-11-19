@@ -31,22 +31,42 @@ public class KanbanBoardController {
     private Label homePageLabel;
 
     @FXML
-    public void makeNewColumn() throws IOException
+    public void makeNewColumn()
     {
-        if(!hasColumn){
-            columnsScrollPane.setVisible(true);
+        Column newColumn = new Column();
+
+        makeNewColumn(newColumn);
+    }
+
+    public void makeNewColumn(Column newColumn)
+    {
+        try
+        {
+            if(!hasColumn){
+                columnsScrollPane.setVisible(true);
+            }
+            KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
+            columns.getChildren().add(toInsert);
+            HBox.setMargin(toInsert, new Insets(10));
+            hasColumn = true;
+
+            if(!board.contains(newColumn))
+                board.addColumn(newColumn);
+
+            toInsert.getController().setColumn(newColumn);
+            toInsert.getController().setColumnName(newColumn.getName());
+            toInsert.getController().setColumnRole(newColumn.getRole());
+            toInsert.getController().setNameChangeListener();
+            toInsert.getController().setRoleChangeListener();
+
+            // TODO: check if the column has cards
+            // if so, then create the GUI elements for them
         }
-        KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
-        columns.getChildren().add(toInsert);
-        HBox.setMargin(toInsert, new Insets(10));
-        hasColumn = true;
-
-        Column newColumn = new Column(board);
-        board.addColumn(newColumn);
-
-        toInsert.getController().setColumn(newColumn);
-        toInsert.getController().setNameChangeListener();
-        toInsert.getController().setRoleChangeListener();
+        catch(IOException exception)
+        {
+            System.out.println("The column could not be created.");
+            exception.printStackTrace();
+        }
     }
 
     public void changeTitle(String title){
@@ -61,7 +81,7 @@ public class KanbanBoardController {
         });
     }
 
-    void deleteColumn(KanbanColumn column){
+    public void deleteColumn(KanbanColumn column){
         columns.getChildren().remove(column);
     }
 
@@ -73,5 +93,10 @@ public class KanbanBoardController {
     public void setHomePageLabel(Label label)
     {
         homePageLabel = label;
+    }
+
+    public Board getBoardModel()
+    {
+        return board;
     }
 }
