@@ -5,11 +5,15 @@ import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.io.File;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.RuntimeException;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.Scanner;
+import java.util.List;
 import java.util.ArrayList;
 import model.Board;
 
@@ -32,7 +36,7 @@ public class JSONLoader{
     private JSONLoader()
     {
         chooser = new FileChooser();
-        chooser.setTitle("Import JSON file");
+        chooser.setInitialFileName("*.json");
         chooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("JSON", "*.json")
             );
@@ -48,6 +52,7 @@ public class JSONLoader{
     {
         try
         {
+            chooser.setTitle("Import JSON file");
             File file = chooser.showOpenDialog(parentStage);
 
             Scanner scanner = new Scanner(file);
@@ -66,7 +71,8 @@ public class JSONLoader{
         }
         catch(IOException exception)
         {
-            System.out.println("Could not load the file");
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not load the file");
             return null;
         }
         // the order of the following two catch clauses is very important!
@@ -74,13 +80,46 @@ public class JSONLoader{
         catch(JsonSyntaxException exception)
         {
             // TODO: implement a popup dialog to inform the user
-            System.out.println("JSON format invalid");
+
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("JSON format invalid");
             return null;
         }
         catch(RuntimeException exception)
         {
-            System.out.println("Could not access the file");
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not access the file");
             return null;
+        }
+    }
+
+    public void saveFile(List<Board> boards)
+    {
+        try
+        {
+            chooser.setTitle("Export JSON file");
+            File file = chooser.showSaveDialog(parentStage);
+
+            BufferedWriter writer = new BufferedWriter(
+                                    new OutputStreamWriter(
+                                    new FileOutputStream(file), "utf-8"));
+
+            Gson gson = new Gson();
+            String json = gson.toJson(boards);
+
+            writer.write(json);
+
+            writer.close();
+        }
+        catch(IOException exception)
+        {
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not save the file");
+        }
+        catch(RuntimeException exception)
+        {
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not access the file");
         }
     }
 }

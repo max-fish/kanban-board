@@ -12,7 +12,7 @@
     -fx-text-fill: white;
 }
 
-#LoadFromFile {
+#LoadSaveFile {
     -fx-font-family: "Roboto Bold";
     -fx-background-color: white;
     -fx-text-fill: #4d2c91;

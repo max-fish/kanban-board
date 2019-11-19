@@ -57,4 +57,9 @@ public class KanbanModel{
 
         boards.addAll(newBoards);
     }
+
+    public void saveJSON()
+    {
+        JSONLoader.instance().saveFile(boards);
+    }
 }
