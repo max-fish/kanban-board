@@ -2,20 +2,18 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.*;
+import model.ColumnModel;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import utils.ComponentMaker;
-import model.Board;
-import model.Column;
+import model.BoardModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -32,7 +30,7 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private HBox columns;
 
-    private Board board;
+    private BoardModel board;
     private Label homePageLabel;
 
     private JFXButton addButton;
@@ -59,10 +57,10 @@ public class KanbanBoardController implements Initializable {
 
         HBox.setMargin(toInsert, new Insets(10));
 
-        Column newColumn = new Column(board);
-        board.addColumn(newColumn);
+        ColumnModel newColumnModel = new ColumnModel(board);
+        board.addColumn(newColumnModel);
 
-        toInsert.getController().setColumn(newColumn);
+        toInsert.getController().setColumnModel(newColumnModel);
         toInsert.getController().setNameChangeListener();
         toInsert.getController().setRoleChangeListener();
     }
@@ -83,7 +81,7 @@ public class KanbanBoardController implements Initializable {
         columns.getChildren().remove(column);
     }
 
-    public void setBoard(Board board)
+    public void setBoard(BoardModel board)
     {
         this.board = board;
     }
