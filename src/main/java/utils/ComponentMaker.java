@@ -1,8 +1,8 @@
 package utils;
 
-import callbacks.BoardNamePopupCallBack;
-import com.jfoenix.controls.*;
-import controllers.HomePageController;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.controls.JFXPopup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Material;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
+import controllers.ColumnController;
 
 public class ComponentMaker {
     public static StackPane makeBoardCard(Label title) {
@@ -20,11 +21,12 @@ public class ComponentMaker {
         boardCard.setMaxWidth(185);
         boardCard.setMaxHeight(80);
 
-        title.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
-        title.setTextFill(Color.WHITE);
+        Label titleLabel = title;
+        titleLabel.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
+        titleLabel.setTextFill(Color.WHITE);
 
-        boardCard.getChildren().add(title);
-        StackPane.setAlignment(title, Pos.TOP_LEFT);
+        boardCard.getChildren().add(titleLabel);
+        StackPane.setAlignment(titleLabel, Pos.TOP_LEFT);
 
         boardCard.setBackground(new Background(new BackgroundFill(MaterialColors.colorPrimary, new CornerRadii(5), Insets.EMPTY)));
 
@@ -36,7 +38,7 @@ public class ComponentMaker {
     public static JFXButton makeAddButton() {
         JFXButton jfxButton = new JFXButton();
         jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
-        jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
+        jfxButton.setBackground(new Background((new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY))));
         jfxButton.setStyle("-fx-padding: 5");
 
         FontIcon fontIcon = new FontIcon();
@@ -52,51 +54,35 @@ public class ComponentMaker {
         return jfxButton;
     }
 
-    public static void makeBoardNamePopup(BoardNamePopupCallBack callBack) {
-        JFXDialogLayout content = new JFXDialogLayout();
-        content.setBackground(new Background(new BackgroundFill(MaterialColors.colorPrimary, new CornerRadii(5), Insets.EMPTY)));
+    public static JFXPopup makeColumnMenu(ColumnController controller)
+    {
+        JFXButton addCard = new JFXButton("Add card");
+        FontIcon addCardIcon = new FontIcon();
+        addCardIcon.setIconColor(MaterialColors.colorPrimary);
+        addCardIcon.setIconLiteral("gmi-add");
+        addCardIcon.setIconSize(17);
+        addCard.setGraphic(addCardIcon);
+        addCard.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        addCard.setAlignment(Pos.BASELINE_LEFT);
+        addCard.setMinWidth(120);
+        // TODO: setOnMouseClicked(...)
 
-        JFXTextField boardNameTextField = new JFXTextField();
-        boardNameTextField.setPromptText("Board Name");
-        boardNameTextField.setStyle("-fx-prompt-text-fill: white; -fx-text-fill: white");
-        boardNameTextField.setFocusColor(MaterialColors.colorAccent);
-        boardNameTextField.setUnFocusColor(MaterialColors.colorLight);
-        boardNameTextField.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 16));
+        JFXButton deleteColumn = new JFXButton("Delete");
+        FontIcon deleteColumnIcon = new FontIcon();
+        deleteColumnIcon.setIconColor(MaterialColors.colorPrimary);
+        deleteColumnIcon.setIconLiteral("gmi-delete");
+        deleteColumnIcon.setIconSize(17);
+        deleteColumn.setGraphic(deleteColumnIcon);
+        deleteColumn.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        deleteColumn.setAlignment(Pos.BASELINE_LEFT);
+        deleteColumn.setMinWidth(120);
+        deleteColumn.setOnMouseClicked(controller::deleteColumn);
 
-        Label header = new Label("Name your board");
-        header.setTextFill(Color.WHITE);
-        header.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 14));
-        content.setHeading(header);
-        content.setBody(boardNameTextField);
-        content.setPrefSize(400, 100);
+        VBox container = new VBox(addCard, deleteColumn);
 
-        StackPane stackPane = new StackPane();
-        stackPane.setPrefSize(400, 100);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
+        JFXPopup menu = new JFXPopup();
+        menu.setPopupContent(container);
 
-        Font buttonFont = Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Bold.ttf").toExternalForm(), 14);
-        JFXButton okButton = new JFXButton("Ok");
-        okButton.setTextFill(Color.WHITE);
-        okButton.setFont(buttonFont);
-        okButton.setPrefHeight(32);
-
-        okButton.setOnAction(event -> {
-            if (!boardNameTextField.getText().isEmpty()) {
-                dialog.close();
-                callBack.onValidName(boardNameTextField.getText());
-            }
-        });
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setTextFill(Color.WHITE);
-        cancelButton.setFont(buttonFont);
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callBack.onCancel();
-        });
-        cancelButton.setButtonType(JFXButton.ButtonType.RAISED);
-        cancelButton.setPrefHeight(32);
-        content.setActions(okButton, cancelButton);
-        callBack.onStart(stackPane);
-        dialog.show();
+        return menu;
     }
 }
