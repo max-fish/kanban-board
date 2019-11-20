@@ -17,8 +17,12 @@
                        text="Your Boards"/>
             </leftItems>
             <rightItems>
-                <JFXButton id="LoadSaveFile" onMouseClicked="#loadJSON" maxWidth="100" maxHeight="20" prefHeight="20" prefWidth="100" buttonType="RAISED" text="Import from JSON" />
-                <JFXButton id="LoadSaveFile" onMouseClicked="#saveJSON" maxWidth="100" maxHeight="20" prefHeight="20" prefWidth="100" buttonType="RAISED" text="Save from JSON" />
+                <JFXButton id="ImportExportButton" fx:id="fileMenuButton" onMouseClicked="#openFileMenu" minWidth="100" maxHeight="40" prefHeight="40" prefWidth="140" buttonType="FLAT" 
+text="Import/Export" alignment="BASELINE_LEFT">
+                    <graphic>
+                        <FontIcon iconLiteral="gmi-expand-more" iconColor="white" iconSize="20" />
+                    </graphic>
+                </JFXButton>
                 <JFXButton onMouseClicked="#makeNewBoard" maxWidth="20" maxHeight="20" prefHeight="20" prefWidth="20" buttonType="FLAT">
                     <graphic>
                         <FontIcon iconLiteral="gmi-add" iconColor="white" iconSize="30" />

@@ -1,8 +1,12 @@
 package controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -14,9 +18,11 @@ import model.Board;
 import model.Column;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class KanbanBoardController {
+public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
@@ -26,9 +32,23 @@ public class KanbanBoardController {
     @FXML
     private HBox columns;
 
-    private boolean hasColumn = false;
     private Board board;
     private Label homePageLabel;
+
+    private JFXButton addButton;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        addButton = ComponentMaker.makeAddButton();
+        addButton.setOnMouseClicked(event -> {
+            try {
+                makeNewColumn();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        columns.getChildren().add(addButton);
+    }
 
     @FXML
     public void makeNewColumn()
