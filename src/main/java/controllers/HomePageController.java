@@ -54,7 +54,6 @@ public class HomePageController implements Initializable {
                 rootPane.setCenter(boardGrid);
             }
         });
-
     }
 
     @FXML
