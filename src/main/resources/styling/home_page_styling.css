@@ -12,10 +12,10 @@
     -fx-text-fill: white;
 }
 
-#LoadSaveFile {
+#ImportExportButton{
     -fx-font-family: "Roboto Bold";
-    -fx-background-color: white;
-    -fx-text-fill: #4d2c91;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
 }
 
 #root{
