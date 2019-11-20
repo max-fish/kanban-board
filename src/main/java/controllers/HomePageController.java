@@ -1,5 +1,7 @@
 package controllers;
 
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import ui.KanbanBoard;
 import model.KanbanModel;
@@ -21,13 +23,18 @@ public class HomePageController implements Initializable {
     private BorderPane rootPane;
     @FXML
     private GridPane boardGrid;
+    @FXML
+    private JFXButton fileMenuButton;
     private int colCounter = 0;
     private int rowCounter = 0;
+    private JFXPopup fileMenu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
         boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
+
+        fileMenu = ComponentMaker.makeFileMenu();
     }
 
     @FXML
@@ -65,5 +72,12 @@ public class HomePageController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void openFileMenu()
+    {
+        fileMenu.show(fileMenuButton, JFXPopup.PopupVPosition.TOP,
+                      JFXPopup.PopupHPosition.LEFT, 0, fileMenuButton.getHeight());
     }
 }

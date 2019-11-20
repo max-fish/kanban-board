@@ -60,7 +60,7 @@ public class ComponentMaker {
         FontIcon addCardIcon = new FontIcon();
         addCardIcon.setIconColor(MaterialColors.colorPrimary);
         addCardIcon.setIconLiteral("gmi-add");
-        addCardIcon.setIconSize(17);
+        addCardIcon.setIconSize(19);
         addCard.setGraphic(addCardIcon);
         addCard.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         addCard.setAlignment(Pos.BASELINE_LEFT);
@@ -79,6 +79,38 @@ public class ComponentMaker {
         deleteColumn.setOnMouseClicked(controller::deleteColumn);
 
         VBox container = new VBox(addCard, deleteColumn);
+
+        JFXPopup menu = new JFXPopup();
+        menu.setPopupContent(container);
+
+        return menu;
+    }
+
+    public static JFXPopup makeFileMenu()
+    {
+        JFXButton importJSON = new JFXButton("Import from JSON");
+        FontIcon importIcon = new FontIcon();
+        importIcon.setIconColor(MaterialColors.colorPrimary);
+        importIcon.setIconLiteral("gmi-file-download");
+        importIcon.setIconSize(17);
+        importJSON.setGraphic(importIcon);
+        importJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        importJSON.setAlignment(Pos.BASELINE_LEFT);
+        importJSON.setMinWidth(165);
+        // TODO: importJSON.setOnMouseClicked(...)
+
+        JFXButton exportJSON = new JFXButton("Export to JSON");
+        FontIcon exportIcon = new FontIcon();
+        exportIcon.setIconColor(MaterialColors.colorPrimary);
+        exportIcon.setIconLiteral("gmi-file-upload");
+        exportIcon.setIconSize(17);
+        exportJSON.setGraphic(exportIcon);
+        exportJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        exportJSON.setAlignment(Pos.BASELINE_LEFT);
+        exportJSON.setMinWidth(165);
+        //TODO: exportJSON.setOnMouseClicked(...);
+
+        VBox container = new VBox(importJSON, exportJSON);
 
         JFXPopup menu = new JFXPopup();
         menu.setPopupContent(container);
