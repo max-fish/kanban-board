@@ -3,36 +3,36 @@ package model;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Column{
+public class ColumnModel {
     private String name;
     private String role;
-    private List<Card> cards;
-    private Board parentBoard;
+    private List<CardModel> cardModels;
+    private BoardModel parentBoard;
 
     /**
      *
      */
-    public Column(Board parentBoard, String name, String role)
+    public ColumnModel(BoardModel parentBoard, String name, String role)
     {
         this.name = name;
         this.role = role;
-        cards = new ArrayList<>();
+        cardModels = new ArrayList<>();
         this.parentBoard = parentBoard;
     }
 
-    public Column(Board parentBoard, String name)
+    public ColumnModel(BoardModel parentBoard, String name)
     {
         this(parentBoard, name, "");
     }
 
-    public Column(Board parentBoard)
+    public ColumnModel(BoardModel parentBoard)
     {
         this(parentBoard, "New Column", "");
     }
 
-    public void addCard(Card card)
+    public void addCard(CardModel cardModel)
     {
-        cards.add(card);
+        cardModels.add(cardModel);
     }
 
     public void setName(String name)
@@ -45,7 +45,7 @@ public class Column{
         this.role = role;
     }
 
-    public Board getBoard()
+    public BoardModel getBoard()
     {
         return parentBoard;
     }

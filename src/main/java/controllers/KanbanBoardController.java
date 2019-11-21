@@ -2,20 +2,21 @@ package controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.EventHandler;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.*;
+import model.ColumnModel;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
+import utils.AnimationMaker;
 import utils.ComponentMaker;
-import model.Board;
-import model.Column;
+import model.BoardModel;
 
 import java.io.IOException;
 import java.net.URL;
@@ -28,11 +29,9 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private JFXTextField boardTitle;
     @FXML
-    private ScrollPane columnsScrollPane;
-    @FXML
     private HBox columns;
 
-    private Board board;
+    private BoardModel board;
     private Label homePageLabel;
 
     private JFXButton addButton;
@@ -51,45 +50,53 @@ public class KanbanBoardController implements Initializable {
     }
 
     @FXML
-    public void makeNewColumn() throws IOException {
-      
+    private void makeNewColumn() throws IOException {
+
         KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
+
+        TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
+        TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
+
         columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
         columns.getChildren().add(addButton);
 
+        AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
+
         HBox.setMargin(toInsert, new Insets(10));
 
-        Column newColumn = new Column(board);
-        board.addColumn(newColumn);
+        ColumnModel newColumnModel = new ColumnModel(board);
+        board.addColumn(newColumnModel);
 
-        toInsert.getController().setColumn(newColumn);
+        toInsert.getController().setColumnModel(newColumnModel);
         toInsert.getController().setNameChangeListener();
         toInsert.getController().setRoleChangeListener();
     }
 
-    public void changeTitle(String title){
+    void changeTitle(String title) {
         boardTitle.setText(title);
     }
 
-    public void setTitleChangeListener()
-    {
+    void setTitleChangeListener() {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
             homePageLabel.setText(newValue);
         });
     }
 
-    void deleteColumn(KanbanColumn column){
+    void deleteColumn(KanbanColumn column) {
+        ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
         columns.getChildren().remove(column);
+
+        if(parallelTransition != null) {
+            parallelTransition.play();
+        }
     }
 
-    public void setBoard(Board board)
-    {
+    void setBoard(BoardModel board) {
         this.board = board;
     }
 
-    public void setHomePageLabel(Label label)
-    {
+    void setHomePageLabel(Label label) {
         homePageLabel = label;
     }
 }

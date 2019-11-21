@@ -4,13 +4,8 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
-import ui.Card;
 import ui.KanbanColumn;
 import model.Column;
-import ui.TestCard;
-
-import java.io.IOException;
 
 
 public class ColumnController {
@@ -22,7 +17,7 @@ public class ColumnController {
     @FXML
     private JFXTextField columnRole;
 
-    private Column column;
+    private ColumnModel columnModel;
 
     @FXML
     public void makeNewCard() throws IOException {
@@ -31,29 +26,29 @@ public class ColumnController {
 
     @FXML
     public void deleteColumn(MouseEvent ev){
-        column.getBoard().deleteColumn(column);
-        column = null;
+        columnModel.getBoard().deleteColumn(columnModel);
+        columnModel = null;
 
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
         columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
     }
 
-    public void setColumn(Column column)
+    public void setColumnModel(ColumnModel columnModel)
     {
-        this.column = column;
+        this.columnModel = columnModel;
     }
 
     public void setNameChangeListener()
     {
         columnName.textProperty().addListener((observable, oldValue, newValue) -> {
-            column.setName(newValue);
+            columnModel.setName(newValue);
         });
     }
 
     public void setRoleChangeListener()
     {
         columnRole.textProperty().addListener((observable, oldValue, newValue) -> {
-            column.setRole(newValue);
+            columnModel.setRole(newValue);
         });
     }
 
