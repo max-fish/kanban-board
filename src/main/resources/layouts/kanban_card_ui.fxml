@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
+<?import com.jfoenix.controls.*?>
+
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.CardController"
-            prefHeight="400.0" prefWidth="600.0">
+<fx:root type="javafx.scene.layout.BorderPane" fx:id="rootPane"  minWidth="100" prefHeight="NaN"
+         prefWidth="100" stylesheets="@../styling/card_styling.css"
+         xmlns="http://javafx.com/javafx/10.0.2-internal"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="controllers.CardController">
+    <top>
+        <VBox id="Card_body" prefHeight="20" prefWidth="Infinity" spacing="2" alignment="CENTER">
+            <JFXTextField styleClass="card-header" fx:id ="cardTitle" id="CardTitle" maxWidth="100" prefHeight="20" promptText="Add Card Title"/>
+        </VBox>
+    </top>
+    <center>
 
-</AnchorPane>
+    </center>
+    
+</fx:root>

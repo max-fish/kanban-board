@@ -49,4 +49,6 @@ public class Column{
     {
         return parentBoard;
     }
+
 }
+

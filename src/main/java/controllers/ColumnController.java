@@ -4,11 +4,17 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import ui.Card;
 import ui.KanbanColumn;
 import model.Column;
+import ui.TestCard;
+
+import java.io.IOException;
 
 
 public class ColumnController {
+    public VBox cards;
     @FXML
     private BorderPane rootPane;
     @FXML
@@ -19,8 +25,8 @@ public class ColumnController {
     private Column column;
 
     @FXML
-    public void makeNewCard(){
-        //TODO implement making a new card
+    public void makeNewCard() throws IOException {
+        cards.getChildren().add(new TestCard());
     }
 
     @FXML
@@ -50,4 +56,9 @@ public class ColumnController {
             column.setRole(newValue);
         });
     }
+
+
+
+
+
 }

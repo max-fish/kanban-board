@@ -1,31 +1,35 @@
 package ui;
 
-import com.jfoenix.controls.JFXDecorator;
-import javafx.application.Application;
+import controllers.CardController;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
+import javafx.scene.layout.BorderPane;
+
 
 import java.io.IOException;
 
 
 
-public class Card extends Application{
-    @Override
-    public void start(Stage primaryStage){
-        HBox root = new HBox();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("styling/scene_styling.css").toExternalForm());
+public class Card extends BorderPane {
+    private  KanbanColumn parent;
+    private CardController cardController;
 
-
-        primaryStage.setTitle("Exercise14_03");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+    public Card(KanbanColumn parent) throws IOException{
+        this.parent = parent;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layouts/kanban_card_ui.fxml"));
+        fxmlLoader.setRoot(this);
+        fxmlLoader.load();
+        cardController = fxmlLoader.getController();
     }
 
-    public static void main(String[] args){
-        launch(args);
+    public CardController getController() {
+        return cardController;
     }
+
+    public KanbanColumn getColumn() {
+        return parent;
+    }
+
+
+
+
 }
