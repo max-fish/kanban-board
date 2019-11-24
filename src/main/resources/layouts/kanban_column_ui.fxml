@@ -29,6 +29,6 @@
         </VBox>
     </top>
     <center>
-        <VBox id="card_list" prefHeight="NaN" prefWidth="100" alignment="CENTER"/>
+        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="CENTER"/>
     </center>
 </fx:root>

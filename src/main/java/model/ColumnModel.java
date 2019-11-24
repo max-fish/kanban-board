@@ -35,6 +35,8 @@ public class ColumnModel {
         cardModels.add(cardModel);
     }
 
+    public void deleteCard(CardModel cardModel){cardModels.remove(cardModel);}
+
     public void setName(String name)
     {
         this.name = name;
@@ -49,4 +51,6 @@ public class ColumnModel {
     {
         return parentBoard;
     }
+
 }
+
