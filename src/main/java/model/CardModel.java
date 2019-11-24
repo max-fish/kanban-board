@@ -7,27 +7,32 @@ public class CardModel {
     private int id;
     private String title;
     private String description;
+    private String storyPoint;
+
+    private ColumnModel parent;
 
     /**
      *
      */
-    public CardModel(String title, String description)
+    public CardModel(String title, String description, String storyPoint, ColumnModel parent)
     {
         this.title = title;
         this.description = description;
+        this.storyPoint = storyPoint;
+        this.parent = parent;
 
         id = nextId;
         nextId++;
     }
 
-    public CardModel(String title)
+    public CardModel(String title, ColumnModel parent)
     {
-        this(title, "");
+        this(title, "", "", parent);
     }
 
-    public CardModel()
+    public CardModel(ColumnModel parent)
     {
-        this("New Card", "");
+        this("New KanbanCard",parent);
     }
 
     public void setTitle(String title)
@@ -38,5 +43,9 @@ public class CardModel {
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public ColumnModel getParent(){
+        return parent;
     }
 }
