@@ -99,7 +99,7 @@ public class KanbanBoardController implements Initializable {
         }, rootPane.getCenter());
     }
 
-    private void deleteColumn(KanbanColumn column) {
+    void deleteColumn(KanbanColumn column) {
         ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
         columns.getChildren().remove(column);
 
