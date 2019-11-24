@@ -15,7 +15,7 @@ public class Card extends BorderPane {
 
     public Card(KanbanColumn parent) throws IOException{
         this.parent = parent;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layouts/kanban_card_ui.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/kanban_card_ui.fxml"));
         fxmlLoader.setRoot(this);
         fxmlLoader.load();
         cardController = fxmlLoader.getController();
