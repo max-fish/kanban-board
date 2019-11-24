@@ -4,8 +4,13 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
+import model.CardModel;
+import model.ColumnModel;
 import ui.KanbanColumn;
-import model.Column;
+import ui.KanbanCard;
+
+import java.io.IOException;
 
 
 public class ColumnController {
@@ -21,7 +26,15 @@ public class ColumnController {
 
     @FXML
     public void makeNewCard() throws IOException {
-        cards.getChildren().add(new TestCard());
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        cards.getChildren().add(newCard);
+
+
+        CardModel newCardModel = new CardModel(columnModel);
+
+        columnModel.addCard(newCardModel);
+
+        newCard.getController().setCard(newCardModel);
     }
 
     @FXML
@@ -36,6 +49,12 @@ public class ColumnController {
     public void setColumnModel(ColumnModel columnModel)
     {
         this.columnModel = columnModel;
+    }
+
+
+    public void deleteCard(KanbanCard kanbanCard) {
+        cards.getChildren().remove(kanbanCard);
+
     }
 
     public void setNameChangeListener()
