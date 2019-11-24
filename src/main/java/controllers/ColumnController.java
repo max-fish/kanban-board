@@ -1,15 +1,13 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXButton;
-import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import model.ColumnModel;
 import ui.KanbanColumn;
-import model.Column;
-import utils.ComponentMaker;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,18 +16,20 @@ public class ColumnController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
-    private JFXButton columnMenuButton;
-    @FXML
     private JFXTextField columnName;
     @FXML
     private JFXTextField columnRole;
 
-    private JFXPopup columnMenu;
-    private Column column;
+    private ColumnModel columnModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnMenu = ComponentMaker.makeColumnMenu(this);
+
+    }
+
+    void setColumnModel(ColumnModel columnModel)
+    {
+        this.columnModel = columnModel;
     }
 
     @FXML
@@ -39,39 +39,25 @@ public class ColumnController implements Initializable {
 
     @FXML
     public void deleteColumn(MouseEvent ev){
-        column.getBoard().deleteColumn(column);
-        column = null;
-
-        if(columnMenu.isShowing())
-            columnMenu.hide();
+        columnModel.getBoard().deleteColumn(columnModel);
+        columnModel = null;
 
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
-        columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
+        columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete);
     }
 
-    @FXML
-    public void openColumnMenu()
-    {
-        columnMenu.show(columnMenuButton, JFXPopup.PopupVPosition.TOP,
-                        JFXPopup.PopupHPosition.LEFT, 0, columnMenuButton.getHeight());
-    }
-
-    public void setColumn(Column column)
-    {
-        this.column = column;
-    }
-
-    public void setNameChangeListener()
+    void setNameChangeListener()
     {
         columnName.textProperty().addListener((observable, oldValue, newValue) -> {
-            column.setName(newValue);
+            columnModel.setName(newValue);
         });
     }
 
-    public void setRoleChangeListener()
+    void setRoleChangeListener()
     {
         columnRole.textProperty().addListener((observable, oldValue, newValue) -> {
-            column.setRole(newValue);
+            columnModel.setRole(newValue);
         });
     }
+
 }
