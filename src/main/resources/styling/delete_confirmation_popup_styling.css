@@ -1,9 +1,9 @@
 @font-face {
-    src: url("../fonts/Roboto-Regular.ttf")
+    src: url("../fonts/Roboto-Regular.ttf");
 }
 
 @font-face {
-    src: url("../fonts/Roboto-Bold.ttf")
+    src: url("../fonts/Roboto-Bold.ttf");
 }
 
 .label{
@@ -19,7 +19,7 @@
     -fx-pref-height: 100;
 }
 
-.stack-pane{
+.stackpane{
     -fx-pref-width: 400;
     -fx-pref-height: 100;
     -fx-background-radius: 5;

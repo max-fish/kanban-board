@@ -1,5 +1,6 @@
 package controllers;
 
+import callbacks.DeleteColumnDataCallback;
 import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -79,7 +80,7 @@ public class KanbanBoardController implements Initializable {
         boardTitle.setText(title);
     }
 
-    void askToDeleteColumn(KanbanColumn kanbanColumn) {
+    void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
         ComponentMaker.makeDeleteConfirmationPopup(new DeleteColumnPopupCallback() {
             @Override
             public void onStart(StackPane stackPane) {
@@ -88,6 +89,7 @@ public class KanbanBoardController implements Initializable {
 
             @Override
             public void onDelete() {
+                callback.onDelete();
                 rootPane.setCenter(columns);
                 deleteColumn(kanbanColumn);
             }
@@ -99,7 +101,7 @@ public class KanbanBoardController implements Initializable {
         }, rootPane.getCenter());
     }
 
-    void deleteColumn(KanbanColumn column) {
+    private void deleteColumn(KanbanColumn column) {
         ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
         columns.getChildren().remove(column);
 

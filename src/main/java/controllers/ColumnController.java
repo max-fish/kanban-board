@@ -2,7 +2,6 @@ package controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.CardModel;
@@ -30,7 +29,6 @@ public class ColumnController {
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         cards.getChildren().add(newCard);
 
-
         CardModel newCardModel = new CardModel(columnModel);
 
         columnModel.addCard(newCardModel);
@@ -39,34 +37,27 @@ public class ColumnController {
     }
 
     @FXML
-    public void deleteColumn(MouseEvent ev){
-        columnModel.getBoard().deleteColumn(columnModel);
-        columnModel = null;
-
+    public void deleteColumn() {
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
-        columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
+        columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete, () -> {
+            columnModel.getBoard().deleteColumn(columnModel);
+            columnModel = null;
+        });
     }
 
-    public void setColumnModel(ColumnModel columnModel)
-    {
+    void setColumnModel(ColumnModel columnModel) {
         this.columnModel = columnModel;
     }
 
-    public void setNameChangeListener()
-    {
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> {
-            columnModel.setName(newValue);
-        });
+    void setNameChangeListener() {
+        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
     }
 
-    public void setRoleChangeListener()
-    {
-        columnRole.textProperty().addListener((observable, oldValue, newValue) -> {
-            columnModel.setRole(newValue);
-        });
+    void setRoleChangeListener() {
+        columnRole.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setRole(newValue));
     }
 
-    public void deleteCard(KanbanCard kanbanCard) {
+    void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
     }
 }

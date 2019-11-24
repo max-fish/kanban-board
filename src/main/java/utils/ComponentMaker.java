@@ -105,8 +105,8 @@ public class ComponentMaker {
 
         JFXButton cancelButton = new JFXButton("Cancel");
         cancelButton.setOnAction(event -> {
-            callback.onCancel();
             dialog.close();
+            callback.onCancel();
         });
 
         content.setActions(deleteButton, cancelButton);
