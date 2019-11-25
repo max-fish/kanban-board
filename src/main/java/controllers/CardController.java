@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
 
+import javafx.scene.layout.VBox;
 import model.CardModel;
 
 import javafx.scene.input.MouseEvent;

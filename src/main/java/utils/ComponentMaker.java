@@ -1,14 +1,14 @@
 package utils;
 
 import callbacks.BoardNamePopupCallBack;
+import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.*;
-import controllers.HomePageController;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -52,33 +52,21 @@ public class ComponentMaker {
         return jfxButton;
     }
 
-    public static void makeBoardNamePopup(BoardNamePopupCallBack callBack) {
+    public static void makeBoardNamePopup(BoardNamePopupCallBack callBack, Node currentUi) {
         JFXDialogLayout content = new JFXDialogLayout();
-        content.setBackground(new Background(new BackgroundFill(MaterialColors.colorPrimary, new CornerRadii(5), Insets.EMPTY)));
 
         JFXTextField boardNameTextField = new JFXTextField();
         boardNameTextField.setPromptText("Board Name");
-        boardNameTextField.setStyle("-fx-prompt-text-fill: white; -fx-text-fill: white");
-        boardNameTextField.setFocusColor(MaterialColors.colorAccent);
-        boardNameTextField.setUnFocusColor(MaterialColors.colorLight);
-        boardNameTextField.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 16));
 
         Label header = new Label("Name your board");
-        header.setTextFill(Color.WHITE);
-        header.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 14));
         content.setHeading(header);
         content.setBody(boardNameTextField);
-        content.setPrefSize(400, 100);
 
         StackPane stackPane = new StackPane();
-        stackPane.setPrefSize(400, 100);
+        stackPane.getChildren().add(currentUi);
         JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
-
-        Font buttonFont = Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Bold.ttf").toExternalForm(), 14);
+        dialog.getStylesheets().add("/styling/board_name_popup_styling.css");
         JFXButton okButton = new JFXButton("Ok");
-        okButton.setTextFill(Color.WHITE);
-        okButton.setFont(buttonFont);
-        okButton.setPrefHeight(32);
 
         okButton.setOnAction(event -> {
             if (!boardNameTextField.getText().isEmpty()) {
@@ -87,16 +75,42 @@ public class ComponentMaker {
             }
         });
         JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setTextFill(Color.WHITE);
-        cancelButton.setFont(buttonFont);
         cancelButton.setOnAction(event -> {
             dialog.close();
             callBack.onCancel();
         });
-        cancelButton.setButtonType(JFXButton.ButtonType.RAISED);
-        cancelButton.setPrefHeight(32);
         content.setActions(okButton, cancelButton);
         callBack.onStart(stackPane);
+        dialog.show();
+    }
+
+    public static void makeDeleteConfirmationPopup(DeleteColumnPopupCallback callback, Node currentUi){
+        JFXDialogLayout content = new JFXDialogLayout();
+        Label header = new Label("Delete Column");
+        content.setHeading(header);
+        Label body = new Label("Are you sure?");
+        content.setBody(body);
+
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(currentUi);
+        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
+        dialog.getStylesheets().add("/styling/delete_confirmation_popup_styling.css");
+
+        JFXButton deleteButton = new JFXButton("Delete");
+
+        deleteButton.setOnAction(event -> {
+            callback.onDelete();
+            dialog.close();
+        });
+
+        JFXButton cancelButton = new JFXButton("Cancel");
+        cancelButton.setOnAction(event -> {
+            dialog.close();
+            callback.onCancel();
+        });
+
+        content.setActions(deleteButton, cancelButton);
+        callback.onStart(stackPane);
         dialog.show();
     }
 }

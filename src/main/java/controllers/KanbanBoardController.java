@@ -1,5 +1,7 @@
 package controllers;
 
+import callbacks.DeleteColumnDataCallback;
+import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.ParallelTransition;
@@ -11,6 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import model.ColumnModel;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
@@ -32,6 +35,7 @@ public class KanbanBoardController implements Initializable {
     private HBox columns;
 
     private BoardModel board;
+
     private Label homePageLabel;
 
     private JFXButton addButton;
@@ -76,20 +80,41 @@ public class KanbanBoardController implements Initializable {
         boardTitle.setText(title);
     }
 
+    void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
+        ComponentMaker.makeDeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+            @Override
+            public void onStart(StackPane stackPane) {
+                rootPane.setCenter(stackPane);
+            }
+
+            @Override
+            public void onDelete() {
+                callback.onDelete();
+                rootPane.setCenter(columns);
+                deleteColumn(kanbanColumn);
+            }
+
+            @Override
+            public void onCancel() {
+                rootPane.setCenter(columns);
+            }
+        }, rootPane.getCenter());
+    }
+
+    private void deleteColumn(KanbanColumn column) {
+        ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
+        columns.getChildren().remove(column);
+
+        if (parallelTransition != null) {
+            parallelTransition.play();
+        }
+    }
+
     void setTitleChangeListener() {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
             homePageLabel.setText(newValue);
         });
-    }
-
-    void deleteColumn(KanbanColumn column) {
-        ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
-        columns.getChildren().remove(column);
-
-        if(parallelTransition != null) {
-            parallelTransition.play();
-        }
     }
 
     void setBoard(BoardModel board) {

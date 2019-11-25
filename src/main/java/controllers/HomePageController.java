@@ -53,7 +53,7 @@ public class HomePageController implements Initializable {
             public void onCancel() {
                 rootPane.setCenter(boardGrid);
             }
-        });
+        }, rootPane.getCenter());
     }
 
     @FXML
@@ -73,6 +73,8 @@ public class HomePageController implements Initializable {
 
             board.getController().setBoard(boardModel);
             board.getController().changeTitle(boardLabel.getText());
+
+            board.getController().setHomePageLabel(boardLabel);
 
             board.getController().setHomePageLabel(boardLabel);
             board.getController().setTitleChangeListener();
