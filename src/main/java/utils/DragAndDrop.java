@@ -4,9 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import ui.KanbanColumn;
 
 import java.util.Collections;
@@ -32,6 +36,22 @@ public class DragAndDrop {
                     orgSceneX = event.getSceneX();
                     orgTranslateX = ((BorderPane) (event.getSource())).getTranslateX();
                     boundX = board.getChildren().size() * 200;
+
+                    BorderPane itemBeingDragged = (BorderPane) event.getSource();
+                    DropShadow dropShadow = new DropShadow();
+                    dropShadow.setRadius(5);
+                    dropShadow.setOffsetX(7);
+                    dropShadow.setOffsetY(7);
+                    dropShadow.setColor(Color.WHITE);
+                    dropShadow.setBlurType(BlurType.GAUSSIAN);
+                    itemBeingDragged.setEffect(dropShadow);
+
+                    Rotate tilt = new Rotate();
+                    tilt.setAngle(5);
+                    tilt.setPivotX(itemBeingDragged.getWidth() / 2);
+                    tilt.setPivotY(itemBeingDragged.getHeight() / 2);
+
+                    itemBeingDragged.getTransforms().add(tilt);
                 }
             };
 
@@ -42,6 +62,7 @@ public class DragAndDrop {
                     double offsetX = event.getSceneX() - orgSceneX;
                     double newTranslateX = orgTranslateX + offsetX;
                     BorderPane itemBeingDragged = (BorderPane) event.getSource();
+
                     int itemBeingDraggedIndex = board.getChildren().indexOf(itemBeingDragged);
                     double columnBegin = itemBeingDraggedIndex * 200;
                     double columnEnd = columnBegin + 200;
@@ -56,12 +77,10 @@ public class DragAndDrop {
                         } else {
                             if(itemBeingDraggedIndex + 1 < board.getChildren().size()) {
                                 if(itemBeingDraggedIndex != board.getChildren().size() - 2) {
-                                    System.out.println("translate x: " + itemBeingDragged.getTranslateX());
                                     ObservableList<Node> workingCollection = FXCollections.observableArrayList(board.getChildren());
                                     Collections.swap(workingCollection, itemBeingDraggedIndex, itemBeingDraggedIndex + 1);
                                     board.getChildren().setAll(workingCollection);
                                     orgSceneX = event.getSceneX();
-                                    System.out.println("executed");
                                 }
                             }
                         }
@@ -72,7 +91,7 @@ public class DragAndDrop {
                                 itemBeingDragged.setTranslateX(newTranslateX);
                             }
                         }
-                        if(itemBeingDraggedIndex == 0){
+                        else if(itemBeingDraggedIndex == 0){
                             if(offsetX >= 0){
                                 itemBeingDragged.setTranslateX(newTranslateX);
                             }
@@ -80,15 +99,15 @@ public class DragAndDrop {
                         else {
                             itemBeingDragged.setTranslateX(newTranslateX);
                         }
-                        System.out.println(itemBeingDragged.getTranslateX());
                     }
                 }
             };
 
     private EventHandler<MouseEvent> onDragOver =
             event -> {
-                System.out.println("yo");
                 BorderPane itemBeingDragged = (BorderPane) event.getSource();
                 itemBeingDragged.setTranslateX(0);
+                itemBeingDragged.setEffect(null);
+                itemBeingDragged.getTransforms().clear();
             };
 }
