@@ -13,8 +13,8 @@
                       maxWidth="400" maxHeight="50"/>
     </top>
     <center>
-        <ScrollPane id="columnsScrollPane" stylesheets="@../styling/scrollpane_styling.css" prefHeight="400" prefWidth="1000">
-        <HBox fx:id="columns" id="Columns" prefHeight="400" prefWidth="1000">
+        <ScrollPane id="columnsScrollPane" stylesheets="@../styling/scrollpane_styling.css" prefHeight="NaN" prefWidth="NaN">
+        <HBox fx:id="columns" id="Columns" prefHeight="400" prefWidth="NaN" maxWidth="NaN" spacing="20">
             <BorderPane.margin>
                 <Insets>
                     <right>20</right>
