@@ -52,38 +52,6 @@ public class ComponentMaker {
         return jfxButton;
     }
 
-    public static void makeBoardNamePopup(BoardNamePopupCallBack callBack, Node currentUi) {
-        JFXDialogLayout content = new JFXDialogLayout();
-
-        JFXTextField boardNameTextField = new JFXTextField();
-        boardNameTextField.setPromptText("Board Name");
-
-        Label header = new Label("Name your board");
-        content.setHeading(header);
-        content.setBody(boardNameTextField);
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(currentUi);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
-        dialog.getStylesheets().add("/styling/board_name_popup_styling.css");
-        JFXButton okButton = new JFXButton("Ok");
-
-        okButton.setOnAction(event -> {
-            if (!boardNameTextField.getText().isEmpty()) {
-                dialog.close();
-                callBack.onValidName(boardNameTextField.getText());
-            }
-        });
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callBack.onCancel();
-        });
-        content.setActions(okButton, cancelButton);
-        callBack.onStart(stackPane);
-        dialog.show();
-    }
-
     public static void makeDeleteConfirmationPopup(DeleteColumnPopupCallback callback, Node currentUi){
         JFXDialogLayout content = new JFXDialogLayout();
         Label header = new Label("Delete Column");
