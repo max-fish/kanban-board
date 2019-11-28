@@ -84,14 +84,7 @@ public class HomePageController implements Initializable {
             board.getController().setHomePageLabel(boardLabel);
             board.getController().setTitleChangeListener();
 
-            JFXButton statisticsButton = ComponentMaker.makeStatisticsButton();
-            ((JFXToolbar)rootPane.getTop()).getRightItems().add(statisticsButton);
-            statisticsButton.setOnMouseClicked(event -> board.getController().getStatistics());
-
-            newBoardCard.setOnMouseClicked(event -> {
-                    rootPane.setCenter(board);
-                    board.getController().setStatisticsButton(statisticsButton);
-            });
+            newBoardCard.setOnMouseClicked(event -> rootPane.setCenter(board));
 
             boardGrid.add(newBoardCard, colCounter, rowCounter);
             colCounter++;
