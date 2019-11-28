@@ -81,4 +81,24 @@ public class ComponentMaker {
         callback.onStart(stackPane);
         dialog.show();
     }
+
+    public static JFXButton makeStatisticsButton(){
+        JFXButton jfxButton = new JFXButton();
+        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+        //jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
+        jfxButton.setStyle("-fx-padding: 5");
+
+        FontIcon fontIcon = new FontIcon();
+        fontIcon.setIconColor(MaterialColors.colorPrimary);
+        fontIcon.setIconLiteral("gmi-add");
+        fontIcon.setIconSize(30);
+
+        jfxButton.setGraphic(fontIcon);
+        jfxButton.setMaxHeight(30);
+        jfxButton.setMaxWidth(30);
+        jfxButton.setMinHeight(30);
+        jfxButton.setMinWidth(30);
+
+        return jfxButton;
+    }
 }
