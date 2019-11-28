@@ -15,8 +15,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import model.ColumnModel;
+import org.graalvm.compiler.phases.graph.StatelessPostOrderNodeIterator;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
+import ui.Statistics;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
 import model.BoardModel;
@@ -39,6 +41,7 @@ public class KanbanBoardController implements Initializable {
     private Label homePageLabel;
 
     private JFXButton addButton;
+    private JFXButton statisticsButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,6 +53,10 @@ public class KanbanBoardController implements Initializable {
                 e.printStackTrace();
             }
         });
+
+        //statisticsButton = ComponentMaker.makeStatisticsButton();
+        //((JFXToolbar)rootPane.getTop()).getRightItems().add(ComponentMaker.makeStatisticsButton());
+
         columns.getChildren().add(addButton);
     }
 
@@ -110,6 +117,16 @@ public class KanbanBoardController implements Initializable {
         }
     }
 
+    public void getStatistics(){
+        //add info ofr creating sttistics as parameters and keep record on fields
+        try {
+            Statistics toShow = new Statistics();
+            // toShow.getController().displayStats(2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     void setTitleChangeListener() {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
@@ -124,4 +141,6 @@ public class KanbanBoardController implements Initializable {
     void setHomePageLabel(Label label) {
         homePageLabel = label;
     }
+
+    void setStatisticsButton(JFXButton button) { statisticsButton = button; }
 }
