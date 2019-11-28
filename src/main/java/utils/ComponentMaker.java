@@ -121,15 +121,15 @@ public class ComponentMaker {
         jfxButton.setStyle("-fx-padding: 5");
 
         FontIcon fontIcon = new FontIcon();
-        fontIcon.setIconColor(MaterialColors.colorPrimary);
-        fontIcon.setIconLiteral("gmi-add");
+        fontIcon.setIconColor(Color.WHITE);
+        fontIcon.setIconLiteral("gmi-insert-chart");
         fontIcon.setIconSize(30);
 
         jfxButton.setGraphic(fontIcon);
-        jfxButton.setMaxHeight(30);
-        jfxButton.setMaxWidth(30);
-        jfxButton.setMinHeight(30);
-        jfxButton.setMinWidth(30);
+        jfxButton.setMaxHeight(50);
+        jfxButton.setMaxWidth(50);
+        jfxButton.setMinHeight(50);
+        jfxButton.setMinWidth(50);
 
         return jfxButton;
     }
