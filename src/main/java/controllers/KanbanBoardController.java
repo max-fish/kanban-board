@@ -33,6 +33,8 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private JFXTextField boardTitle;
     @FXML
+    private ScrollPane columnScrollPane;
+    @FXML
     private HBox columns;
 
     private BoardModel board;
@@ -91,7 +93,7 @@ public class KanbanBoardController implements Initializable {
             @Override
             public void onDelete() {
                 callback.onDelete();
-                rootPane.setCenter(columns);
+                rootPane.setCenter(columnScrollPane);
                 deleteColumn(kanbanColumn);
             }
 
@@ -106,11 +108,10 @@ public class KanbanBoardController implements Initializable {
 
     private void deleteColumn(KanbanColumn column) {
         ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
-        columns.getChildren().remove(column);
-
         if (parallelTransition != null) {
             parallelTransition.play();
         }
+        columns.getChildren().remove(column);
     }
 
     void setTitleChangeListener() {
