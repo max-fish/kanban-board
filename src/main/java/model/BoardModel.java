@@ -30,4 +30,8 @@ public class BoardModel {
     {
         this.name = name;
     }
+
+    public List<ColumnModel> getColumnModels() {
+        return this.columnModels;
+    }
 }

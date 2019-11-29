@@ -52,5 +52,9 @@ public class ColumnModel {
         return parentBoard;
     }
 
+    public List<CardModel> getCardModels() {
+        return this.cardModels;
+    }
+
 }
 
