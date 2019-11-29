@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ScrollPane?>
 
-
+<?import javafx.geometry.Insets?>
 <fx:root type="javafx.scene.layout.BorderPane" fx:id="rootPane" id="root" prefHeight="600" prefWidth="1000" stylesheets="@../styling/board_styling.css"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="controllers.KanbanBoardController">
     <top>
-        <AnchorPane fx:id="topBoard" id="topBoard" prefHeight="80" prefWidth="1000">
-            <JFXTextField fx:id="boardTitle" id="BoardName" AnchorPane.leftAnchor="0.0"
-                          promptText="Board Name" prefWidth="200" prefHeight="50" maxWidth="400" maxHeight="50"/>
-        </AnchorPane>
-
+        <JFXTextField fx:id="boardTitle" id="BoardName" promptText="Board Name" prefWidth="200" prefHeight="50"
+                      maxWidth="400" maxHeight="50"/>
     </top>
     <center>
-        <ScrollPane id="columnsScrollPane" stylesheets="@../styling/scrollpane_styling.css" prefHeight="NaN" prefWidth="NaN">
-        <HBox fx:id="columns" id="Columns" prefHeight="400" prefWidth="NaN" maxWidth="NaN" spacing="20">
+        <ScrollPane fx:id="columnScrollPane" id="columnsScrollPane" stylesheets="@../styling/scrollpane_styling.css" prefHeight="NaN" prefWidth="NaN" maxWidth="Infinity">
+        <HBox fx:id="columns" id="Columns" prefHeight="400" prefWidth="NaN" maxWidth="Infinity" spacing="20">
             <BorderPane.margin>
                 <Insets>
                     <right>20</right>

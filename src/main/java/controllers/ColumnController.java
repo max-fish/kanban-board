@@ -34,7 +34,6 @@ public class ColumnController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
-
         dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
     }
 
