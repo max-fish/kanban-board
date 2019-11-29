@@ -33,8 +33,6 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private JFXTextField boardTitle;
     @FXML
-    private ScrollPane columnScrollPane;
-    @FXML
     private HBox columns;
 
     private BoardModel board;
@@ -84,24 +82,26 @@ public class KanbanBoardController implements Initializable {
     }
 
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
+        KanbanBoard board = (KanbanBoard) rootPane;
+        BorderPane homePane = board.getHomePage();
         DeleteConfirmationPopup deleteConfirmationPopup = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
             @Override
             public void onStart(StackPane stackPane) {
-                rootPane.setCenter(stackPane);
+                homePane.setCenter(stackPane);
             }
 
             @Override
             public void onDelete() {
                 callback.onDelete();
-                rootPane.setCenter(columnScrollPane);
+                homePane.setCenter(board);
                 deleteColumn(kanbanColumn);
             }
 
             @Override
             public void onCancel() {
-                rootPane.setCenter(columns);
+                homePane.setCenter(board);
             }
-        }, rootPane.getCenter());
+        }, homePane.getCenter());
 
         deleteConfirmationPopup.show();
     }
