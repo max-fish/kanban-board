@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import model.ColumnModel;
+import ui.DeleteConfirmationPopup;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import utils.AnimationMaker;
@@ -81,7 +82,7 @@ public class KanbanBoardController implements Initializable {
     }
 
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
-        ComponentMaker.makeDeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+        DeleteConfirmationPopup deleteConfirmationPopup = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
             @Override
             public void onStart(StackPane stackPane) {
                 rootPane.setCenter(stackPane);
@@ -99,6 +100,8 @@ public class KanbanBoardController implements Initializable {
                 rootPane.setCenter(columns);
             }
         }, rootPane.getCenter());
+
+        deleteConfirmationPopup.show();
     }
 
     private void deleteColumn(KanbanColumn column) {
