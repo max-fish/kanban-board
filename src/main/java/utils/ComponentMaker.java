@@ -1,11 +1,8 @@
 package utils;
 
-import callbacks.BoardNamePopupCallBack;
-import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -49,56 +46,6 @@ public class ComponentMaker {
         jfxButton.setMaxWidth(30);
         jfxButton.setMinHeight(30);
         jfxButton.setMinWidth(30);
-        return jfxButton;
-    }
-
-    public static void makeDeleteConfirmationPopup(DeleteColumnPopupCallback callback, Node currentUi){
-        JFXDialogLayout content = new JFXDialogLayout();
-        Label header = new Label("Delete Column");
-        content.setHeading(header);
-        Label body = new Label("Are you sure?");
-        content.setBody(body);
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(currentUi);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
-        dialog.getStylesheets().add("/styling/delete_confirmation_popup_styling.css");
-
-        JFXButton deleteButton = new JFXButton("Delete");
-
-        deleteButton.setOnAction(event -> {
-            callback.onDelete();
-            dialog.close();
-        });
-
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callback.onCancel();
-        });
-
-        content.setActions(deleteButton, cancelButton);
-        callback.onStart(stackPane);
-        dialog.show();
-    }
-
-    public static JFXButton makeStatisticsButton(){
-        JFXButton jfxButton = new JFXButton();
-        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
-        //jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
-        jfxButton.setStyle("-fx-padding: 5");
-
-        FontIcon fontIcon = new FontIcon();
-        fontIcon.setIconColor(Color.WHITE);
-        fontIcon.setIconLiteral("gmi-insert-chart");
-        fontIcon.setIconSize(30);
-
-        jfxButton.setGraphic(fontIcon);
-        jfxButton.setMaxHeight(50);
-        jfxButton.setMaxWidth(50);
-        jfxButton.setMinHeight(50);
-        jfxButton.setMinWidth(50);
-
         return jfxButton;
     }
 }

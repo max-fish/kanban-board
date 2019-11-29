@@ -9,17 +9,18 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+
 import javafx.scene.control.*;
+import javafx.scene.layout.StackPane;
 import model.ColumnModel;
-import org.graalvm.compiler.phases.graph.StatelessPostOrderNodeIterator;
+import ui.DeleteConfirmationPopup;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
-import ui.Statistics;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
 import model.BoardModel;
-import java.awt.Color;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,8 +31,6 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
-    private AnchorPane topBoard;
-    @FXML
     private JFXTextField boardTitle;
     @FXML
     private HBox columns;
@@ -41,17 +40,9 @@ public class KanbanBoardController implements Initializable {
     private Label homePageLabel;
 
     private JFXButton addButton;
-    private JFXButton statisticsButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        statisticsButton = ComponentMaker.makeStatisticsButton();
-        topBoard.setRightAnchor(statisticsButton,10.0);
-        topBoard.setTopAnchor(statisticsButton,10.0);
-        topBoard.getChildren().add(statisticsButton);
-
-        statisticsButton.setOnMouseClicked(event -> getStatistics());
-
         addButton = ComponentMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> {
             try {
@@ -60,7 +51,6 @@ public class KanbanBoardController implements Initializable {
                 e.printStackTrace();
             }
         });
-
         columns.getChildren().add(addButton);
     }
 
@@ -92,7 +82,7 @@ public class KanbanBoardController implements Initializable {
     }
 
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
-        ComponentMaker.makeDeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+        DeleteConfirmationPopup deleteConfirmationPopup = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
             @Override
             public void onStart(StackPane stackPane) {
                 rootPane.setCenter(stackPane);
@@ -110,6 +100,8 @@ public class KanbanBoardController implements Initializable {
                 rootPane.setCenter(columns);
             }
         }, rootPane.getCenter());
+
+        deleteConfirmationPopup.show();
     }
 
     private void deleteColumn(KanbanColumn column) {
@@ -118,16 +110,6 @@ public class KanbanBoardController implements Initializable {
 
         if (parallelTransition != null) {
             parallelTransition.play();
-        }
-    }
-
-    public void getStatistics(){
-        //add info ofr creating sttistics as parameters and keep record on fields
-        try {
-            Statistics toShow = new Statistics();
-            toShow.getController().displayStats(2);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -145,5 +127,4 @@ public class KanbanBoardController implements Initializable {
     void setHomePageLabel(Label label) {
         homePageLabel = label;
     }
-
 }
