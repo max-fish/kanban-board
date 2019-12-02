@@ -3,12 +3,14 @@ package controllers;
 import callbacks.BoardNamePopupCallBack;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
+import ui.BoardNamePopup;
 import ui.KanbanBoard;
 import model.KanbanModel;
 import model.BoardModel;
 import utils.ComponentMaker;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -37,7 +39,7 @@ public class HomePageController implements Initializable {
     }
 
     public void askToNameBoard() {
-        ComponentMaker.makeBoardNamePopup(new BoardNamePopupCallBack() {
+        BoardNamePopup dialog = new BoardNamePopup(new BoardNamePopupCallBack() {
             @Override
             public void onStart(StackPane stackPane) {
                 rootPane.setCenter(stackPane);
@@ -54,6 +56,7 @@ public class HomePageController implements Initializable {
                 rootPane.setCenter(boardGrid);
             }
         }, rootPane.getCenter());
+        dialog.show();
     }
 
     @FXML

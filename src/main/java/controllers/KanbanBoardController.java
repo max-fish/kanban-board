@@ -15,6 +15,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import model.ColumnModel;
+import ui.DeleteConfirmationPopup;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import utils.AnimationMaker;
@@ -81,33 +82,36 @@ public class KanbanBoardController implements Initializable {
     }
 
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
-        ComponentMaker.makeDeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+        KanbanBoard board = (KanbanBoard) rootPane;
+        BorderPane homePane = board.getHomePage();
+        DeleteConfirmationPopup deleteConfirmationPopup = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
             @Override
             public void onStart(StackPane stackPane) {
-                rootPane.setCenter(stackPane);
+                homePane.setCenter(stackPane);
             }
 
             @Override
             public void onDelete() {
                 callback.onDelete();
-                rootPane.setCenter(columns);
+                homePane.setCenter(board);
                 deleteColumn(kanbanColumn);
             }
 
             @Override
             public void onCancel() {
-                rootPane.setCenter(columns);
+                homePane.setCenter(board);
             }
-        }, rootPane.getCenter());
+        }, homePane.getCenter());
+
+        deleteConfirmationPopup.show();
     }
 
     private void deleteColumn(KanbanColumn column) {
         ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
-        columns.getChildren().remove(column);
-
         if (parallelTransition != null) {
             parallelTransition.play();
         }
+        columns.getChildren().remove(column);
     }
 
     void setTitleChangeListener() {

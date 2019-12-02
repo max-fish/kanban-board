@@ -1,11 +1,8 @@
 package utils;
 
-import callbacks.BoardNamePopupCallBack;
-import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -50,67 +47,5 @@ public class ComponentMaker {
         jfxButton.setMinHeight(30);
         jfxButton.setMinWidth(30);
         return jfxButton;
-    }
-
-    public static void makeBoardNamePopup(BoardNamePopupCallBack callBack, Node currentUi) {
-        JFXDialogLayout content = new JFXDialogLayout();
-
-        JFXTextField boardNameTextField = new JFXTextField();
-        boardNameTextField.setPromptText("Board Name");
-
-        Label header = new Label("Name your board");
-        content.setHeading(header);
-        content.setBody(boardNameTextField);
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(currentUi);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
-        dialog.getStylesheets().add("/styling/board_name_popup_styling.css");
-        JFXButton okButton = new JFXButton("Ok");
-
-        okButton.setOnAction(event -> {
-            if (!boardNameTextField.getText().isEmpty()) {
-                dialog.close();
-                callBack.onValidName(boardNameTextField.getText());
-            }
-        });
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callBack.onCancel();
-        });
-        content.setActions(okButton, cancelButton);
-        callBack.onStart(stackPane);
-        dialog.show();
-    }
-
-    public static void makeDeleteConfirmationPopup(DeleteColumnPopupCallback callback, Node currentUi){
-        JFXDialogLayout content = new JFXDialogLayout();
-        Label header = new Label("Delete Column");
-        content.setHeading(header);
-        Label body = new Label("Are you sure?");
-        content.setBody(body);
-
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(currentUi);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
-        dialog.getStylesheets().add("/styling/delete_confirmation_popup_styling.css");
-
-        JFXButton deleteButton = new JFXButton("Delete");
-
-        deleteButton.setOnAction(event -> {
-            callback.onDelete();
-            dialog.close();
-        });
-
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callback.onCancel();
-        });
-
-        content.setActions(deleteButton, cancelButton);
-        callback.onStart(stackPane);
-        dialog.show();
     }
 }

@@ -19,4 +19,8 @@ public class KanbanBoard extends BorderPane {
     public KanbanBoardController getController() {
         return kanbanBoardController;
     }
+
+    public BorderPane getHomePage(){
+        return (BorderPane) this.getParent();
+    }
 }

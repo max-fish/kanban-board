@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
+
 <fx:root id="Column_root" fx:id="rootPane" minWidth="200" prefHeight="NaN" prefWidth="200"
          stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
@@ -24,8 +25,8 @@
                     </graphic>
                 </JFXButton>
             </AnchorPane>
-            <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="180" prefHeight="50" promptText="Add columnModel name"/>
-            <JFXTextField styleClass="column-header" fx:id ="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add columnModel role"/>
+            <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="180" prefHeight="50" promptText="name"/>
+            <JFXTextField styleClass="column-header" fx:id ="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="role"/>
         </VBox>
     </top>
     <center>
