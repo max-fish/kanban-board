@@ -11,7 +11,7 @@
     <top>
         <VBox id="Column_header" prefHeight="50" prefWidth="Infinity" spacing="5" alignment="CENTER">
             <AnchorPane>
-                <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="210" prefHeight="50" 
+                <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="210" prefHeight="50"
 promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
                 <JFXButton buttonType="FLAT" fx:id="columnMenuButton" onMouseClicked="#openColumnMenu" maxHeight="30" maxWidth="30" prefHeight="30"
                            prefWidth="30" AnchorPane.rightAnchor="0.0">
@@ -20,10 +20,11 @@ promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
                     </graphic>
                 </JFXButton>
             </AnchorPane>
+
             <JFXTextField styleClass="column-header" fx:id ="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add column role"/>
         </VBox>
     </top>
     <center>
-        <VBox id="card_list" prefHeight="NaN" prefWidth="100" alignment="CENTER"/>
+        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="CENTER"/>
     </center>
 </fx:root>

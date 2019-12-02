@@ -1,0 +1,34 @@
+@font-face {
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+@font-face {
+    src: url("../fonts/Roboto-Bold.ttf");
+}
+
+.label{
+    -fx-text-fill: #7e57c2;
+    -fx-font-family: "Roboto";
+    -fx-font-size: 14;
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+}
+
+.jfx-dialog-layout{
+    -fx-pref-width: 400;
+    -fx-pref-height: 100;
+}
+
+.stackpane{
+    -fx-pref-width: 400;
+    -fx-pref-height: 100;
+    -fx-background-radius: 5;
+}
+
+.jfx-button{
+    -fx-text-fill: #7e57c2;
+    -fx-font-family: "Roboto Bold";
+    -fx-font-size: 14;
+    -fx-pref-height: 32;
+    -jfx-button-type: FLAT;
+}

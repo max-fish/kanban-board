@@ -20,7 +20,7 @@ import javafx.scene.input.MouseEvent;
 public class KanbanModel{
     private static KanbanModel instance = null;
 
-    private List<Board> boards;
+    private List<BoardModel> boards;
     private HomePageController homePageController;
 
     public static KanbanModel instance()
@@ -42,21 +42,21 @@ public class KanbanModel{
         homePageController = controller;
     }
 
-    public void addBoard(Board board)
+    public void addBoard(BoardModel board)
     {
         boards.add(board);
     }
 
     public void loadJSON(MouseEvent e)
     {
-        ArrayList<Board> newBoards = JSONLoader.instance().loadFile();
-        if(newBoards == null)
+        ArrayList<BoardModel> newBoardModels = JSONLoader.instance().loadFile();
+        if(newBoardModels == null)
             return;
 
-        for(Board board : newBoards)
+        for(BoardModel board : newBoardModels)
             homePageController.makeNewBoard(board, new Label(board.getName()));
 
-        //boards.addAll(newBoards);
+        //boards.addAll(newBoardModels);
     }
 
     public void saveJSON(MouseEvent e)

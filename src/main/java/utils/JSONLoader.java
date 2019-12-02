@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
-import model.Board;
+import model.BoardModel;
 
 public class JSONLoader{
     private static JSONLoader instance = null;
@@ -48,7 +48,7 @@ public class JSONLoader{
         parentStage = stage;
     }
 
-    public ArrayList<Board> loadFile()
+    public ArrayList<BoardModel> loadFile()
     {
         try
         {
@@ -65,8 +65,8 @@ public class JSONLoader{
             scanner.close();
 
             Gson gson = new Gson();
-            Type collectionType = new TypeToken<ArrayList<Board>>(){}.getType();
-            ArrayList<Board> newBoards = gson.fromJson(json, collectionType);
+            Type collectionType = new TypeToken<ArrayList<BoardModel>>(){}.getType();
+            ArrayList<BoardModel> newBoards = gson.fromJson(json, collectionType);
             return newBoards;
         }
         catch(IOException exception)
@@ -93,7 +93,7 @@ public class JSONLoader{
         }
     }
 
-    public void saveFile(List<Board> boards)
+    public void saveFile(List<BoardModel> boards)
     {
         try
         {

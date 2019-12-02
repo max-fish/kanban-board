@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<fx:root type="javafx.scene.layout.BorderPane" id="Card_root" fx:id="rootPane" minWidth="100" prefHeight="NaN"
+         prefWidth="100" stylesheets="@../styling/card_styling.css"
+         xmlns="http://javafx.com/javafx/10.0.2-internal"
+         xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="controllers.CardController">
+    <center>
+        <VBox id="Card_body" prefHeight="20" prefWidth="Infinity" spacing="2" alignment="CENTER">
+            <JFXTextField styleClass="kanbanCard-header" fx:id ="cardTitle" id="CardTitle" maxWidth="100" prefHeight="20" promptText="Add Card Title"/>
+            <BorderPane.margin>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </BorderPane.margin>
+        </VBox>
+    </center>
+    <left>
+        <JFXButton buttonType="FLAT" maxHeight="40" maxWidth="40" onMousePressed="#editDetails" prefHeight="30"
+                   prefWidth="30" AnchorPane.rightAnchor="0.0">
+            <graphic>
+                <FontIcon iconColor="purple" iconLiteral="gmi-border-color" iconSize="10"/>
+            </graphic>
+        </JFXButton>
+    </left>
+    <right>
+        <JFXButton buttonType="FLAT" maxHeight="40" maxWidth="40" onMousePressed="#deleteCard" prefHeight="30"
+                   prefWidth="30" AnchorPane.rightAnchor="0.0">
+            <graphic>
+                <FontIcon iconColor="purple" iconLiteral="gmi-delete" iconSize="10"/>
+            </graphic>
+        </JFXButton>
+    </right>
+</fx:root>

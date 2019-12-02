@@ -1,33 +1,38 @@
 package model;
 
-public class Card{
+public class CardModel {
     // the id of the next card, ids increase chronologically
     public static int nextId = 1;
 
     private int id;
     private String title;
     private String description;
+    private String storyPoint;
+
+    //private ColumnModel parent;
 
     /**
      *
      */
-    public Card(String title, String description)
+    public CardModel(String title, String description, String storyPoint/*, ColumnModel parent*/)
     {
         this.title = title;
         this.description = description;
+        this.storyPoint = storyPoint;
+        //this.parent = parent;
 
         id = nextId;
         nextId++;
     }
 
-    public Card(String title)
+    public CardModel(String title/*, ColumnModel parent*/)
     {
-        this(title, "");
+        this(title, "", ""/*, parent*/);
     }
 
-    public Card()
+    public CardModel(/*ColumnModel parent*/)
     {
-        this("New Card", "");
+        this("New KanbanCard"/*,parent*/);
     }
 
     public void setTitle(String title)
@@ -39,4 +44,8 @@ public class Card{
     {
         this.description = description;
     }
+
+    /*public ColumnModel getParent(){
+        return parent;
+    }*/
 }
