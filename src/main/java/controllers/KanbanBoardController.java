@@ -1,26 +1,21 @@
 package controllers;
 
-import callbacks.DeleteColumnDataCallback;
-import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import javafx.animation.ParallelTransition;
-import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import model.ColumnModel;
-import ui.DeleteConfirmationPopup;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
-import utils.AnimationMaker;
 import utils.ComponentMaker;
-import model.BoardModel;
+import model.Board;
+import model.Column;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,99 +28,92 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private JFXTextField boardTitle;
     @FXML
+    private ScrollPane columnsScrollPane;
+    @FXML
     private HBox columns;
 
-    private BoardModel board;
-
+    private boolean hasColumn = false;
+    private Board board;
     private Label homePageLabel;
-
     private JFXButton addButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addButton = ComponentMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> {
-            try {
-                makeNewColumn();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            makeNewColumn();
         });
         columns.getChildren().add(addButton);
     }
 
     @FXML
-    private void makeNewColumn() throws IOException {
+    public void makeNewColumn()
+    {
+        Column newColumn = new Column();
 
-        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
-
-        TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
-        TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
-
-        columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
-        columns.getChildren().add(addButton);
-
-        AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
-
-        HBox.setMargin(toInsert, new Insets(10));
-
-        ColumnModel newColumnModel = new ColumnModel(board);
-        board.addColumn(newColumnModel);
-
-        toInsert.getController().setColumnModel(newColumnModel);
-        toInsert.getController().setNameChangeListener();
-        toInsert.getController().setRoleChangeListener();
+        makeNewColumn(newColumn);
     }
 
-    void changeTitle(String title) {
+    public void makeNewColumn(Column newColumn)
+    {
+        try
+        {
+            if(!hasColumn){
+                columnsScrollPane.setVisible(true);
+            }
+            KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
+            columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
+            columns.getChildren().add(addButton);
+            HBox.setMargin(toInsert, new Insets(10));
+            hasColumn = true;
+
+            if(!board.contains(newColumn))
+                board.addColumn(newColumn);
+
+            toInsert.getController().setColumn(newColumn);
+            toInsert.getController().setColumnName(newColumn.getName());
+            toInsert.getController().setColumnRole(newColumn.getRole());
+            toInsert.getController().setNameChangeListener();
+            toInsert.getController().setRoleChangeListener();
+
+            // TODO: check if the column has cards
+            // if so, then create the GUI elements for them
+        }
+        catch(IOException exception)
+        {
+            System.out.println("The column could not be created.");
+            exception.printStackTrace();
+        }
+    }
+
+    public void changeTitle(String title){
         boardTitle.setText(title);
     }
 
-    void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
-        KanbanBoard board = (KanbanBoard) rootPane;
-        BorderPane homePane = board.getHomePage();
-        DeleteConfirmationPopup deleteConfirmationPopup = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
-            @Override
-            public void onStart(StackPane stackPane) {
-                homePane.setCenter(stackPane);
-            }
-
-            @Override
-            public void onDelete() {
-                callback.onDelete();
-                homePane.setCenter(board);
-                deleteColumn(kanbanColumn);
-            }
-
-            @Override
-            public void onCancel() {
-                homePane.setCenter(board);
-            }
-        }, homePane.getCenter());
-
-        deleteConfirmationPopup.show();
-    }
-
-    private void deleteColumn(KanbanColumn column) {
-        ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
-        if (parallelTransition != null) {
-            parallelTransition.play();
-        }
-        columns.getChildren().remove(column);
-    }
-
-    void setTitleChangeListener() {
+    public void setTitleChangeListener()
+    {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
             homePageLabel.setText(newValue);
         });
     }
 
-    void setBoard(BoardModel board) {
+    public void deleteColumn(KanbanColumn column){
+        columns.getChildren().remove(column);
+    }
+
+    public void setBoard(Board board)
+    {
         this.board = board;
     }
 
-    void setHomePageLabel(Label label) {
+    public void setHomePageLabel(Label label)
+    {
         homePageLabel = label;
+    }
+
+    public Board getBoardModel()
+    {
+        return board;
     }
 }

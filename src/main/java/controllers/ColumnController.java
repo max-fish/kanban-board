@@ -1,76 +1,87 @@
 package controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import javafx.fxml.FXML;
+import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ScrollPane;
+import javafx.fxml.FXML;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import model.CardModel;
-import model.ColumnModel;
-import ui.KanbanCard;
 import ui.KanbanColumn;
-import utils.DragAndDrop;
-
-import java.io.IOException;
+import model.Column;
+import utils.ComponentMaker;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
 public class ColumnController implements Initializable {
     @FXML
-    private VBox cards;
-    @FXML
     private BorderPane rootPane;
+    @FXML
+    private JFXButton columnMenuButton;
     @FXML
     private JFXTextField columnName;
     @FXML
     private JFXTextField columnRole;
 
-    private ColumnModel columnModel;
+    private JFXPopup columnMenu;
+    private Column column;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        DragAndDrop dragAnimation = new DragAndDrop();
-        KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
-        dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
+        columnMenu = ComponentMaker.makeColumnMenu(this);
     }
 
     @FXML
-    public void makeNewCard() throws IOException {
-        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
-        cards.getChildren().add(newCard);
-
-        CardModel newCardModel = new CardModel(columnModel);
-
-        columnModel.addCard(newCardModel);
-
-        newCard.getController().setCard(newCardModel);
+    public void makeNewCard(){
+        //TODO implement making a new card
     }
 
     @FXML
-    public void deleteColumn() {
+    public void deleteColumn(MouseEvent ev){
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
-        columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete, () -> {
-            columnModel.getBoard().deleteColumn(columnModel);
-            columnModel = null;
+        columnToDelete.getBoard().getController().getBoardModel().deleteColumn(column);
+        column = null;
+
+        if(columnMenu.isShowing())
+            columnMenu.hide();
+
+        columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
+    }
+
+    @FXML
+    public void openColumnMenu()
+    {
+        columnMenu.show(columnMenuButton, JFXPopup.PopupVPosition.TOP,
+                        JFXPopup.PopupHPosition.LEFT, 0, columnMenuButton.getHeight());
+    }
+
+    public void setColumn(Column column)
+    {
+        this.column = column;
+    }
+
+    public void setColumnName(String name)
+    {
+        columnName.setText(name);
+    }
+
+    public void setColumnRole(String role)
+    {
+        columnRole.setText(role);
+    }
+
+    public void setNameChangeListener()
+    {
+        columnName.textProperty().addListener((observable, oldValue, newValue) -> {
+            column.setName(newValue);
         });
     }
 
-    void setColumnModel(ColumnModel columnModel) {
-        this.columnModel = columnModel;
-    }
-
-    void setNameChangeListener() {
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
-    }
-
-    void setRoleChangeListener() {
-        columnRole.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setRole(newValue));
-    }
-
-    void deleteCard(KanbanCard kanbanCard) {
-        cards.getChildren().remove(kanbanCard);
+    public void setRoleChangeListener()
+    {
+        columnRole.textProperty().addListener((observable, oldValue, newValue) -> {
+            column.setRole(newValue);
+        });
     }
 }

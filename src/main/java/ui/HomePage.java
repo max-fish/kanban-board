@@ -30,12 +30,12 @@ public class HomePage extends Application {
         fxmlLoader.setLocation(getClass().getResource("/layouts/home_page_ui.fxml"));
         Parent root = fxmlLoader.load();
         HomePageController homePageController = fxmlLoader.getController();
-        homePageController.initConfig();
+        //homePageController.initConfig();
 
         KanbanModel.instance(); // create the model for the application
         KanbanModel.instance().setHomePageController(homePageController);
 
-        JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
+	JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
         jfxDecorator.setTitle("Kanban Board");
         Scene scene = new Scene(jfxDecorator, 1200, 600);

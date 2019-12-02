@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.io.File;
 import java.io.IOException;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Class KanbanModel - the class stores the current state
@@ -46,7 +47,7 @@ public class KanbanModel{
         boards.add(board);
     }
 
-    public void loadJSON()
+    public void loadJSON(MouseEvent e)
     {
         ArrayList<Board> newBoards = JSONLoader.instance().loadFile();
         if(newBoards == null)
@@ -55,10 +56,10 @@ public class KanbanModel{
         for(Board board : newBoards)
             homePageController.makeNewBoard(board, new Label(board.getName()));
 
-        boards.addAll(newBoards);
+        //boards.addAll(newBoards);
     }
 
-    public void saveJSON()
+    public void saveJSON(MouseEvent e)
     {
         JSONLoader.instance().saveFile(boards);
     }
