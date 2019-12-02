@@ -12,6 +12,7 @@ import javafx.scene.paint.Material;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 import controllers.ColumnController;
+import model.KanbanModel;
 
 public class ComponentMaker {
     public static StackPane makeBoardCard(Label title) {
@@ -97,7 +98,7 @@ public class ComponentMaker {
         importJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         importJSON.setAlignment(Pos.BASELINE_LEFT);
         importJSON.setMinWidth(165);
-        // TODO: importJSON.setOnMouseClicked(...)
+        importJSON.setOnMouseClicked(KanbanModel.instance()::loadJSON);
 
         JFXButton exportJSON = new JFXButton("Export to JSON");
         FontIcon exportIcon = new FontIcon();
@@ -108,7 +109,7 @@ public class ComponentMaker {
         exportJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         exportJSON.setAlignment(Pos.BASELINE_LEFT);
         exportJSON.setMinWidth(165);
-        //TODO: exportJSON.setOnMouseClicked(...);
+        exportJSON.setOnMouseClicked(KanbanModel.instance()::saveJSON);
 
         VBox container = new VBox(importJSON, exportJSON);
 

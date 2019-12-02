@@ -46,7 +46,6 @@ public class ColumnController implements Initializable {
         if(columnMenu.isShowing())
             columnMenu.hide();
 
-        KanbanColumn columnToDelete = (KanbanColumn) rootPane;
         columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
     }
 

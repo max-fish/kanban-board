@@ -32,20 +32,16 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private HBox columns;
 
+    private boolean hasColumn = false;
     private Board board;
     private Label homePageLabel;
-
     private JFXButton addButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         addButton = ComponentMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> {
-            try {
-                makeNewColumn();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            makeNewColumn();
         });
         columns.getChildren().add(addButton);
     }
@@ -66,7 +62,8 @@ public class KanbanBoardController implements Initializable {
                 columnsScrollPane.setVisible(true);
             }
             KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
-            columns.getChildren().add(toInsert);
+            columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
+            columns.getChildren().add(addButton);
             HBox.setMargin(toInsert, new Insets(10));
             hasColumn = true;
 
