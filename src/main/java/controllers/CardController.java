@@ -2,16 +2,22 @@ package controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-import javafx.scene.layout.VBox;
-import model.CardModel;
+import data.model.CardModel;
 
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import ui.KanbanCard;
+import ui.KanbanColumn;
+import utils.DragAndDropForCards;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class CardController {
+public class CardController implements Initializable {
     @FXML
     private JFXTextField cardTitle;
 
@@ -28,12 +34,17 @@ public class CardController {
     private BorderPane infoPage;
 
 //    @FXML
-//    private Button add;
 
+//    private Button add;
     private CardModel card;
 
 
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        DragAndDropForCards dragAnimation = new DragAndDropForCards();
+        KanbanCard card = (KanbanCard) rootPane;
+        dragAnimation.setDragAnimation(card, card.getColumn());
+    }
 
     public void setCard(CardModel card)
     {
@@ -60,20 +71,12 @@ public class CardController {
 
     public void setTitleChangeListener()
     {
-        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
-            card.setTitle(newValue);
-        });
+        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> card.setTitle(newValue));
     }
 
     public void setDescChangeListener()
     {
-        descTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
-            card.setDescription(newValue);
-        });
+        descTextArea.textProperty().addListener((observable, oldValue, newValue) -> card.setDescription(newValue));
     }
-
-
-
-
 
 }

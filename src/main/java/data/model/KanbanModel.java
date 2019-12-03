@@ -1,18 +1,16 @@
-package model;
+package data.model;
 
-import utils.JSONLoader;
+import data.db.JSONLoader;
 import controllers.HomePageController;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 
 /**
  * Class KanbanModel - the class stores the current state
- * of the model of the application. It holds a List of all boards
+ * of the data.model of the application. It holds a List of all boards
  * that currently exist in the application.
  *
  * The class is a Singleton.
@@ -55,8 +53,6 @@ public class KanbanModel{
 
         for(BoardModel board : newBoardModels)
             homePageController.makeNewBoard(board, new Label(board.getName()));
-
-        //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method
     }
 
     public void saveJSON(MouseEvent e)

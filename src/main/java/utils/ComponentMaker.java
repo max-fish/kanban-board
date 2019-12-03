@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 import controllers.ColumnController;
-import model.KanbanModel;
+import data.model.KanbanModel;
 
 public class ComponentMaker {
     public static StackPane makeBoardCard(Label title) {

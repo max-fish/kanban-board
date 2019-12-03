@@ -3,15 +3,13 @@ package controllers;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXButton;
 import callbacks.BoardNamePopupCallBack;
-import com.jfoenix.controls.JFXToolbar;
-import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import ui.BoardNamePopup;
 import ui.KanbanBoard;
-import model.KanbanModel;
-import model.BoardModel;
-import model.ColumnModel;
+import data.model.KanbanModel;
+import data.model.BoardModel;
+import data.model.ColumnModel;
 import utils.ComponentMaker;
 import java.util.List;
 import javafx.fxml.FXML;
@@ -36,7 +34,7 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //KanbanModel.instance(); // create the model for the application
+        //KanbanModel.instance(); // create the data.model for the application
         boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
         boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
 

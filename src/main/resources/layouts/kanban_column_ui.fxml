@@ -4,16 +4,19 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<fx:root id="Column_root" fx:id="rootPane" minWidth="240" prefHeight="NaN" prefWidth="260"
+<?import javafx.geometry.Insets?>
+<fx:root id="Column_root" fx:id="rootPane" minWidth="240" minHeight="NaN" prefWidth="260"
          stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="controllers.ColumnController">
     <top>
         <VBox id="Column_header" prefHeight="50" prefWidth="Infinity" spacing="5" alignment="CENTER">
             <AnchorPane>
-                <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="210" prefHeight="50"
-promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
-                <JFXButton buttonType="FLAT" fx:id="columnMenuButton" onMouseClicked="#openColumnMenu" maxHeight="30" maxWidth="30" prefHeight="30"
+                <JFXTextField styleClass="column-header" fx:id="columnName" id="ColumnName" maxWidth="210"
+                              prefHeight="50"
+                              promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
+                <JFXButton buttonType="FLAT" fx:id="columnMenuButton" onMouseClicked="#openColumnMenu" maxHeight="30"
+                           maxWidth="30" prefHeight="30"
                            prefWidth="30" AnchorPane.rightAnchor="0.0">
                     <graphic>
                         <FontIcon iconColor="white" iconLiteral="gmi-more-horiz" iconSize="30"/>
@@ -21,10 +24,17 @@ promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
                 </JFXButton>
             </AnchorPane>
 
-            <JFXTextField styleClass="column-header" fx:id ="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add column role"/>
+            <JFXTextField styleClass="column-header" fx:id="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50"
+                          promptText="Add column role"/>
         </VBox>
     </top>
     <center>
-        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="CENTER"/>
+        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets>
+                    <bottom>10</bottom>
+                </Insets>
+            </padding>
+        </VBox>
     </center>
 </fx:root>

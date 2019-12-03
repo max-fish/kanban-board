@@ -11,7 +11,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
-import ui.KanbanColumn;
 
 import java.util.Collections;
 
@@ -21,9 +20,10 @@ public class DragAndDrop {
     private HBox board;
     private double boundX;
 
-    public void setDragAnimation(KanbanColumn rootPane, HBox board) {
+    public void setDragAnimation(BorderPane rootPane, HBox board) {
         this.board = board;
-        boundX = board.getChildren().size() * 200;
+        boundX = board.getChildren().size() * rootPane.getWidth();
+
         rootPane.setOnMousePressed(onMousePressed);
         rootPane.setOnMouseDragged(onMouseDragged);
         rootPane.setOnMouseReleased(onDragOver);
@@ -33,11 +33,11 @@ public class DragAndDrop {
             new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    orgSceneX = event.getSceneX();
-                    orgTranslateX = ((BorderPane) (event.getSource())).getTranslateX();
-                    boundX = board.getChildren().size() * 200;
-
                     BorderPane itemBeingDragged = (BorderPane) event.getSource();
+                    orgSceneX = event.getSceneX();
+                    orgTranslateX = itemBeingDragged.getTranslateX();
+                    boundX = board.getChildren().size() * itemBeingDragged.getWidth();
+
                     DropShadow dropShadow = new DropShadow();
                     dropShadow.setRadius(5);
                     dropShadow.setOffsetX(7);
@@ -64,19 +64,19 @@ public class DragAndDrop {
                     BorderPane itemBeingDragged = (BorderPane) event.getSource();
 
                     int itemBeingDraggedIndex = board.getChildren().indexOf(itemBeingDragged);
-                    double columnBegin = itemBeingDraggedIndex * 200;
-                    double columnEnd = columnBegin + 200;
+                    double columnBegin = itemBeingDraggedIndex * itemBeingDragged.getWidth();
+                    double columnEnd = columnBegin + itemBeingDragged.getWidth();
                     if (event.getSceneX() < columnBegin - 30 || event.getSceneX() > columnEnd + 30) {
                         if (event.getSceneX() < columnBegin - 30) {
-                            if(itemBeingDraggedIndex - 1 >= 0) {
+                            if (itemBeingDraggedIndex - 1 >= 0) {
                                 ObservableList<Node> workingCollection = FXCollections.observableArrayList(board.getChildren());
                                 Collections.swap(workingCollection, itemBeingDraggedIndex - 1, itemBeingDraggedIndex);
                                 board.getChildren().setAll(workingCollection);
                                 orgSceneX = event.getSceneX();
                             }
                         } else {
-                            if(itemBeingDraggedIndex + 1 < board.getChildren().size()) {
-                                if(itemBeingDraggedIndex != board.getChildren().size() - 2) {
+                            if (itemBeingDraggedIndex + 1 < board.getChildren().size()) {
+                                if (itemBeingDraggedIndex != board.getChildren().size() - 2) {
                                     ObservableList<Node> workingCollection = FXCollections.observableArrayList(board.getChildren());
                                     Collections.swap(workingCollection, itemBeingDraggedIndex, itemBeingDraggedIndex + 1);
                                     board.getChildren().setAll(workingCollection);
@@ -85,18 +85,16 @@ public class DragAndDrop {
                             }
                         }
                     }
-                    if ((event.getSceneX() > 0 && event.getSceneX() < boundX)){
-                        if(itemBeingDraggedIndex == board.getChildren().size() - 2){
-                            if(offsetX <= 0){
+                    if ((event.getSceneX() > 0 && event.getSceneX() < boundX)) {
+                        if (itemBeingDraggedIndex == board.getChildren().size() - 2) {
+                            if (offsetX <= 0) {
                                 itemBeingDragged.setTranslateX(newTranslateX);
                             }
-                        }
-                        else if(itemBeingDraggedIndex == 0){
-                            if(offsetX >= 0){
+                        } else if (itemBeingDraggedIndex == 0) {
+                            if (offsetX >= 0) {
                                 itemBeingDragged.setTranslateX(newTranslateX);
                             }
-                        }
-                        else {
+                        } else {
                             itemBeingDragged.setTranslateX(newTranslateX);
                         }
                     }

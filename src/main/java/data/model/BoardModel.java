@@ -1,4 +1,4 @@
-package model;
+package data.model;
 
 import javax.smartcardio.Card;
 import java.time.LocalDate;
@@ -35,10 +35,7 @@ public class BoardModel {
 
     public boolean hasColumns()
     {
-        if(columnModels.size() > 0)
-            return true;
-        else
-            return false;
+        return columnModels.size() > 0;
     }
 
     public List<ColumnModel> getColumns()

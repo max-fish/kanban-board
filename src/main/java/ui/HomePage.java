@@ -2,8 +2,8 @@ package ui;
 
 import com.jfoenix.controls.JFXDecorator;
 import controllers.HomePageController;
-import utils.JSONLoader;
-import model.KanbanModel;
+import data.db.JSONLoader;
+import data.model.KanbanModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -32,7 +32,7 @@ public class HomePage extends Application {
         HomePageController homePageController = fxmlLoader.getController();
         //homePageController.initConfig();
 
-        KanbanModel.instance(); // create the model for the application
+        KanbanModel.instance(); // create the data.model for the application
         KanbanModel.instance().setHomePageController(homePageController);
 
 	      JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);

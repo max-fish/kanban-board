@@ -8,10 +8,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
-import model.CardModel;
-import model.ColumnModel;
+import data.model.CardModel;
+import data.model.ColumnModel;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 import utils.ComponentMaker;
@@ -33,15 +34,18 @@ public class ColumnController implements Initializable {
     private JFXTextField columnRole;
 
     private JFXPopup columnMenu;
+
     private ColumnModel columnModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         columnMenu = ComponentMaker.makeColumnMenu(this);
+        rootPane.minHeightProperty().bind(cards.minHeightProperty());
+//        rootPane.maxHeightProperty().bind(cards.heightProperty().add(100));
 
-        DragAndDrop dragAnimation = new DragAndDrop();
-        KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
-        dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
+//        DragAndDrop dragAnimation = new DragAndDrop();
+//        KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
+//        dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
     }
 
     public void makeNewCard(MouseEvent event)
