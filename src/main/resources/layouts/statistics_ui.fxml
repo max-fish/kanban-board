@@ -8,6 +8,8 @@
             fx:controller="controllers.StatisticsController"
             prefHeight="400.0" prefWidth="600.0">
 
+    <Label maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
+    text="Overall velocity: "/>
     <Label fx:id="overallVelocity" id="OverallVelocity" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
            text="Overall velocity "/>
     <Label fx:id="leadTime" id="leadTime" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"

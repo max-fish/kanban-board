@@ -33,7 +33,7 @@ public class StatisticsController implements Initializable {
     }
 
     public void displayStats(int cardsPerWeek){
-        overallVelocity.setText(Integer.toString(getOverallVelocity()));
+        overallVelocity.setText(getOverallVelocity() + " cards per week");
     }
 
 
