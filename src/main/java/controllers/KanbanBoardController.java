@@ -71,7 +71,7 @@ public class KanbanBoardController implements Initializable {
     @FXML
     public void makeNewColumn()
     {
-        ColumnModel newColumnModel = new ColumnModel(/*board*/);
+        ColumnModel newColumnModel = new ColumnModel(board);
 
         makeNewColumn(newColumnModel);
     }
@@ -167,7 +167,6 @@ public class KanbanBoardController implements Initializable {
         }
     }
 
-    void setTitleChangeListener() {
     public void setTitleChangeListener() {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
