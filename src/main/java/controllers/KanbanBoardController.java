@@ -61,9 +61,7 @@ public class KanbanBoardController implements Initializable {
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
         addButton = ComponentMaker.makeAddButton();
-        addButton.setOnMouseClicked(event -> {
-            makeNewColumn();
-        });
+        addButton.setOnMouseClicked(event -> makeNewColumn());
 
         columns.getChildren().add(addButton);
     }
@@ -99,7 +97,6 @@ public class KanbanBoardController implements Initializable {
             toInsert.getController().setColumnName(newColumnModel.getName());
             toInsert.getController().setColumnRole(newColumnModel.getRole());
             toInsert.getController().setNameChangeListener();
-            toInsert.getController().setRoleChangeListener();
 
             if(newColumnModel.hasCards())
                 createCards(newColumnModel, toInsert);

@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -30,7 +31,7 @@ public class ColumnController implements Initializable {
     @FXML
     private JFXTextField columnName;
     @FXML
-    private JFXTextField columnRole;
+    private JFXButton columnRole;
 
     private JFXPopup columnMenu;
     private ColumnModel columnModel;
@@ -38,6 +39,7 @@ public class ColumnController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         columnMenu = ComponentMaker.makeColumnMenu(this);
+        columnRole.setText("Add column role");
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
@@ -109,16 +111,24 @@ public class ColumnController implements Initializable {
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
     }
 
-    public void setRoleChangeListener() {
-        columnRole.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setRole(newValue));
+    public void setRole(MouseEvent e) {
+        columnRole.setText(((JFXButton)e.getSource()).getText());
     }
 
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
     }
 
+    @FXML
+    public void setColumnRoleDropDown(){
+        JFXPopup options = ComponentMaker.makeColumnRoleDropDown(this);
+        options.show(columnRole, JFXPopup.PopupVPosition.TOP,
+                JFXPopup.PopupHPosition.LEFT, 0, columnRole.getHeight());
+    }
+
     public ColumnModel getColumnModel()
     {
         return columnModel;
     }
+
 }
