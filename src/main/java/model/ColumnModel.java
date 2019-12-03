@@ -9,7 +9,7 @@ public class ColumnModel {
     private String role;
     private List<CardModel> cardModels;
 
-    private BoardModel parentBoard;
+    private transient BoardModel parentBoard;
 
     public ColumnModel(BoardModel parentBoard, String name, String role)
     {
@@ -61,4 +61,5 @@ public class ColumnModel {
     }
 
     public String getRole() { return role; }
+
 }
