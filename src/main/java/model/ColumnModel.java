@@ -21,7 +21,7 @@ public class ColumnModel {
 
     public ColumnModel(BoardModel parentBoard, String name) { this(parentBoard, name, ""); }
 
-    public ColumnModel(BoardModel parentBoard) { this(parentBoard, "New Column", ""); }
+    public ColumnModel(BoardModel parentBoard) { this(parentBoard, "New Column", "Add column role"); }
 
     public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
