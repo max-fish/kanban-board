@@ -14,17 +14,19 @@ import javafx.scene.layout.HBox;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
-import model.ColumnModel;
 import ui.DeleteConfirmationPopup;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
 import model.BoardModel;
+import model.CardModel;
+import model.ColumnModel;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.List;
 
 
 public class KanbanBoardController implements Initializable {
@@ -81,14 +83,21 @@ public class KanbanBoardController implements Initializable {
             toInsert.getController().setNameChangeListener();
             toInsert.getController().setRoleChangeListener();
 
-            // TODO: check if the column has cards
-            // if so, then create the GUI elements for them
+            if(newColumnModel.hasCards())
+                createCards(newColumnModel, toInsert);
         }
         catch(IOException exception)
         {
             System.out.println("The column could not be created.");
             exception.printStackTrace();
         }
+    }
+
+    private void createCards(ColumnModel columnModel, KanbanColumn column)
+    {
+        List<CardModel> cards = columnModel.getCards();
+        for(CardModel card : cards)
+            column.getController().makeNewCard(card);
     }
 
     void changeTitle(String title) {

@@ -53,6 +53,21 @@ public class ColumnModel {
         return parentBoard;
     }*/
 
+    public boolean contains(CardModel card)
+    {
+        return cardModels.contains(card);
+    }
+
+    public boolean hasCards()
+    {
+        return !cardModels.isEmpty();
+    }
+
+    public List<CardModel> getCards()
+    {
+        return cardModels;
+    }
+
     public String getName()
     {
         return name;

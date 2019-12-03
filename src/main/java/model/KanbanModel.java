@@ -56,7 +56,7 @@ public class KanbanModel{
         for(BoardModel board : newBoardModels)
             homePageController.makeNewBoard(board, new Label(board.getName()));
 
-        //boards.addAll(newBoardModels);
+        //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method
     }
 
     public void saveJSON(MouseEvent e)

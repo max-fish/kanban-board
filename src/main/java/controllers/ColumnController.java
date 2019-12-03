@@ -44,16 +44,30 @@ public class ColumnController implements Initializable {
         dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
     }
 
-    @FXML
-    public void makeNewCard() throws IOException {
-        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
-        cards.getChildren().add(newCard);
-
+    public void makeNewCard(MouseEvent event)
+    {
         CardModel newCardModel = new CardModel(/*columnModel*/);
 
-        columnModel.addCard(newCardModel);
+        makeNewCard(newCardModel);
+    }
 
-        newCard.getController().setCard(newCardModel);
+    public void makeNewCard(CardModel newCardModel)
+    {
+        try
+        {
+            KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+            cards.getChildren().add(newCard);
+
+            if(!columnModel.contains(newCardModel))
+                columnModel.addCard(newCardModel);
+
+            newCard.getController().setCard(newCardModel);
+        }
+        catch(IOException exception)
+        {
+            System.out.println("The card could not be created");
+            exception.printStackTrace();
+        }
     }
 
     public void deleteColumn(MouseEvent event) {
@@ -101,5 +115,10 @@ public class ColumnController implements Initializable {
 
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
+    }
+
+    public ColumnModel getColumnModel()
+    {
+        return columnModel;
     }
 }
