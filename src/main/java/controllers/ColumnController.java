@@ -5,16 +5,24 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import model.CardModel;
+import model.ColumnModel;
+import ui.KanbanCard;
 import ui.KanbanColumn;
-import model.Column;
 import utils.ComponentMaker;
+import utils.DragAndDrop;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
 public class ColumnController implements Initializable {
+    @FXML
+    private VBox cards;
     @FXML
     private BorderPane rootPane;
     @FXML
@@ -25,28 +33,53 @@ public class ColumnController implements Initializable {
     private JFXTextField columnRole;
 
     private JFXPopup columnMenu;
-    private Column column;
+    private ColumnModel columnModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         columnMenu = ComponentMaker.makeColumnMenu(this);
+
+        DragAndDrop dragAnimation = new DragAndDrop();
+        KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
+        dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
     }
 
-    @FXML
-    public void makeNewCard(){
-        //TODO implement making a new card
+    public void makeNewCard(MouseEvent event)
+    {
+        CardModel newCardModel = new CardModel(/*columnModel*/);
+
+        makeNewCard(newCardModel);
     }
 
-    @FXML
-    public void deleteColumn(MouseEvent ev){
+    public void makeNewCard(CardModel newCardModel)
+    {
+        try
+        {
+            KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+            cards.getChildren().add(newCard);
+
+            if(!columnModel.contains(newCardModel))
+                columnModel.addCard(newCardModel);
+
+            newCard.getController().setCard(newCardModel);
+        }
+        catch(IOException exception)
+        {
+            System.out.println("The card could not be created");
+            exception.printStackTrace();
+        }
+    }
+
+    public void deleteColumn(MouseEvent event) {
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
-        columnToDelete.getBoard().getController().getBoardModel().deleteColumn(column);
-        column = null;
+        columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete, () -> {
+            if(columnMenu.isShowing())
+                columnMenu.hide();
 
-        if(columnMenu.isShowing())
-            columnMenu.hide();
-
-        columnToDelete.getBoard().getController().deleteColumn(columnToDelete);
+            columnToDelete.getBoard().getController().getBoardModel().deleteColumn(columnModel);
+            //columnModel.getBoard().deleteColumn(columnModel);
+            columnModel = null;
+        });
     }
 
     @FXML
@@ -56,9 +89,9 @@ public class ColumnController implements Initializable {
                         JFXPopup.PopupHPosition.LEFT, 0, columnMenuButton.getHeight());
     }
 
-    public void setColumn(Column column)
+    public void setColumnModel(ColumnModel columnModel)
     {
-        this.column = column;
+        this.columnModel = columnModel;
     }
 
     public void setColumnName(String name)
@@ -73,15 +106,19 @@ public class ColumnController implements Initializable {
 
     public void setNameChangeListener()
     {
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> {
-            column.setName(newValue);
-        });
+        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
     }
 
-    public void setRoleChangeListener()
+    public void setRoleChangeListener() {
+        columnRole.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setRole(newValue));
+    }
+
+    public void deleteCard(KanbanCard kanbanCard) {
+        cards.getChildren().remove(kanbanCard);
+    }
+
+    public ColumnModel getColumnModel()
     {
-        columnRole.textProperty().addListener((observable, oldValue, newValue) -> {
-            column.setRole(newValue);
-        });
+        return columnModel;
     }
 }

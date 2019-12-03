@@ -23,6 +23,7 @@ public class CardModel {
 
         id = nextId;
         nextId++;
+          System.out.println("The card was created: " + id);
     }
 
     public CardModel(String title, ColumnModel parent)

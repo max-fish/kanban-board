@@ -49,9 +49,12 @@ public class CardController {
     public void deleteCard(MouseEvent event){
         card.getParent().deleteCard(card);
         //System.out.println(card);
-        card = null;
+//        card = null;
 
         KanbanCard kanbanCardToDelete = (KanbanCard) rootPane;
+        kanbanCardToDelete.getColumn().getController().getColumnModel().deleteCard(card);
+        card = null;
+
         kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
     }
 

@@ -66,7 +66,7 @@ public class ComponentMaker {
         addCard.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         addCard.setAlignment(Pos.BASELINE_LEFT);
         addCard.setMinWidth(120);
-        // TODO: setOnMouseClicked(...)
+        addCard.setOnMouseClicked(controller::makeNewCard);
 
         JFXButton deleteColumn = new JFXButton("Delete");
         FontIcon deleteColumnIcon = new FontIcon();
