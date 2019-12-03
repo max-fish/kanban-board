@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -28,9 +29,9 @@ public class ColumnModel {
         this(/*parentBoard,*/ "New Column", "");
     }
 
-    public void addCard(CardModel cardModel)
-    {
+    public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
+        parentBoard.addedCard(LocalDate.now());
     }
 
     public void deleteCard(CardModel cardModel)

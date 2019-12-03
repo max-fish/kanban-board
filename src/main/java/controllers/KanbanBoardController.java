@@ -9,95 +9,87 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-
+import javafx.scene.layout.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import ui.DeleteConfirmationPopup;
+import model.ColumnModel;
+import model.StatisticsModel;
+import org.graalvm.compiler.phases.graph.StatelessPostOrderNodeIterator;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
+import ui.Statistics;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
 import model.BoardModel;
 import model.CardModel;
-import model.ColumnModel;
+import java.awt.Color;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.List;
 
 
 public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
+    private AnchorPane topBoard;
+    @FXML
     private JFXTextField boardTitle;
     @FXML
     private HBox columns;
 
     private BoardModel board;
+
     private Label homePageLabel;
+
     private JFXButton addButton;
+    private JFXButton statisticsButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        statisticsButton = ComponentMaker.makeStatisticsButton();
+        topBoard.setRightAnchor(statisticsButton,10.0);
+        topBoard.setTopAnchor(statisticsButton,10.0);
+        topBoard.getChildren().add(statisticsButton);
+
+        statisticsButton.setOnMouseClicked(event -> getStatistics());
+
         addButton = ComponentMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> {
-            makeNewColumn();
+            try {
+                makeNewColumn();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
+
         columns.getChildren().add(addButton);
     }
 
     @FXML
-    public void makeNewColumn()
-    {
-        ColumnModel newColumnModel = new ColumnModel(/*board*/);
+    private void makeNewColumn() throws IOException {
 
-        makeNewColumn(newColumnModel);
-    }
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
 
-    public void makeNewColumn(ColumnModel newColumnModel)
-    {
-        try
-        {
-            KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
+        TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
+        TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
 
-            TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
-            TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
+        columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
+        columns.getChildren().add(addButton);
 
-            columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
-            columns.getChildren().add(addButton);
+        AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
 
-            AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
+        HBox.setMargin(toInsert, new Insets(10));
 
-            HBox.setMargin(toInsert, new Insets(10));
+        ColumnModel newColumnModel = new ColumnModel(board);
+        board.addColumn(newColumnModel);
 
-            if(!board.contains(newColumnModel))
-                board.addColumn(newColumnModel);
-
-            toInsert.getController().setColumnModel(newColumnModel);
-            toInsert.getController().setColumnName(newColumnModel.getName());
-            toInsert.getController().setColumnRole(newColumnModel.getRole());
-            toInsert.getController().setNameChangeListener();
-            toInsert.getController().setRoleChangeListener();
-
-            if(newColumnModel.hasCards())
-                createCards(newColumnModel, toInsert);
-        }
-        catch(IOException exception)
-        {
-            System.out.println("The column could not be created.");
-            exception.printStackTrace();
-        }
-    }
-
-    private void createCards(ColumnModel columnModel, KanbanColumn column)
-    {
-        List<CardModel> cards = columnModel.getCards();
-        for(CardModel card : cards)
-            column.getController().makeNewCard(card);
+        toInsert.getController().setColumnModel(newColumnModel);
+        toInsert.getController().setNameChangeListener();
+        toInsert.getController().setRoleChangeListener();
     }
 
     void changeTitle(String title) {
@@ -105,56 +97,60 @@ public class KanbanBoardController implements Initializable {
     }
 
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
-        KanbanBoard board = (KanbanBoard) rootPane;
-        BorderPane homePane = board.getHomePage();
-        DeleteConfirmationPopup deleteConfirmationPopup = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+        ComponentMaker.makeDeleteConfirmationPopup(new DeleteColumnPopupCallback() {
             @Override
             public void onStart(StackPane stackPane) {
-                homePane.setCenter(stackPane);
+                rootPane.setCenter(stackPane);
             }
 
             @Override
             public void onDelete() {
                 callback.onDelete();
-                homePane.setCenter(board);
+                rootPane.setCenter(columns);
                 deleteColumn(kanbanColumn);
             }
 
             @Override
             public void onCancel() {
-                homePane.setCenter(board);
+                rootPane.setCenter(columns);
             }
-        }, homePane.getCenter());
-
-        deleteConfirmationPopup.show();
+        }, rootPane.getCenter());
     }
 
     private void deleteColumn(KanbanColumn column) {
         ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
+        columns.getChildren().remove(column);
+
         if (parallelTransition != null) {
             parallelTransition.play();
         }
-        columns.getChildren().remove(column);
     }
 
-    public void setTitleChangeListener() {
+    public void getStatistics(){
+        //add info ofr creating sttistics as parameters and keep record on fields
+        try {
+            Statistics toShow = new Statistics();
+            StatisticsModel model = new StatisticsModel(board);
+            toShow.getController().setStatisticsModel(model);
+            toShow.getController().displayStats(2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    void setTitleChangeListener() {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
             homePageLabel.setText(newValue);
         });
     }
 
-    public void setBoard(BoardModel board)
-    {
+    void setBoard(BoardModel board) {
         this.board = board;
     }
 
-    public void setHomePageLabel(Label label) {
+    void setHomePageLabel(Label label) {
         homePageLabel = label;
     }
 
-    public BoardModel getBoardModel()
-    {
-        return board;
-    }
 }
