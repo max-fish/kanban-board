@@ -114,4 +114,24 @@ public class ComponentMaker {
 
         return menu;
     }
+
+    public static JFXButton makeStatisticsButton(){
+        JFXButton jfxButton = new JFXButton();
+        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+        //jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
+        jfxButton.setStyle("-fx-padding: 5");
+
+        FontIcon fontIcon = new FontIcon();
+        fontIcon.setIconColor(Color.WHITE);
+        fontIcon.setIconLiteral("gmi-insert-chart");
+        fontIcon.setIconSize(30);
+
+        jfxButton.setGraphic(fontIcon);
+        jfxButton.setMaxHeight(50);
+        jfxButton.setMaxWidth(50);
+        jfxButton.setMinHeight(50);
+        jfxButton.setMinWidth(50);
+
+        return jfxButton;
+    }
 }

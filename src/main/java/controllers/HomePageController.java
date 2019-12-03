@@ -3,6 +3,8 @@ package controllers;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXButton;
 import callbacks.BoardNamePopupCallBack;
+import com.jfoenix.controls.JFXToolbar;
+import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import ui.BoardNamePopup;

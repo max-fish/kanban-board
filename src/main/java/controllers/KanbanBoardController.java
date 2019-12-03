@@ -9,22 +9,28 @@ import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-
+import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
+import model.ColumnModel;
+import model.StatisticsModel;
+import org.graalvm.compiler.phases.graph.StatelessPostOrderNodeIterator;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
+import ui.Statistics;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
 import model.BoardModel;
 import model.CardModel;
 import model.ColumnModel;
+import model.CardModel;
+import java.awt.Color;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.List;
 
@@ -33,6 +39,8 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
+    private AnchorPane topBoard;
+    @FXML
     private JFXTextField boardTitle;
     @FXML
     private HBox columns;
@@ -40,20 +48,30 @@ public class KanbanBoardController implements Initializable {
     private BoardModel board;
     private Label homePageLabel;
     private JFXButton addButton;
+    private JFXButton statisticsButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        statisticsButton = ComponentMaker.makeStatisticsButton();
+        topBoard.setRightAnchor(statisticsButton,10.0);
+        topBoard.setTopAnchor(statisticsButton,10.0);
+        topBoard.getChildren().add(statisticsButton);
+
+        statisticsButton.setOnMouseClicked(event -> getStatistics());
+
         addButton = ComponentMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> {
             makeNewColumn();
         });
+
         columns.getChildren().add(addButton);
     }
 
     @FXML
     public void makeNewColumn()
     {
-        ColumnModel newColumnModel = new ColumnModel(/*board*/);
+        ColumnModel newColumnModel = new ColumnModel(board);
 
         makeNewColumn(newColumnModel);
     }
@@ -137,6 +155,18 @@ public class KanbanBoardController implements Initializable {
         columns.getChildren().remove(column);
     }
 
+    public void getStatistics(){
+        //add info ofr creating sttistics as parameters and keep record on fields
+        try {
+            Statistics toShow = new Statistics();
+            StatisticsModel model = new StatisticsModel(board);
+            toShow.getController().setStatisticsModel(model);
+            toShow.getController().displayStats(2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setTitleChangeListener() {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
@@ -157,4 +187,5 @@ public class KanbanBoardController implements Initializable {
     {
         return board;
     }
+
 }
