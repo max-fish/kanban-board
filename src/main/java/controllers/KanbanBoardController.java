@@ -12,6 +12,7 @@ import javafx.geometry.Insets;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import model.ColumnModel;
+import model.StatisticsModel;
 import org.graalvm.compiler.phases.graph.StatelessPostOrderNodeIterator;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
@@ -19,10 +20,13 @@ import ui.Statistics;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
 import model.BoardModel;
+import model.CardModel;
 import java.awt.Color;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 
@@ -45,6 +49,7 @@ public class KanbanBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         statisticsButton = ComponentMaker.makeStatisticsButton();
         topBoard.setRightAnchor(statisticsButton,10.0);
         topBoard.setTopAnchor(statisticsButton,10.0);
@@ -125,6 +130,8 @@ public class KanbanBoardController implements Initializable {
         //add info ofr creating sttistics as parameters and keep record on fields
         try {
             Statistics toShow = new Statistics();
+            StatisticsModel model = new StatisticsModel(board);
+            toShow.getController().setStatisticsModel(model);
             toShow.getController().displayStats(2);
         } catch (IOException e) {
             e.printStackTrace();
