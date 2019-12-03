@@ -47,6 +47,5 @@ public class StatisticsController implements Initializable {
             cardsPerWeek[week]++;
         }
         return Arrays.stream(cardsPerWeek).sum() / activeWeeks;
-
     }
 }
