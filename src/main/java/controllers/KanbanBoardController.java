@@ -17,7 +17,7 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
-import model.StatisticsModel;
+import data.model.StatisticsModel;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import ui.Statistics;
