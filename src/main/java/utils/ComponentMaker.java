@@ -1,16 +1,15 @@
 package utils;
 
-import callbacks.BoardNamePopupCallBack;
-import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
+import controllers.ColumnController;
+import model.KanbanModel;
 
 public class ComponentMaker {
     public static StackPane makeBoardCard(Label title) {
@@ -52,66 +51,68 @@ public class ComponentMaker {
         return jfxButton;
     }
 
-    public static void makeBoardNamePopup(BoardNamePopupCallBack callBack, Node currentUi) {
-        JFXDialogLayout content = new JFXDialogLayout();
+    public static JFXPopup makeColumnMenu(ColumnController controller)
+    {
+        JFXButton addCard = new JFXButton("Add card");
+        FontIcon addCardIcon = new FontIcon();
+        addCardIcon.setIconColor(MaterialColors.colorPrimary);
+        addCardIcon.setIconLiteral("gmi-add");
+        addCardIcon.setIconSize(19);
+        addCard.setGraphic(addCardIcon);
+        addCard.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        addCard.setAlignment(Pos.BASELINE_LEFT);
+        addCard.setMinWidth(120);
+        addCard.setOnMouseClicked(controller::makeNewCard);
 
-        JFXTextField boardNameTextField = new JFXTextField();
-        boardNameTextField.setPromptText("Board Name");
+        JFXButton deleteColumn = new JFXButton("Delete");
+        FontIcon deleteColumnIcon = new FontIcon();
+        deleteColumnIcon.setIconColor(MaterialColors.colorPrimary);
+        deleteColumnIcon.setIconLiteral("gmi-delete");
+        deleteColumnIcon.setIconSize(17);
+        deleteColumn.setGraphic(deleteColumnIcon);
+        deleteColumn.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        deleteColumn.setAlignment(Pos.BASELINE_LEFT);
+        deleteColumn.setMinWidth(120);
+        deleteColumn.setOnMouseClicked(controller::deleteColumn);
 
-        Label header = new Label("Name your board");
-        content.setHeading(header);
-        content.setBody(boardNameTextField);
+        VBox container = new VBox(addCard, deleteColumn);
 
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(currentUi);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
-        dialog.getStylesheets().add("/styling/board_name_popup_styling.css");
-        JFXButton okButton = new JFXButton("Ok");
+        JFXPopup menu = new JFXPopup();
+        menu.setPopupContent(container);
 
-        okButton.setOnAction(event -> {
-            if (!boardNameTextField.getText().isEmpty()) {
-                dialog.close();
-                callBack.onValidName(boardNameTextField.getText());
-            }
-        });
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callBack.onCancel();
-        });
-        content.setActions(okButton, cancelButton);
-        callBack.onStart(stackPane);
-        dialog.show();
+        return menu;
     }
 
-    public static void makeDeleteConfirmationPopup(DeleteColumnPopupCallback callback, Node currentUi){
-        JFXDialogLayout content = new JFXDialogLayout();
-        Label header = new Label("Delete Column");
-        content.setHeading(header);
-        Label body = new Label("Are you sure?");
-        content.setBody(body);
+    public static JFXPopup makeFileMenu()
+    {
+        JFXButton importJSON = new JFXButton("Import from JSON");
+        FontIcon importIcon = new FontIcon();
+        importIcon.setIconColor(MaterialColors.colorPrimary);
+        importIcon.setIconLiteral("gmi-file-download");
+        importIcon.setIconSize(17);
+        importJSON.setGraphic(importIcon);
+        importJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        importJSON.setAlignment(Pos.BASELINE_LEFT);
+        importJSON.setMinWidth(165);
+        importJSON.setOnMouseClicked(KanbanModel.instance()::loadJSON);
 
-        StackPane stackPane = new StackPane();
-        stackPane.getChildren().add(currentUi);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
-        dialog.getStylesheets().add("/styling/delete_confirmation_popup_styling.css");
+        JFXButton exportJSON = new JFXButton("Export to JSON");
+        FontIcon exportIcon = new FontIcon();
+        exportIcon.setIconColor(MaterialColors.colorPrimary);
+        exportIcon.setIconLiteral("gmi-file-upload");
+        exportIcon.setIconSize(17);
+        exportJSON.setGraphic(exportIcon);
+        exportJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        exportJSON.setAlignment(Pos.BASELINE_LEFT);
+        exportJSON.setMinWidth(165);
+        exportJSON.setOnMouseClicked(KanbanModel.instance()::saveJSON);
 
-        JFXButton deleteButton = new JFXButton("Delete");
+        VBox container = new VBox(importJSON, exportJSON);
 
-        deleteButton.setOnAction(event -> {
-            callback.onDelete();
-            dialog.close();
-        });
+        JFXPopup menu = new JFXPopup();
+        menu.setPopupContent(container);
 
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callback.onCancel();
-        });
-
-        content.setActions(deleteButton, cancelButton);
-        callback.onStart(stackPane);
-        dialog.show();
+        return menu;
     }
 
     public static JFXButton makeStatisticsButton(){
