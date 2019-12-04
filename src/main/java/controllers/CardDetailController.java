@@ -1,19 +1,13 @@
 package controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
+import callbacks.CardDetailPopupCallback;
+import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
-import model.CardDetailModel;
-import model.StatisticsModel;
+import data.model.CardDetailModel;
+import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class CardDetailController implements Initializable {
@@ -26,14 +20,24 @@ public class CardDetailController implements Initializable {
     @FXML
     private JFXTextArea storyPointTextArea;
 
-    @FXML
-    private JFXButton saveButton;
-
     private CardDetailModel cardDetailModel;
+
+    private CardDetailPopupCallback callback;
+
+    private JFXDialog dialog;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+    }
+
+    public void setBoardNamePopupCallBack(CardDetailPopupCallback cardDetailPopupCallback) {
+        callback = cardDetailPopupCallback;
+    }
+
+    public void setUi(JFXDialog jfxDialog) {
+        dialog = jfxDialog;
     }
 
     void setCardDetailModel(CardDetailModel cardDetailModel) {
@@ -48,11 +52,13 @@ public class CardDetailController implements Initializable {
         cardDetailModel.getCard().setTitle(titleTextField.getText());
         cardDetailModel.getCard().setStoryPoint(storyPointTextArea.getText());
         cardDetailModel.getCard().setDescription(descriptionTextArea.getText());
-
-        Stage stage = (Stage) saveButton.getScene().getWindow();
-        stage.close();
-
-
+        callback.onSave();
+        dialog.close();
     }
 
+    @FXML
+    private void cancel() {
+        callback.onCancel();
+        dialog.close();
+    }
 }

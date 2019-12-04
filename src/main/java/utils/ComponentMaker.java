@@ -9,8 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 import controllers.ColumnController;
-import model.KanbanModel;
-import ui.KanbanColumn;
+import data.model.KanbanModel;
 
 public class ComponentMaker {
     public static StackPane makeBoardCard(Label title) {
@@ -63,7 +62,7 @@ public class ComponentMaker {
         addCard.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         addCard.setAlignment(Pos.BASELINE_LEFT);
         addCard.setMinWidth(120);
-        addCard.setOnMouseClicked(controller::makeNewCard);
+        addCard.setOnMouseClicked(event -> controller.makeNewCard());
 
         JFXButton deleteColumn = new JFXButton("Delete");
         FontIcon deleteColumnIcon = new FontIcon();

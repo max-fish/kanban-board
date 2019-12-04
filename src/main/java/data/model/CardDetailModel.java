@@ -1,7 +1,6 @@
-package model;
+package data.model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import data.model.CardModel;
 
 public class CardDetailModel {
     private CardModel card;

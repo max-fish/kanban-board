@@ -35,7 +35,7 @@ public class BoardNamePopup extends JFXDialog {
         dialogContainer = stackPane;
 
         setDialogContainer(stackPane);
-        setContent(Objects.requireNonNull(jfxDialogLayout));
+        setContent(jfxDialogLayout);
         setTransitionType(DialogTransition.CENTER);
         setOverlayClose(false);
     }
