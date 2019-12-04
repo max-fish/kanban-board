@@ -1,15 +1,9 @@
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.control.LabeledMatchers.hasText;
-import org.testfx.matcher.base.NodeMatchers;
 import org.testfx.framework.junit.ApplicationTest;
-import static org.testfx.assertions.api.Assertions.assertThat;
-import javafx.scene.input.InputEvent;
-import javafx.scene.robot.Robot;
 
 import ui.HomePage;
 import javafx.stage.Stage;
 import org.junit.Test;
-import org.junit.BeforeClass;
 
 import java.io.IOException;
 
@@ -21,8 +15,14 @@ public class TestBoard extends ApplicationTest {
     }
 
     @Test
-    public void test1() {
+    public void testIfANewBoardIsCreatedAndCanBeViewed() {
         clickOn("#test");
-        sleep(5000);
+        clickOn("board");
+    }
+
+    @Test
+    public void TestHomePageButton() {
+        clickOn("#test");
+        clickOn("board");
     }
 }

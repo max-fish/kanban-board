@@ -17,7 +17,7 @@
                        text="Your Boards"/>
             </leftItems>
             <rightItems>
-                <Button fx:id="test" onMouseClicked="#defaultMakeNewBoard">click</Button>
+                <JFXButton fx:id="test" onMouseClicked="#defaultMakeNewBoard"></JFXButton>
                 <JFXButton fx:id="addButton" onMouseClicked="#askToNameBoard" maxWidth="20" maxHeight="20" prefHeight="20" prefWidth="20" buttonType="FLAT">
                     <graphic>
                         <FontIcon iconLiteral="gmi-add" iconColor="white" iconSize="30" />
