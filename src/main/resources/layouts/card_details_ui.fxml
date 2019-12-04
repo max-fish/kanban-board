@@ -19,7 +19,7 @@
         <HBox spacing="15.0">
             <children>
                 <Label minWidth="50.0" text="Title:" />
-                <JFXTextField fx:id="titleTextField" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+                <JFXTextField fx:id="titleTextField" maxWidth="600" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>
         <Label minWidth="50.0" text="Task description:" />
@@ -28,6 +28,8 @@
                 <Insets />
             </VBox.margin>
         </JFXTextArea>
+
+
         <Label minWidth="50.0" text="Story Point:" />
         <JFXTextArea fx:id="storyPointTextArea" VBox.vgrow="ALWAYS" style="-fx-padding: 20">
             <VBox.margin>
@@ -41,7 +43,7 @@
             <bottom>10</bottom>
         </Insets>
     </VBox.margin>
-    <JFXButton fx:id="addTaskButton" mnemonicParsing="false" text="Save"  style="-fx-background-color: #80447e; -fx-text-fill: #ffffff;" alignment="BOTTOM_CENTER"/>
+    <JFXButton fx:id="saveButton" mnemonicParsing="false" text="Save" onMouseClicked="#saveDetails" style="-fx-background-color: #80447e; -fx-text-fill: #ffffff;" alignment="BOTTOM_CENTER"/>
     <VBox.margin>
         <Insets>
             <bottom>10</bottom>

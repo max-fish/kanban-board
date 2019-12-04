@@ -50,6 +50,18 @@ public class CardModel {
         this.description = description;
     }
 
+    public void setStoryPoint(String story){
+        this.storyPoint = story;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getStoryPoint(){
+        return storyPoint;
+    }
+
     /*public ColumnModel getParent(){
         return parent;
     }*/
