@@ -92,7 +92,6 @@ public class KanbanBoardController implements Initializable {
             toInsert.getController().setColumnName(newColumnModel.getName());
             toInsert.getController().setColumnRole(newColumnModel.getRole());
             toInsert.getController().setNameChangeListener();
-            toInsert.getController().setRoleChangeListener();
 
             if(newColumnModel.hasCards())
                 createCards(newColumnModel, toInsert);

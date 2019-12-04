@@ -41,9 +41,25 @@ public class CardModel {
         this.title = title;
     }
 
+    public String get_title(){
+        return title;
+    }
+
     public void setDescription(String description)
     {
         this.description = description;
+    }
+
+    public void setStoryPoint(String story){
+        this.storyPoint = story;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public String getStoryPoint(){
+        return storyPoint;
     }
 
     /*public ColumnModel getParent(){

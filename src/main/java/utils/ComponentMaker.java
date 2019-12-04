@@ -9,7 +9,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 import controllers.ColumnController;
-import data.model.KanbanModel;
+import model.KanbanModel;
+import ui.KanbanColumn;
 
 public class ComponentMaker {
     public static StackPane makeBoardCard(Label title) {
@@ -133,5 +134,31 @@ public class ComponentMaker {
         jfxButton.setMinWidth(50);
 
         return jfxButton;
+    }
+
+    public static JFXButton makeColumnRoleOption(String role, ColumnController column){
+        JFXButton roleButton = new JFXButton(role);
+        roleButton.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        roleButton.setAlignment(Pos.BASELINE_LEFT);
+        roleButton.setMinWidth(165);
+        roleButton.setOnMouseClicked(column::setRole);
+
+        return roleButton;
+    }
+
+    public static JFXPopup makeColumnRoleDropDown(ColumnController column){
+
+        VBox options = new VBox();
+        options.getChildren().addAll(
+                makeColumnRoleOption("Backlog", column),  makeColumnRoleOption("Work In Progress", column),
+                makeColumnRoleOption("On Hold", column), makeColumnRoleOption("Completed Work", column),
+                makeColumnRoleOption("Info only", column)
+                );
+        JFXButton backlog = makeColumnRoleOption("Backlog", column);
+
+        options.getChildren().add(backlog);
+        JFXPopup dropDown = new JFXPopup();
+        dropDown.setPopupContent(options);
+        return dropDown;
     }
 }

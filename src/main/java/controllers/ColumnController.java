@@ -5,14 +5,14 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.input.MouseEvent;
-import data.model.CardModel;
-import data.model.ColumnModel;
+import model.CardModel;
+import model.ColumnModel;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 import utils.ComponentMaker;
@@ -31,21 +31,21 @@ public class ColumnController implements Initializable {
     @FXML
     private JFXTextField columnName;
     @FXML
-    private JFXTextField columnRole;
+    private JFXButton columnRole;
 
     private JFXPopup columnMenu;
-
+    private JFXPopup columnRoleOptions;
     private ColumnModel columnModel;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         columnMenu = ComponentMaker.makeColumnMenu(this);
-        rootPane.minHeightProperty().bind(cards.minHeightProperty());
-//        rootPane.maxHeightProperty().bind(cards.heightProperty().add(100));
+        columnRoleOptions = ComponentMaker.makeColumnRoleDropDown(this);
 
-//        DragAndDrop dragAnimation = new DragAndDrop();
-//        KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
-//        dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
+        DragAndDrop dragAnimation = new DragAndDrop();
+        KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
+        dragAnimation.setDragAnimation(kanbanColumn,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
+
     }
 
     public void makeNewCard(MouseEvent event)
@@ -113,16 +113,25 @@ public class ColumnController implements Initializable {
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
     }
 
-    public void setRoleChangeListener() {
-        columnRole.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setRole(newValue));
+    public void setRole(MouseEvent e) {
+        String role = ((JFXButton)e.getSource()).getText();
+        columnRole.setText(role);
+        columnModel.setRole(role);
     }
 
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
     }
 
+    @FXML
+    public void setColumnRoleDropDown(){
+        columnRoleOptions.show(columnRole, JFXPopup.PopupVPosition.TOP,
+                JFXPopup.PopupHPosition.LEFT, 0, columnRole.getHeight());
+    }
+
     public ColumnModel getColumnModel()
     {
         return columnModel;
     }
+
 }
