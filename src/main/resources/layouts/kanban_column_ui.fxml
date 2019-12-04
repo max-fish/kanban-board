@@ -9,11 +9,17 @@
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="controllers.ColumnController">
     <top>
-        <VBox id="Column_header" prefHeight="50" prefWidth="Infinity" spacing="5" alignment="CENTER">
+        <VBox id="Column_header" prefHeight="50" prefWidth="Infinity" spacing="3" alignment="CENTER">
+            <JFXButton styleClass="column-header" id="ColumnRole" fx:id="columnRole" onMouseClicked="#setColumnRoleDropDown"
+                       maxWidth="400" prefHeight="40" buttonType="FLAT" text="Add column role" alignment="BASELINE_LEFT">
+                <graphic>
+                    <FontIcon iconLiteral="gmi-expand-more" iconColor="white" iconSize="20" />
+                </graphic>
+            </JFXButton>
             <AnchorPane>
-                <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="210" prefHeight="50"
-promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
-                <JFXButton buttonType="FLAT" fx:id="columnMenuButton" onMouseClicked="#openColumnMenu" maxHeight="30" maxWidth="30" prefHeight="30"
+                <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="210" prefHeight="40"
+                              promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
+                <JFXButton buttonType="FLAT" fx:id="columnMenuButton" onMouseClicked="#openColumnMenu" maxHeight="30" maxWidth="30" prefHeight="20"
                            prefWidth="30" AnchorPane.rightAnchor="0.0">
                     <graphic>
                         <FontIcon iconColor="white" iconLiteral="gmi-more-horiz" iconSize="30"/>
@@ -21,7 +27,6 @@ promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
                 </JFXButton>
             </AnchorPane>
 
-            <JFXTextField styleClass="column-header" fx:id ="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add column role"/>
         </VBox>
     </top>
     <center>
