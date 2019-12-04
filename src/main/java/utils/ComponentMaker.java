@@ -1,14 +1,11 @@
 package utils;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
 import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 import controllers.ColumnController;
@@ -22,12 +19,11 @@ public class ComponentMaker {
         boardCard.setMaxWidth(185);
         boardCard.setMaxHeight(80);
 
-        Label titleLabel = title;
-        titleLabel.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
-        titleLabel.setTextFill(Color.WHITE);
+        title.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
+        title.setTextFill(Color.WHITE);
 
-        boardCard.getChildren().add(titleLabel);
-        StackPane.setAlignment(titleLabel, Pos.TOP_LEFT);
+        boardCard.getChildren().add(title);
+        StackPane.setAlignment(title, Pos.TOP_LEFT);
 
         boardCard.setBackground(new Background(new BackgroundFill(MaterialColors.colorPrimary, new CornerRadii(5), Insets.EMPTY)));
 
@@ -39,7 +35,7 @@ public class ComponentMaker {
     public static JFXButton makeAddButton() {
         JFXButton jfxButton = new JFXButton();
         jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
-        jfxButton.setBackground(new Background((new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY))));
+        jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
         jfxButton.setStyle("-fx-padding: 5");
 
         FontIcon fontIcon = new FontIcon();
@@ -117,5 +113,25 @@ public class ComponentMaker {
         menu.setPopupContent(container);
 
         return menu;
+    }
+
+    public static JFXButton makeStatisticsButton(){
+        JFXButton jfxButton = new JFXButton();
+        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+        //jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
+        jfxButton.setStyle("-fx-padding: 5");
+
+        FontIcon fontIcon = new FontIcon();
+        fontIcon.setIconColor(Color.WHITE);
+        fontIcon.setIconLiteral("gmi-insert-chart");
+        fontIcon.setIconSize(30);
+
+        jfxButton.setGraphic(fontIcon);
+        jfxButton.setMaxHeight(50);
+        jfxButton.setMaxWidth(50);
+        jfxButton.setMinHeight(50);
+        jfxButton.setMinWidth(50);
+
+        return jfxButton;
     }
 }

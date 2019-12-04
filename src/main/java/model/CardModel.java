@@ -9,31 +9,31 @@ public class CardModel {
     private String description;
     private String storyPoint;
 
-    private ColumnModel parent;
+    //private ColumnModel parent;
 
     /**
      *
      */
-    public CardModel(String title, String description, String storyPoint, ColumnModel parent)
+    public CardModel(String title, String description, String storyPoint/*, ColumnModel parent*/)
     {
         this.title = title;
         this.description = description;
         this.storyPoint = storyPoint;
-        this.parent = parent;
+        //this.parent = parent;
 
         id = nextId;
         nextId++;
           System.out.println("The card was created: " + id);
     }
 
-    public CardModel(String title, ColumnModel parent)
+    public CardModel(String title/*, ColumnModel parent*/)
     {
-        this(title, "", "", parent);
+        this(title, "", ""/*, parent*/);
     }
 
-    public CardModel(ColumnModel parent)
+    public CardModel(/*ColumnModel parent*/)
     {
-        this("New KanbanCard",parent);
+        this("New KanbanCard"/*,parent*/);
     }
 
     public void setTitle(String title)
@@ -41,12 +41,16 @@ public class CardModel {
         this.title = title;
     }
 
+    public String get_title(){
+        return title;
+    }
+
     public void setDescription(String description)
     {
         this.description = description;
     }
 
-    public ColumnModel getParent(){
+    /*public ColumnModel getParent(){
         return parent;
-    }
+    }*/
 }

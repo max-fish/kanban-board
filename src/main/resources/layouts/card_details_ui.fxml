@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXButton?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.CardDetailController"
+      prefHeight="400.0" prefWidth="600.0">
+
+    <children>
+        <HBox spacing="15.0">
+            <children>
+                <Label minWidth="50.0" text="Title:" />
+                <JFXTextField fx:id="titleTextField" maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS" />
+            </children>
+        </HBox>
+        <Label minWidth="50.0" text="Task description:" />
+        <JFXTextArea fx:id="descriptionTextArea" VBox.vgrow="ALWAYS" style="-fx-padding: 20">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </JFXTextArea>
+        <Label minWidth="50.0" text="Story Point:" />
+        <JFXTextArea fx:id="storyPointTextArea" VBox.vgrow="ALWAYS" style="-fx-padding: 20">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </JFXTextArea>
+    </children>
+
+    <VBox.margin>
+        <Insets>
+            <bottom>10</bottom>
+        </Insets>
+    </VBox.margin>
+    <JFXButton fx:id="addTaskButton" mnemonicParsing="false" text="Save"  style="-fx-background-color: #80447e; -fx-text-fill: #ffffff;" alignment="BOTTOM_CENTER"/>
+    <VBox.margin>
+        <Insets>
+            <bottom>10</bottom>
+        </Insets>
+    </VBox.margin>
+
+
+</VBox>
