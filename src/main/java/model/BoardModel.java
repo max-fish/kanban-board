@@ -66,4 +66,9 @@ public class BoardModel {
     public ArrayList<LocalDate> getCardDates() { return cardsDate; }
 
     public LocalDate getCreationDate() { return creationDate; }
+
+    public void initCardsDate()
+    {
+        cardsDate = new ArrayList<>();
+    }
 }

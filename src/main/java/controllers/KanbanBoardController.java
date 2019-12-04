@@ -94,6 +94,11 @@ public class KanbanBoardController implements Initializable {
 
             if(!board.contains(newColumnModel))
                 board.addColumn(newColumnModel);
+            else
+            {
+                newColumnModel.setParentBoard(board);
+                board.initCardsDate();
+            }
 
             toInsert.getController().setColumnModel(newColumnModel);
             toInsert.getController().setColumnName(newColumnModel.getName());
