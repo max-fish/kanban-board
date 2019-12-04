@@ -62,6 +62,9 @@ public class CardController {
 
     @FXML
     public void deleteCard(MouseEvent event){
+//        card.getParent().deleteCard(card);
+        //System.out.println(card);
+//        card = null;
 
         KanbanCard kanbanCardToDelete = (KanbanCard) rootPane;
         kanbanCardToDelete.getColumn().getController().getColumnModel().deleteCard(card);
