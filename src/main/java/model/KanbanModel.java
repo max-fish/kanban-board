@@ -32,9 +32,5 @@ public class KanbanModel{
     {
         boards.add(board);
     }
-
-    public List<BoardModel> getBoards() {
-        return this.boards;
-    }
-
+    
 }

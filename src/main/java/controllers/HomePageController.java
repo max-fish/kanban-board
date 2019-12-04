@@ -57,6 +57,11 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
+    public void defaultMakeNewBoard() {
+        makeNewBoard("board");
+    }
+
+    @FXML
     private void makeNewBoard(String title) {
         try {
             KanbanBoard board = new KanbanBoard();
