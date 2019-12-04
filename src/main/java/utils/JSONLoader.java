@@ -93,12 +93,87 @@ public class JSONLoader{
         }
     }
 
+    public ArrayList<BoardModel> loadSession()
+    {
+        try
+        {
+            File file = new File("program_files/session.json");
+            file.createNewFile();
+
+            Scanner scanner = new Scanner(file);
+            scanner.useDelimiter("\n");
+
+            String json = "";
+            while(scanner.hasNext())
+                json += scanner.next();
+
+            scanner.close();
+
+            Gson gson = new Gson();
+            Type collectionType = new TypeToken<ArrayList<BoardModel>>(){}.getType();
+            ArrayList<BoardModel> newBoards = gson.fromJson(json, collectionType);
+            return newBoards;
+        }
+        catch(IOException exception)
+        {
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not load the file");
+            return null;
+        }
+        // the order of the following two catch clauses is very important!
+        // in the reverse order the application will not compile
+        catch(JsonSyntaxException exception)
+        {
+            // TODO: implement a popup dialog to inform the user
+
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("JSON format invalid");
+            return null;
+        }
+        catch(RuntimeException exception)
+        {
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not access the file");
+            return null;
+        }
+    }
+
     public void saveFile(List<BoardModel> boards)
     {
         try
         {
             chooser.setTitle("Export JSON file");
             File file = chooser.showSaveDialog(parentStage);
+
+            BufferedWriter writer = new BufferedWriter(
+                                    new OutputStreamWriter(
+                                    new FileOutputStream(file), "utf-8"));
+
+            Gson gson = new Gson();
+            String json = gson.toJson(boards);
+
+            writer.write(json);
+
+            writer.close();
+        }
+        catch(IOException exception)
+        {
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not save the file");
+        }
+        catch(RuntimeException exception)
+        {
+            // TODO: rethink when this exception occurs and is caught
+            //System.out.println("Could not access the file");
+        }
+    }
+
+    public void saveSession(List<BoardModel> boards)
+    {
+        try
+        {
+            File file = new File("program_files/session.json");
+            file.createNewFile();
 
             BufferedWriter writer = new BufferedWriter(
                                     new OutputStreamWriter(

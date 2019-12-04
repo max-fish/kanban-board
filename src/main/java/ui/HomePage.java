@@ -34,6 +34,7 @@ public class HomePage extends Application {
 
         KanbanModel.instance(); // create the model for the application
         KanbanModel.instance().setHomePageController(homePageController);
+        KanbanModel.instance().loadSession();
 
 	      JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
@@ -41,6 +42,11 @@ public class HomePage extends Application {
         Scene scene = new Scene(jfxDecorator, 1200, 600);
         scene.getStylesheets().add(getClass().getResource("/styling/scene_styling.css").toExternalForm());
         primaryStage.setScene(scene);
+
+        primaryStage.setOnCloseRequest(event -> {
+            KanbanModel.instance().saveSession();
+        });
+
         primaryStage.show();
     }
 }

@@ -59,8 +59,25 @@ public class KanbanModel{
         //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method
     }
 
+    public void loadSession()
+    {
+        ArrayList<BoardModel> newBoardModels = JSONLoader.instance().loadSession();
+        if(newBoardModels == null)
+            return;
+
+        for(BoardModel board : newBoardModels)
+            homePageController.makeNewBoard(board, new Label(board.getName()));
+
+        //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method
+    }
+
     public void saveJSON(MouseEvent e)
     {
         JSONLoader.instance().saveFile(boards);
+    }
+
+    public void saveSession()
+    {
+        JSONLoader.instance().saveSession(boards);
     }
 }
