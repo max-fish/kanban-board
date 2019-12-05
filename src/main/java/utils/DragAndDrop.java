@@ -1,5 +1,6 @@
 package utils;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -19,21 +20,22 @@ public class DragAndDrop {
     private double orgTranslateX;
     private HBox board;
     private double boundX;
+    private BorderPane itemBeingDragged;
 
-    public void setDragAnimation(BorderPane rootPane, HBox board) {
+    public void setDragAnimation(BorderPane rootPane, JFXButton dragButton, HBox board) {
+        itemBeingDragged = rootPane;
         this.board = board;
         boundX = board.getChildren().size() * rootPane.getWidth();
 
-        rootPane.setOnMousePressed(onMousePressed);
-        rootPane.setOnMouseDragged(onMouseDragged);
-        rootPane.setOnMouseReleased(onDragOver);
+        dragButton.setOnMousePressed(onMousePressed);
+        dragButton.setOnMouseDragged(onMouseDragged);
+        dragButton.setOnMouseReleased(onDragOver);
     }
 
     private EventHandler<MouseEvent> onMousePressed =
             new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    BorderPane itemBeingDragged = (BorderPane) event.getSource();
                     orgSceneX = event.getSceneX();
                     orgTranslateX = itemBeingDragged.getTranslateX();
                     boundX = board.getChildren().size() * itemBeingDragged.getWidth();
@@ -61,13 +63,12 @@ public class DragAndDrop {
                 public void handle(MouseEvent event) {
                     double offsetX = event.getSceneX() - orgSceneX;
                     double newTranslateX = orgTranslateX + offsetX;
-                    BorderPane itemBeingDragged = (BorderPane) event.getSource();
 
                     int itemBeingDraggedIndex = board.getChildren().indexOf(itemBeingDragged);
                     double columnBegin = itemBeingDraggedIndex * itemBeingDragged.getWidth();
                     double columnEnd = columnBegin + itemBeingDragged.getWidth();
-                    if (event.getSceneX() < columnBegin - 30 || event.getSceneX() > columnEnd + 30) {
-                        if (event.getSceneX() < columnBegin - 30) {
+                    if (offsetX < -100 || offsetX > 100) {
+                        if (offsetX < -100) {
                             if (itemBeingDraggedIndex - 1 >= 0) {
                                 ObservableList<Node> workingCollection = FXCollections.observableArrayList(board.getChildren());
                                 Collections.swap(workingCollection, itemBeingDraggedIndex - 1, itemBeingDraggedIndex);
@@ -103,7 +104,6 @@ public class DragAndDrop {
 
     private EventHandler<MouseEvent> onDragOver =
             event -> {
-                BorderPane itemBeingDragged = (BorderPane) event.getSource();
                 itemBeingDragged.setTranslateX(0);
                 itemBeingDragged.setEffect(null);
                 itemBeingDragged.getTransforms().clear();

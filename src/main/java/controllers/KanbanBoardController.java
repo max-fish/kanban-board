@@ -147,7 +147,7 @@ public class KanbanBoardController implements Initializable {
         columns.getChildren().remove(column);
     }
 
-    public void getStatistics(){
+    private void getStatistics(){
         //add info ofr creating sttistics as parameters and keep record on fields
         Statistics statPopup = new Statistics();
         StatisticsModel model = new StatisticsModel(board);

@@ -120,7 +120,6 @@ public class DragAndDropForCards {
                                 VBox nextColumn = (VBox) nextColumnContainer.getCenter();
                                 onDragOver();
                                 columnContainer.getController().deleteCard((KanbanCard) itemBeingDragged);
-//                                nextColumn.getChildren().add(itemBeingDraggedIndex, itemBeingDragged);
                                 nextColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getCardModel());
                                 columnContainer = nextColumnContainer;
                                 column = nextColumn;
@@ -133,7 +132,6 @@ public class DragAndDropForCards {
                                 VBox previousColumn = (VBox) previousColumnContainer.getCenter();
                                 onDragOver();
                                 columnContainer.getController().deleteCard((KanbanCard) itemBeingDragged);
-//                                previousColumn.getChildren().add(itemBeingDraggedIndex, itemBeingDragged);
                                 previousColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getCardModel());
                                 columnContainer = previousColumnContainer;
                                 column = previousColumn;
