@@ -25,7 +25,7 @@ public class ColumnModel {
 
     public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
-        parentBoard.addedCard(LocalDate.now());
+        if(role.equals("Completed Work")) cardModel.setCompletedDate(LocalDate.now());
     }
 
     public void deleteCard(CardModel cardModel)

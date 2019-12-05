@@ -152,7 +152,7 @@ public class KanbanBoardController implements Initializable {
         Statistics statPopup = new Statistics();
         StatisticsModel model = new StatisticsModel(board);
         statPopup.getController().setStatisticsModel(model);
-        statPopup.getController().displayStats(2);
+        statPopup.getController().displayStats();
         statPopup.show(statisticsButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
     }
 

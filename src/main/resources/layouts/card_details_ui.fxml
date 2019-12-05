@@ -13,7 +13,7 @@
 <?import com.jfoenix.controls.JFXDialogLayout?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
+<?import java.lang.Integer?>
 <JFXDialogLayout xmlns="http://javafx.com/javafx"
                  xmlns:fx="http://javafx.com/fxml"
                  fx:controller="controllers.CardDetailController"
@@ -44,9 +44,9 @@
             <JFXComboBox fx:id="storyPointCombo" VBox.vgrow="ALWAYS" style="-fx-padding: 20" promptText="choose" prefWidth="123.0" >
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <String fx:value="1" />
-                        <String fx:value="2" />
-                        <String fx:value="3" />
+                        <Integer fx:value="1" />
+                        <Integer fx:value="2" />
+                        <Integer fx:value="3" />
                     </FXCollections>
                 </items>
                 <VBox.margin>

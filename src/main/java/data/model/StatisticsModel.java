@@ -3,6 +3,7 @@ package data.model;
 import data.model.BoardModel;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,7 +15,34 @@ public class StatisticsModel
         this.board = board;
     }
 
-    public ArrayList<LocalDate> getCardDates(){ return board.getCardDates(); }
-
     public BoardModel getBoard(){ return board; }
+
+    public int getOverallVelocity() {
+        // Number of weeks the board has been created
+        int activeWeeks = (int) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
+        int storyPointsCount = 0;
+        //Go thorugh all the completed columns of the board
+        for (ColumnModel col : board.getCompletedColumns()) {
+            //Go through all the cards in the "completed" columns
+            for (CardModel card : col.getCards()) {
+                storyPointsCount += card.getStoryPoints();
+            }
+        }
+        if(storyPointsCount == 0) return -1;
+        return storyPointsCount / activeWeeks;
+    }
+
+    public int getLeadTime() {
+        int leadTimes = 0;
+        int cardCount = 0;
+
+        for(ColumnModel col : board.getCompletedColumns()){
+            for (CardModel card : col.getCards()) {
+                leadTimes += ChronoUnit.WEEKS.between(card.getCreationDate(), card.getCompletedDate());
+                cardCount++;
+            }
+        }
+        if(cardCount == 0) return -1;
+        return leadTimes / cardCount;
+    }
 }
