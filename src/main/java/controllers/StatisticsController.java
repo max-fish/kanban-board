@@ -1,5 +1,6 @@
 package controllers;
 
+import data.model.ColumnModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ public class StatisticsController implements Initializable {
     @FXML
     private Label overallVelocity;
     @FXML
-    private Label leadTime;
+    private Label leadTimeCalc;
     @FXML
     private Label avgWIP;
 
@@ -32,20 +33,23 @@ public class StatisticsController implements Initializable {
         this.statisticsModel = columnModel;
     }
 
-    public void displayStats(int cardsPerWeek){
-        overallVelocity.setText(getOverallVelocity() + " cards per week");
-    }
-
-
-    public int getOverallVelocity(){
-        // Number of weeks the board has been created
-        int activeWeeks = (int) ChronoUnit.WEEKS.between(statisticsModel.getBoard().getCreationDate(), LocalDate.now()) + 1;
-        // Array in which each position represents the number of week and the value the num of cards added that week
-        int[] cardsPerWeek = new int[activeWeeks];
-        for(LocalDate date : statisticsModel.getCardDates()){
-            int week = (int) ChronoUnit.WEEKS.between(statisticsModel.getBoard().getCreationDate(), date);
-            cardsPerWeek[week]++;
+    public void displayStats(){
+        if(!statisticsModel.getBoard().hasCompleteColumn()){
+            overallVelocity.setText("To view the overall velocity you need to assign a Completed Work column.");
+            leadTimeCalc.setText("To view the lead time you need to assign a Completed Work column.");
         }
-        return Arrays.stream(cardsPerWeek).sum() / activeWeeks;
+        else {
+            int velocity = statisticsModel.getOverallVelocity();
+            int leadTime = statisticsModel.getLeadTime();
+
+            if(velocity == -1) overallVelocity.setText("There's no story points on the Completed Work column yet");
+            else overallVelocity.setText(overallVelocity + " story points per week");
+
+            if(leadTime == -1) leadTimeCalc.setText("There's no story points on the Completed Work column yet");
+            else leadTimeCalc.setText(leadTime + " weeks per task");
+        }
     }
+
+
+
 }

@@ -18,7 +18,7 @@ public class CardDetailController implements Initializable {
     @FXML
     private JFXTextArea descriptionTextArea;
     @FXML
-    private JFXComboBox<String> storyPointCombo;
+    private JFXComboBox<Integer> storyPointCombo;
 
     private CardDetailModel cardDetailModel;
 
@@ -44,7 +44,7 @@ public class CardDetailController implements Initializable {
         this.cardDetailModel = cardDetailModel;
         titleTextField.setText(cardDetailModel.getCard().get_title());
         descriptionTextArea.setText(cardDetailModel.getCard().getDescription());
-        storyPointCombo.setValue(cardDetailModel.getCard().getStoryPoint());
+        storyPointCombo.setValue(cardDetailModel.getCard().getStoryPoints());
     }
 
     @FXML
@@ -61,4 +61,5 @@ public class CardDetailController implements Initializable {
         callback.onCancel();
         dialog.close();
     }
+
 }

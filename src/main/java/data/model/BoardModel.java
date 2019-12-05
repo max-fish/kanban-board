@@ -1,6 +1,7 @@
 package data.model;
 
 import javax.smartcardio.Card;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.ArrayList;
 public class BoardModel {
     private String name;
     private List<ColumnModel> columnModels;
-    private ArrayList<LocalDate> cardsDate;
     private LocalDate creationDate;
 
     /**
@@ -19,7 +19,6 @@ public class BoardModel {
     {
         this.name = name;
         columnModels = new ArrayList<>();
-        cardsDate = new ArrayList<>();
         creationDate = LocalDate.now();
     }
 
@@ -43,10 +42,15 @@ public class BoardModel {
         return columnModels;
     }
 
-    public boolean contains(ColumnModel columnModel)
-    {
-        return columnModels.contains(columnModel);
+    public List<ColumnModel> getCompletedColumns() {
+        List<ColumnModel> completedColumns = new ArrayList<>();
+        for(ColumnModel col : columnModels){
+            if(col.getRole().equals("Completed Work")) { completedColumns.add(col); }
+        }
+        return completedColumns;
     }
+
+    public boolean contains(ColumnModel columnModel) { return columnModels.contains(columnModel); }
 
     public void setName(String name)
     {
@@ -58,9 +62,7 @@ public class BoardModel {
         return name;
     }
 
-    public void addedCard(LocalDate date) { cardsDate.add(date); }
-
-    public ArrayList<LocalDate> getCardDates() { return cardsDate; }
-
     public LocalDate getCreationDate() { return creationDate; }
+
+    public boolean hasCompleteColumn() { return !getCompletedColumns().isEmpty(); }
 }
