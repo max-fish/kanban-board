@@ -11,6 +11,9 @@
 
 <?import com.jfoenix.controls.JFXTextField?>
 <?import com.jfoenix.controls.JFXDialogLayout?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
 <JFXDialogLayout xmlns="http://javafx.com/javafx"
                  xmlns:fx="http://javafx.com/fxml"
                  fx:controller="controllers.CardDetailController"
@@ -38,11 +41,18 @@
 
 
             <Label minWidth="50.0" text="Story Point:"/>
-            <JFXTextArea fx:id="storyPointTextArea" VBox.vgrow="ALWAYS" style="-fx-padding: 20">
+            <JFXComboBox fx:id="storyPointCombo" VBox.vgrow="ALWAYS" style="-fx-padding: 20" promptText="choose" prefWidth="123.0" >
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="1" />
+                        <String fx:value="2" />
+                        <String fx:value="3" />
+                    </FXCollections>
+                </items>
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
-            </JFXTextArea>
+            </JFXComboBox>
         </VBox>
     </body>
     <actions>
