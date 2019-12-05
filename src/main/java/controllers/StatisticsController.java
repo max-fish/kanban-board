@@ -3,7 +3,7 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import model.StatisticsModel;
+import data.model.StatisticsModel;
 
 import java.net.URL;
 
@@ -41,7 +41,7 @@ public class StatisticsController implements Initializable {
         // Number of weeks the board has been created
         int activeWeeks = (int) ChronoUnit.WEEKS.between(statisticsModel.getBoard().getCreationDate(), LocalDate.now()) + 1;
         // Array in which each position represents the number of week and the value the num of cards added that week
-        int cardsPerWeek[] = new int[activeWeeks];
+        int[] cardsPerWeek = new int[activeWeeks];
         for(LocalDate date : statisticsModel.getCardDates()){
             int week = (int) ChronoUnit.WEEKS.between(statisticsModel.getBoard().getCreationDate(), date);
             cardsPerWeek[week]++;

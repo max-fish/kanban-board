@@ -1,24 +1,25 @@
 package controllers;
 
+import callbacks.CardDetailPopupCallback;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-import javafx.scene.layout.VBox;
-import model.BoardModel;
-import model.CardDetailModel;
-import model.CardModel;
+import data.model.CardModel;
 
-import javafx.scene.input.MouseEvent;
-import model.StatisticsModel;
-import ui.CardDetail;
+import data.model.CardDetailModel;
+import javafx.scene.layout.StackPane;
+import ui.CardDetailPopup;
+import ui.KanbanBoard;
 import ui.KanbanCard;
-import ui.Statistics;
+import utils.DragAndDropForCards;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class CardController {
+public class CardController implements Initializable {
     @FXML
     private JFXTextField cardTitle;
 
@@ -37,58 +38,64 @@ public class CardController {
 //    @FXML
 //    private Button add;
 
-    private CardModel card;
+    private CardModel cardModel;
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        DragAndDropForCards dragAnimation = new DragAndDropForCards();
+        KanbanCard card = (KanbanCard) rootPane;
+        dragAnimation.setDragAnimation(card);
 
+        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setTitle(newValue));
 
-    public void setCard(CardModel card)
-    {
-        this.card = card;
+//        descTextArea.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setDescription(newValue));
+
+    }
+
+    public void setCardModel(CardModel cardModel) {
+        this.cardModel = cardModel;
+        cardTitle.setText(cardModel.get_title());
     }
 
     @FXML
-    public void editDetails(MouseEvent event){
-        //TODO: open a new page to edit the details
-        card.setTitle(cardTitle.getText());
-        try {
-            CardDetail toShow = new CardDetail();
-            CardDetailModel model = new CardDetailModel(card);
-            toShow.getController().setCardDetailModel(model);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    public void editDetails() {
+        KanbanCard card = (KanbanCard) rootPane;
+        KanbanBoard board = card.getColumn().getBoard();
+        BorderPane homePage = board.getHomePage();
+        cardModel.setTitle(cardTitle.getText());
+        CardDetailPopup cardDetailPopup = new CardDetailPopup(new CardDetailPopupCallback() {
+            @Override
+            public void onStart(StackPane dialogContainer) {
+            homePage.setCenter(dialogContainer);
+            }
+
+            @Override
+            public void onSave() {
+            homePage.setCenter(board);
+            }
+
+            @Override
+            public void onCancel() {
+            homePage.setCenter(board);
+            }
+        }, homePage.getCenter());
+
+        cardDetailPopup.show();
+        CardDetailModel model = new CardDetailModel(cardModel);
+        cardDetailPopup.getController().setCardDetailModel(model);
     }
 
     @FXML
-    public void deleteCard(MouseEvent event){
-//        card.getParent().deleteCard(card);
-        //System.out.println(card);
-//        card = null;
-
+    public void deleteCard() {
         KanbanCard kanbanCardToDelete = (KanbanCard) rootPane;
-        kanbanCardToDelete.getColumn().getController().getColumnModel().deleteCard(card);
-        card = null;
-
         kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
+        cardModel = null;
     }
 
-    public void setTitleChangeListener()
-    {
-        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
-            card.setTitle(newValue);
-        });
+    public CardModel getCardModel() {
+        return cardModel;
     }
-
-    public void setDescChangeListener()
-    {
-        descTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
-            card.setDescription(newValue);
-        });
-    }
-
-
-
 
 
 }

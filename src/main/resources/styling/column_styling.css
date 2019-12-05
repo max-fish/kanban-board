@@ -4,9 +4,12 @@
 }
 
 
-#ColumnRole{
+#Column_header{
     -fx-font-size: 12;
-    -fx-background-color: "#ccb7ed";
+    -fx-background-color: "#b085f5";
+    -fx-border-color: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-radius: 5 5 0 0;
 }
 
 #ColumnName{

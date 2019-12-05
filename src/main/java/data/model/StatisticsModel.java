@@ -1,4 +1,6 @@
-package model;
+package data.model;
+
+import data.model.BoardModel;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

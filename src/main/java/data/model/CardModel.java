@@ -1,4 +1,4 @@
-package model;
+package data.model;
 
 public class CardModel {
     // the id of the next card, ids increase chronologically

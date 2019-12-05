@@ -1,41 +1,32 @@
 package ui;
 
-import com.jfoenix.controls.JFXDecorator;
+import com.jfoenix.controls.JFXPopup;
 import controllers.StatisticsController;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class Statistics  {
+public class Statistics extends JFXPopup {
 
     private StatisticsController controller;
 
-    public Statistics() throws IOException { start(); }
-
-      public void start() throws IOException {
-        Stage stage = new Stage();
-        System.setProperty("prism.lcdtext", "false"); //for better font rendering
+    public Statistics() {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/layouts/statistics_ui.fxml"));
-        Parent root = fxmlLoader.load();
-
-        JFXDecorator jfxDecorator = new JFXDecorator(stage, root);
-        jfxDecorator.setCustomMaximize(true);
-        jfxDecorator.setTitle("Statistics");
-
+        VBox root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setStyle("-fx-background-color: transparent;");
+        setPopupContent(root);
         controller = fxmlLoader.getController();
-
-        Scene scene = new Scene(jfxDecorator, 800, 400);
-        scene.getStylesheets().add(getClass().getResource("/styling/scene_styling.css").toExternalForm());
-        stage.setScene(scene);
-        stage.show();
     }
 
-    public StatisticsController getController(){
+    public StatisticsController getController() {
         return controller;
     }
 }

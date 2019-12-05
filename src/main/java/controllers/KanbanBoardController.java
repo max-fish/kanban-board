@@ -3,7 +3,11 @@ package controllers;
 import callbacks.DeleteColumnDataCallback;
 import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextField;
+import data.model.BoardModel;
+import data.model.CardModel;
+import data.model.ColumnModel;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -13,26 +17,17 @@ import javafx.scene.layout.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
-import model.ColumnModel;
-import model.StatisticsModel;
-import org.graalvm.compiler.phases.graph.StatelessPostOrderNodeIterator;
+import data.model.StatisticsModel;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import ui.Statistics;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
-import model.BoardModel;
-import model.CardModel;
-import model.ColumnModel;
-import model.CardModel;
-import java.awt.Color;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.ResourceBundle;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
 public class KanbanBoardController implements Initializable {
@@ -54,8 +49,8 @@ public class KanbanBoardController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         statisticsButton = ComponentMaker.makeStatisticsButton();
-        topBoard.setRightAnchor(statisticsButton,10.0);
-        topBoard.setTopAnchor(statisticsButton,10.0);
+        AnchorPane.setRightAnchor(statisticsButton,10.0);
+        AnchorPane.setTopAnchor(statisticsButton,10.0);
         topBoard.getChildren().add(statisticsButton);
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
@@ -152,16 +147,13 @@ public class KanbanBoardController implements Initializable {
         columns.getChildren().remove(column);
     }
 
-    public void getStatistics(){
+    private void getStatistics(){
         //add info ofr creating sttistics as parameters and keep record on fields
-        try {
-            Statistics toShow = new Statistics();
-            StatisticsModel model = new StatisticsModel(board);
-            toShow.getController().setStatisticsModel(model);
-            toShow.getController().displayStats(2);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Statistics statPopup = new Statistics();
+        StatisticsModel model = new StatisticsModel(board);
+        statPopup.getController().setStatisticsModel(model);
+        statPopup.getController().displayStats(2);
+        statPopup.show(statisticsButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
     }
 
     public void setTitleChangeListener() {
