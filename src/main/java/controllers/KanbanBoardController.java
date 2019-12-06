@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.layout.*;
-import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
 import data.model.StatisticsModel;
@@ -41,17 +40,13 @@ public class KanbanBoardController implements Initializable {
     private HBox columns;
 
     private BoardModel board;
-    private Label homePageLabel;
+    private String homePageTitle;
     private JFXButton addButton;
+    @FXML
     private JFXButton statisticsButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        statisticsButton = ComponentMaker.makeStatisticsButton();
-        AnchorPane.setRightAnchor(statisticsButton,10.0);
-        AnchorPane.setTopAnchor(statisticsButton,10.0);
-        topBoard.getChildren().add(statisticsButton);
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
@@ -159,7 +154,7 @@ public class KanbanBoardController implements Initializable {
     public void setTitleChangeListener() {
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             board.setName(newValue);
-            homePageLabel.setText(newValue);
+            homePageTitle = newValue;
         });
     }
 
@@ -168,8 +163,8 @@ public class KanbanBoardController implements Initializable {
         this.board = board;
     }
 
-    public void setHomePageLabel(Label label) {
-        homePageLabel = label;
+    public void setHomePageLabel(String title) {
+        homePageTitle = title;
     }
 
     public BoardModel getBoardModel()

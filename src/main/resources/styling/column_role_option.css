@@ -1,0 +1,10 @@
+@font-face {
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+.jfx-button{
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15;
+    -fx-alignment: baseline-left;
+    -fx-min-width: 165;
+
+}

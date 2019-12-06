@@ -74,6 +74,7 @@ public class DragAndDrop {
                                 Collections.swap(workingCollection, itemBeingDraggedIndex - 1, itemBeingDraggedIndex);
                                 board.getChildren().setAll(workingCollection);
                                 orgSceneX = event.getSceneX();
+                                newTranslateX = 0;
                             }
                         } else {
                             if (itemBeingDraggedIndex + 1 < board.getChildren().size()) {
@@ -82,6 +83,7 @@ public class DragAndDrop {
                                     Collections.swap(workingCollection, itemBeingDraggedIndex, itemBeingDraggedIndex + 1);
                                     board.getChildren().setAll(workingCollection);
                                     orgSceneX = event.getSceneX();
+                                    newTranslateX = 0;
                                 }
                             }
                         }

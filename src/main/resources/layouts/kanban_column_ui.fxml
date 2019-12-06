@@ -4,13 +4,15 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
+<?import javafx.scene.control.Label?>
+<?import javafx.collections.FXCollections?>
 <fx:root id="Column_root" fx:id="rootPane" minWidth="240" prefHeight="NaN" prefWidth="260"
          stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="controllers.ColumnController">
     <top>
         <VBox>
-            <AnchorPane id="Column_header" prefHeight="NaN" prefWidth="Infinity">
+            <HBox id="Column_header" prefHeight="NaN" minWidth="240" maxWidth="240" alignment="CENTER">
                 <JFXButton styleClass="column-header" id="ColumnRole" fx:id="columnRole"
                            onMouseClicked="#setColumnRoleDropDown"
                            maxWidth="400" maxHeight="NaN" buttonType="FLAT" text="Add column role"
@@ -19,12 +21,27 @@
                         <FontIcon iconLiteral="gmi-expand-more" iconColor="white" iconSize="20"/>
                     </graphic>
                 </JFXButton>
+                <Region HBox.hgrow="ALWAYS"/>
+                <JFXComboBox promptText="WIP limit" maxWidth="NaN" maxHeight="NaN" visibleRowCount="3">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <Label text="1"/>
+                            <Label text="2"/>
+                            <Label text="3"/>
+                            <Label text="4"/>
+                            <Label text="5"/>
+                            <Label text="6" />
+                            <Label text="7" />
+                        </FXCollections>
+                    </items>
+                </JFXComboBox>
+                <Region HBox.hgrow="ALWAYS"/>
                 <JFXButton fx:id="dragButton" AnchorPane.rightAnchor="0.0">
                     <graphic>
                         <FontIcon iconLiteral="gmi-drag-handle" iconColor="white" iconSize="20"/>
                     </graphic>
                 </JFXButton>
-            </AnchorPane>
+            </HBox>
             <AnchorPane>
                 <JFXTextField styleClass="column-header" fx:id="columnName" id="ColumnName" maxWidth="210"
                               prefHeight="40"

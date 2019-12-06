@@ -1,0 +1,25 @@
+@font-face {
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+.jfx-button {
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15;
+    -fx-alignment: baseline-left;
+    -fx-min-width: 165;
+}
+
+.ikonli-font-icon{
+    -fx-icon-color: #7e57c2;
+    -fx-icon-size: 17px;
+
+}
+
+#Import{
+    -fx-icon-code: "gmi-file-download";
+
+}
+
+#Export{
+    -fx-icon-code: "gmi-file-upload";
+}

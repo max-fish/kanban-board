@@ -5,6 +5,7 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -19,6 +20,7 @@ import utils.DragAndDrop;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class ColumnController implements Initializable {
@@ -43,8 +45,19 @@ public class ColumnController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnMenu = ComponentMaker.makeColumnMenu(this);
-        columnRoleOptions = ComponentMaker.makeColumnRoleDropDown(this);
+        columnMenu = ComponentMaker.makeColumnMenu();
+        JFXButton addCardButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(0);
+        addCardButton.setOnAction(event -> makeNewCard());
+
+        JFXButton deleteColumnButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(1);
+        deleteColumnButton.setOnAction(event -> deleteColumn());
+
+        columnRoleOptions = ComponentMaker.makeColumnRoleDropDown();
+
+        for(Node option : ((VBox) columnRoleOptions.getPopupContent()).getChildren()){
+            JFXButton optionButton = (JFXButton) option;
+            optionButton.setOnAction(event -> setRole(optionButton.getText()));
+        }
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
@@ -73,7 +86,7 @@ public class ColumnController implements Initializable {
         }
     }
 
-    public void deleteColumn(MouseEvent event) {
+    public void deleteColumn() {
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
         columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete, () -> {
             if (columnMenu.isShowing())
@@ -107,8 +120,7 @@ public class ColumnController implements Initializable {
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
     }
 
-    public void setRole(MouseEvent e) {
-        String role = ((JFXButton) e.getSource()).getText();
+    public void setRole(String role) {
         columnRole.setText(role);
         columnModel.setRole(role);
     }
