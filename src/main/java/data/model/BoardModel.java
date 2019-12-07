@@ -50,6 +50,15 @@ public class BoardModel {
         return completedColumns;
     }
 
+    public List<ColumnModel> getWIPColumns() {
+        List<ColumnModel> WIPcolumns = new ArrayList<>();
+        for(ColumnModel col : columnModels){
+            boolean isWIPColumn = col.getRole().equals("Work In Progress") || col.getRole().equals("On hold");
+            if(isWIPColumn) { WIPcolumns.add(col); }
+        }
+        return WIPcolumns;
+    }
+
     public boolean contains(ColumnModel columnModel) { return columnModels.contains(columnModel); }
 
     public void setName(String name)

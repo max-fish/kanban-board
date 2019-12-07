@@ -18,9 +18,9 @@ public class StatisticsController implements Initializable {
     @FXML
     private Label overallVelocity;
     @FXML
-    private Label leadTimeCalc;
+    private Label leadTime;
     @FXML
-    private Label avgWIP;
+    private Label averageWIP;
 
     private StatisticsModel statisticsModel;
 
@@ -35,18 +35,23 @@ public class StatisticsController implements Initializable {
 
     public void displayStats(){
         if(!statisticsModel.getBoard().hasCompleteColumn()){
-            overallVelocity.setText("To view the overall velocity you need to assign a Completed Work column.");
-            leadTimeCalc.setText("To view the lead time you need to assign a Completed Work column.");
+            overallVelocity.setText("To view the overall velocity you need to assign a role to your columns.");
+            leadTime.setText("To view the overall velocity you need to assign a role to your columns.");
+            averageWIP.setText("To view the overall velocity you need to assign a role to your columns.");
         }
         else {
-            int velocity = statisticsModel.getOverallVelocity();
-            int leadTime = statisticsModel.getLeadTime();
+            int overallVelocityVal = statisticsModel.getOverallVelocity();
+            int leadTimeVal = statisticsModel.getLeadTime();
+            int averageWIPVal = statisticsModel.getAverageWIP();
 
-            if(velocity == -1) overallVelocity.setText("There's no story points on the Completed Work column yet");
-            else overallVelocity.setText(overallVelocity + " story points per week");
+            if(overallVelocityVal == -1) overallVelocity.setText("There's no story points on the Completed Work column yet");
+            else overallVelocity.setText(overallVelocityVal + " story points per week");
 
-            if(leadTime == -1) leadTimeCalc.setText("There's no story points on the Completed Work column yet");
-            else leadTimeCalc.setText(leadTime + " weeks per task");
+            if(leadTimeVal == -1) leadTime.setText("There's no story points on the Completed Work column yet");
+            else leadTime.setText(leadTimeVal + " weeks per task");
+
+            if(averageWIPVal == -1) averageWIP.setText("There's no story points on the Work In Progress columns yet");
+            else averageWIP.setText(averageWIPVal + " story points in WIP");
         }
     }
 
