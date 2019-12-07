@@ -23,7 +23,6 @@ import ui.Statistics;
 import utils.AnimationMaker;
 import utils.ComponentMaker;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -66,36 +65,28 @@ public class KanbanBoardController implements Initializable {
 
     public void makeNewColumn(ColumnModel newColumnModel)
     {
-        try
-        {
-            KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
 
-            TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
-            TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
+        TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
+        TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
 
-            columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
-            columns.getChildren().add(addButton);
+        columns.getChildren().set(columns.getChildren().size() - 1, toInsert);
+        columns.getChildren().add(addButton);
 
-            AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
+        AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
 
-            HBox.setMargin(toInsert, new Insets(10));
+        HBox.setMargin(toInsert, new Insets(10));
 
-            if(!board.contains(newColumnModel))
-                board.addColumn(newColumnModel);
+        if(!board.contains(newColumnModel))
+            board.addColumn(newColumnModel);
 
-            toInsert.getController().setColumnModel(newColumnModel);
-            toInsert.getController().setColumnName(newColumnModel.getName());
-            toInsert.getController().setColumnRole(newColumnModel.getRole());
-            toInsert.getController().setNameChangeListener();
+        toInsert.getController().setColumnModel(newColumnModel);
+        toInsert.getController().setColumnName(newColumnModel.getName());
+        toInsert.getController().setColumnRole(newColumnModel.getRole());
+        toInsert.getController().setNameChangeListener();
 
-            if(newColumnModel.hasCards())
-                createCards(newColumnModel, toInsert);
-        }
-        catch(IOException exception)
-        {
-            System.out.println("The column could not be created.");
-            exception.printStackTrace();
-        }
+        if(newColumnModel.hasCards())
+            createCards(newColumnModel, toInsert);
     }
 
     private void createCards(ColumnModel columnModel, KanbanColumn column)

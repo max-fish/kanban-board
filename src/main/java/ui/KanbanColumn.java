@@ -10,11 +10,15 @@ public class KanbanColumn extends BorderPane {
     private KanbanBoard parent;
     private ColumnController columnController;
 
-    public KanbanColumn(KanbanBoard parent) throws IOException {
+    public KanbanColumn(KanbanBoard parent) {
         this.parent = parent;
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/kanban_column_ui.fxml"));
         fxmlLoader.setRoot(this);
-        fxmlLoader.load();
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         columnController = fxmlLoader.getController();
     }
 

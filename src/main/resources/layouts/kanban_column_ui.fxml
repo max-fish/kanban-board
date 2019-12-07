@@ -22,9 +22,10 @@
                     </graphic>
                 </JFXButton>
                 <Region HBox.hgrow="ALWAYS"/>
-                <JFXComboBox promptText="WIP limit" maxWidth="NaN" maxHeight="NaN" visibleRowCount="3">
+                <JFXComboBox fx:id="wipLimitDropDown" promptText="WIP limit" maxWidth="NaN" maxHeight="NaN" visibleRowCount="3">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
+                            <Label text="0 (No Limit)"/>
                             <Label text="1"/>
                             <Label text="2"/>
                             <Label text="3"/>
@@ -32,6 +33,9 @@
                             <Label text="5"/>
                             <Label text="6" />
                             <Label text="7" />
+                            <Label text="8" />
+                            <Label text="9" />
+                            <Label text="10" />
                         </FXCollections>
                     </items>
                 </JFXComboBox>

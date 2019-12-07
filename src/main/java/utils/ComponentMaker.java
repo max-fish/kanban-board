@@ -33,12 +33,12 @@ public class ComponentMaker {
         JFXButton addCard = new JFXButton("Add card");
         FontIcon addCardIcon = new FontIcon();
         addCard.setGraphic(addCardIcon);
-        addCard.setId("AddButton");
+        addCardIcon.setId("AddButton");
 
         JFXButton deleteColumn = new JFXButton("Delete");
         FontIcon deleteColumnIcon = new FontIcon();
         deleteColumn.setGraphic(deleteColumnIcon);
-        deleteColumn.setId("DeleteButton");
+        deleteColumnIcon.setId("DeleteButton");
 
         VBox container = new VBox(addCard, deleteColumn);
         container.getStylesheets().add("/styling/column_menu_styling.css");
@@ -89,5 +89,12 @@ public class ComponentMaker {
         JFXPopup dropDown = new JFXPopup();
         dropDown.setPopupContent(options);
         return dropDown;
+    }
+
+    public static void makeWipLimitSnackbar(Pane snackbarContainer){
+        JFXSnackbar snackbar = new JFXSnackbar(snackbarContainer);
+        JFXSnackbarLayout snackbarLayout = new JFXSnackbarLayout("WIP Limit exceeded");
+        snackbarLayout.getStylesheets().add("/styling/wip_limit_snackbar_styling.css");
+        snackbar.enqueue(new JFXSnackbar.SnackbarEvent(snackbarLayout));
     }
 }
