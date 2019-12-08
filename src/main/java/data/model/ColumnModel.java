@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class ColumnModel {
     private String name;
     private String role;
+    private int currentWip;
+    private int wipLimit;
     private List<CardModel> cardModels;
 
     private transient BoardModel parentBoard;
@@ -62,4 +64,19 @@ public class ColumnModel {
 
     public String getRole() { return role; }
 
+    public int getWipLimit() {
+        return wipLimit;
+    }
+
+    public void setWipLimit(int wipLimit) {
+        this.wipLimit = wipLimit;
+    }
+
+    public int getCurrentWip() {
+        return currentWip;
+    }
+
+    public void setCurrentWip(int currentWip) {
+        this.currentWip = currentWip;
+    }
 }

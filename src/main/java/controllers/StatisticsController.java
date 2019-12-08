@@ -1,6 +1,5 @@
 package controllers;
 
-import data.model.ColumnModel;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -8,9 +7,6 @@ import data.model.StatisticsModel;
 
 import java.net.URL;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class StatisticsController implements Initializable {

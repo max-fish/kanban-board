@@ -1,15 +1,14 @@
 package controllers;
 
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.*;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.input.MouseEvent;
 import data.model.CardModel;
 import data.model.ColumnModel;
 import ui.KanbanCard;
@@ -17,7 +16,6 @@ import ui.KanbanColumn;
 import utils.ComponentMaker;
 import utils.DragAndDrop;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -34,6 +32,8 @@ public class ColumnController implements Initializable {
     private JFXButton columnRole;
     @FXML
     private JFXButton dragButton;
+    @FXML
+    private JFXComboBox<Label> wipLimitDropDown;
 
     private JFXPopup columnMenu;
 
@@ -43,44 +43,55 @@ public class ColumnController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnMenu = ComponentMaker.makeColumnMenu(this);
-        columnRoleOptions = ComponentMaker.makeColumnRoleDropDown(this);
+        columnMenu = ComponentMaker.makeColumnMenu();
+        JFXButton addCardButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(0);
+        addCardButton.setOnAction(event -> makeNewCard());
+
+        JFXButton deleteColumnButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(1);
+        deleteColumnButton.setOnAction(event -> deleteColumn());
+
+        columnRoleOptions = ComponentMaker.makeColumnRoleDropDown();
+
+        for (Node option : ((VBox) columnRoleOptions.getPopupContent()).getChildren()) {
+            JFXButton optionButton = (JFXButton) option;
+            optionButton.setOnAction(event -> setRole(optionButton.getText()));
+        }
+
+        wipLimitDropDown.setOnAction(event -> columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText().substring(0,1))));
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
-        dragAnimation.setDragAnimation(kanbanColumn, dragButton,  (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
+        dragAnimation.setDragAnimation(kanbanColumn, dragButton, (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
 
     }
 
     public void makeNewCard() {
-        CardModel newCardModel = new CardModel(/*columnModel*/);
-
-        makeNewCard(newCardModel);
-    }
-
-    public void makeNewCard(CardModel newCardModel) {
-        try {
-            KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
-            cards.getChildren().add(newCard);
-
-            if (!columnModel.contains(newCardModel))
-                columnModel.addCard(newCardModel);
-
-            newCard.getController().setCardModel(newCardModel);
-        } catch (IOException exception) {
-            System.out.println("The card could not be created");
-            exception.printStackTrace();
+        if (columnModel.getCurrentWip() >= columnModel.getWipLimit() && columnModel.getWipLimit() != 0) {
+            ComponentMaker.makeWipLimitSnackbar(((KanbanColumn) rootPane).getBoard());
+        } else {
+            CardModel newCardModel = new CardModel(/*columnModel*/);
+            makeNewCard(newCardModel);
         }
     }
 
-    public void deleteColumn(MouseEvent event) {
+    public void makeNewCard(CardModel newCardModel) {
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        cards.getChildren().add(newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+
+        newCard.getController().setCardModel(newCardModel);
+        columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+    }
+
+    public void deleteColumn() {
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
         columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete, () -> {
             if (columnMenu.isShowing())
                 columnMenu.hide();
 
             columnToDelete.getBoard().getController().getBoardModel().deleteColumn(columnModel);
-            //columnModel.getBoard().deleteColumn(columnModel);
             columnModel = null;
         });
     }
@@ -107,8 +118,7 @@ public class ColumnController implements Initializable {
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
     }
 
-    public void setRole(MouseEvent e) {
-        String role = ((JFXButton) e.getSource()).getText();
+    public void setRole(String role) {
         columnRole.setText(role);
         columnModel.setRole(role);
     }
