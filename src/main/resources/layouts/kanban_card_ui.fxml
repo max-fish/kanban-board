@@ -6,14 +6,14 @@
 
 <?import javafx.geometry.Insets?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<fx:root type="javafx.scene.layout.BorderPane" id="Card_root" fx:id="rootPane" minWidth="100" prefHeight="NaN"
-         prefWidth="100" stylesheets="@../styling/card_styling.css"
+<fx:root type="javafx.scene.layout.BorderPane" id="Card_root" fx:id="rootPane" minHeight="120" maxHeight="120"
+         minWidth="220" maxWidth="220" stylesheets="@../styling/card_styling.css"
          xmlns="http://javafx.com/javafx/10.0.2-internal"
          xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="controllers.CardController">
     <center>
         <VBox id="Card_body" prefHeight="20" prefWidth="Infinity" spacing="2" alignment="CENTER">
-            <JFXTextField styleClass="kanbanCard-header" fx:id ="cardTitle" id="CardTitle" maxWidth="100" prefHeight="20" promptText="Add Card Title"/>
+            <JFXTextField fx:id ="cardTitle" id="CardTitle" maxWidth="100" prefHeight="20" promptText="Add Card Title"/>
             <BorderPane.margin>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </BorderPane.margin>

@@ -4,31 +4,63 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<fx:root id="Column_root" fx:id="rootPane" minWidth="200" prefHeight="NaN" prefWidth="200"
+<?import javafx.scene.control.Label?>
+<?import javafx.collections.FXCollections?>
+<fx:root id="Column_root" fx:id="rootPane" minWidth="240" prefHeight="NaN" prefWidth="260"
          stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
          fx:controller="controllers.ColumnController">
     <top>
-        <VBox id="Column_header" prefHeight="50" prefWidth="Infinity" spacing="5" alignment="CENTER">
-            <AnchorPane>
-                <JFXButton id="DeleteColumn" buttonType="FLAT" maxHeight="40" maxWidth="40"
-                           onMouseClicked="#deleteColumn" prefHeight="30" prefWidth="30" AnchorPane.leftAnchor="0.0">
+        <VBox>
+            <HBox id="Column_header" prefHeight="NaN" minWidth="240" maxWidth="240" alignment="CENTER">
+                <JFXButton styleClass="column-header" id="ColumnRole" fx:id="columnRole"
+                           onMouseClicked="#setColumnRoleDropDown"
+                           maxWidth="400" maxHeight="NaN" buttonType="FLAT" text="Add column role"
+                           AnchorPane.leftAnchor="0.0">
                     <graphic>
-                        <FontIcon iconColor="white" iconLiteral="gmi-delete" iconSize="30"/>
+                        <FontIcon iconLiteral="gmi-expand-more" iconColor="white" iconSize="20"/>
                     </graphic>
                 </JFXButton>
-                <JFXButton buttonType="FLAT" maxHeight="40" maxWidth="40" onMousePressed="#makeNewCard" prefHeight="30"
+                <Region HBox.hgrow="ALWAYS"/>
+                <JFXComboBox fx:id="wipLimitDropDown" promptText="WIP limit" maxWidth="NaN" maxHeight="NaN" visibleRowCount="3">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <Label text="0 (No Limit)"/>
+                            <Label text="1"/>
+                            <Label text="2"/>
+                            <Label text="3"/>
+                            <Label text="4"/>
+                            <Label text="5"/>
+                            <Label text="6" />
+                            <Label text="7" />
+                            <Label text="8" />
+                            <Label text="9" />
+                            <Label text="10" />
+                        </FXCollections>
+                    </items>
+                </JFXComboBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <JFXButton fx:id="dragButton" AnchorPane.rightAnchor="0.0">
+                    <graphic>
+                        <FontIcon iconLiteral="gmi-drag-handle" iconColor="white" iconSize="20"/>
+                    </graphic>
+                </JFXButton>
+            </HBox>
+            <AnchorPane>
+                <JFXTextField styleClass="column-header" fx:id="columnName" id="ColumnName" maxWidth="210"
+                              prefHeight="40"
+                              promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
+                <JFXButton buttonType="FLAT" fx:id="columnMenuButton" onMouseClicked="#openColumnMenu"
+                           maxHeight="30" maxWidth="30" prefHeight="20"
                            prefWidth="30" AnchorPane.rightAnchor="0.0">
                     <graphic>
-                        <FontIcon iconColor="white" iconLiteral="gmi-add" iconSize="30"/>
+                        <FontIcon iconColor="white" iconLiteral="gmi-more-horiz" iconSize="30"/>
                     </graphic>
                 </JFXButton>
             </AnchorPane>
-            <JFXTextField styleClass="column-header" fx:id ="columnName" id="ColumnName" maxWidth="180" prefHeight="50" promptText="Add columnModel name"/>
-            <JFXTextField styleClass="column-header" fx:id ="columnRole" id="ColumnRole" maxWidth="180" prefHeight="50" promptText="Add columnModel role"/>
         </VBox>
     </top>
     <center>
-        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="CENTER"/>
+        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="TOP_CENTER" spacing="10"/>
     </center>
 </fx:root>

@@ -1,15 +1,23 @@
+@font-face {
+    src: url("../fonts/Roboto-Medium.ttf");
+}
+
 #Column_root{
     -fx-background-radius: 5;
     -fx-background-color: "#b085f5";
 }
 
 
-#ColumnRole{
-    -fx-font-size: 16;
+#Column_header{
+    -fx-font-size: 12;
+    -fx-background-color: "#b085f5";
+    -fx-border-color: white;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-radius: 5 5 0 0;
 }
 
 #ColumnName{
-   -fx-font-size: 19;
+   -fx-font-size: 16;
 }
 
 .input-focused-line{
@@ -22,4 +30,33 @@
     -fx-prompt-text-fill: white;
     -jfx-focus-color: #ffff72;
     -jfx-unfocus-color: transparent;
+}
+
+.jfx-combo-box{
+    -jfx-unfocus-color: transparent;
+    -jfx-focus-color: transparent;
+    -fx-prompt-text-fill: white;
+}
+
+.jfx-combo-box .arrow{
+    -fx-background-color: white;
+}
+
+.jfx-combo-box .list-view .list-cell .label {
+    -fx-font-family: "Roboto Medium";
+    -fx-text-fill: #7e57c2;
+}
+
+.jfx-combo-box .list-view .list-cell:focused{
+    -fx-background-color: #ffeb3b;
+}
+
+
+.jfx-combo-box .list-view .list-cell:hover > .jfx-combo-box .list-view .list-cell .label {
+    -fx-text-fill: white;
+    -fx-background-color: #7e57c2;
+}
+
+.jfx-combo-box .combo-box-selected-value-container .label{
+    -fx-text-fill: white;
 }

@@ -1,102 +1,100 @@
 package utils;
 
-import callbacks.BoardNamePopupCallBack;
 import com.jfoenix.controls.*;
-import controllers.HomePageController;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Material;
-import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class ComponentMaker {
-    public static StackPane makeBoardCard(Label title) {
+    public static StackPane makeBoardCard(String title) {
         StackPane boardCard = new StackPane();
-        boardCard.setPrefWidth(185);
-        boardCard.setPrefHeight(80);
-        boardCard.setMaxWidth(185);
-        boardCard.setMaxHeight(80);
+        boardCard.setId("BoardCard");
 
-        title.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
-        title.setTextFill(Color.WHITE);
-
-        boardCard.getChildren().add(title);
-        StackPane.setAlignment(title, Pos.TOP_LEFT);
-
-        boardCard.setBackground(new Background(new BackgroundFill(MaterialColors.colorPrimary, new CornerRadii(5), Insets.EMPTY)));
+        Label boardLabel = new Label(title);
+        boardCard.getChildren().add(boardLabel);
+        StackPane.setAlignment(boardLabel, Pos.TOP_LEFT);
 
         JFXRippler jfxRippler = new JFXRippler(boardCard);
-        jfxRippler.setRipplerFill(Color.rgb(176, 133, 245, 0.26));
+        jfxRippler.getStylesheets().add("/styling/board_card_styling.css");
         return jfxRippler;
     }
 
     public static JFXButton makeAddButton() {
         JFXButton jfxButton = new JFXButton();
-        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
-        jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
-        jfxButton.setStyle("-fx-padding: 5");
-
+        jfxButton.getStylesheets().add("/styling/add_button_styling.css");
         FontIcon fontIcon = new FontIcon();
-        fontIcon.setIconColor(MaterialColors.colorPrimary);
-        fontIcon.setIconLiteral("gmi-add");
-        fontIcon.setIconSize(30);
-
         jfxButton.setGraphic(fontIcon);
-        jfxButton.setMaxHeight(30);
-        jfxButton.setMaxWidth(30);
-        jfxButton.setMinHeight(30);
-        jfxButton.setMinWidth(30);
         return jfxButton;
     }
 
-    public static void makeBoardNamePopup(BoardNamePopupCallBack callBack) {
-        JFXDialogLayout content = new JFXDialogLayout();
-        content.setBackground(new Background(new BackgroundFill(MaterialColors.colorPrimary, new CornerRadii(5), Insets.EMPTY)));
+    public static JFXPopup makeColumnMenu()
+    {
+        JFXButton addCard = new JFXButton("Add card");
+        FontIcon addCardIcon = new FontIcon();
+        addCard.setGraphic(addCardIcon);
+        addCardIcon.setId("AddButton");
 
-        JFXTextField boardNameTextField = new JFXTextField();
-        boardNameTextField.setPromptText("Board Name");
-        boardNameTextField.setStyle("-fx-prompt-text-fill: white; -fx-text-fill: white");
-        boardNameTextField.setFocusColor(MaterialColors.colorAccent);
-        boardNameTextField.setUnFocusColor(MaterialColors.colorLight);
-        boardNameTextField.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 16));
+        JFXButton deleteColumn = new JFXButton("Delete");
+        FontIcon deleteColumnIcon = new FontIcon();
+        deleteColumn.setGraphic(deleteColumnIcon);
+        deleteColumnIcon.setId("DeleteButton");
 
-        Label header = new Label("Name your board");
-        header.setTextFill(Color.WHITE);
-        header.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 14));
-        content.setHeading(header);
-        content.setBody(boardNameTextField);
-        content.setPrefSize(400, 100);
+        VBox container = new VBox(addCard, deleteColumn);
+        container.getStylesheets().add("/styling/column_menu_styling.css");
 
-        StackPane stackPane = new StackPane();
-        stackPane.setPrefSize(400, 100);
-        JFXDialog dialog = new JFXDialog(stackPane, content, JFXDialog.DialogTransition.CENTER, false);
+        JFXPopup menu = new JFXPopup();
+        menu.setPopupContent(container);
 
-        Font buttonFont = Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Bold.ttf").toExternalForm(), 14);
-        JFXButton okButton = new JFXButton("Ok");
-        okButton.setTextFill(Color.WHITE);
-        okButton.setFont(buttonFont);
-        okButton.setPrefHeight(32);
+        return menu;
+    }
 
-        okButton.setOnAction(event -> {
-            if (!boardNameTextField.getText().isEmpty()) {
-                dialog.close();
-                callBack.onValidName(boardNameTextField.getText());
-            }
-        });
-        JFXButton cancelButton = new JFXButton("Cancel");
-        cancelButton.setTextFill(Color.WHITE);
-        cancelButton.setFont(buttonFont);
-        cancelButton.setOnAction(event -> {
-            dialog.close();
-            callBack.onCancel();
-        });
-        cancelButton.setButtonType(JFXButton.ButtonType.RAISED);
-        cancelButton.setPrefHeight(32);
-        content.setActions(okButton, cancelButton);
-        callBack.onStart(stackPane);
-        dialog.show();
+    public static JFXPopup makeFileMenu()
+    {
+        JFXButton importJSON = new JFXButton("Import from JSON");
+        FontIcon importIcon = new FontIcon();
+        importJSON.setGraphic(importIcon);
+        importIcon.setId("Import");
+
+        JFXButton exportJSON = new JFXButton("Export to JSON");
+        FontIcon exportIcon = new FontIcon();
+        exportJSON.setGraphic(exportIcon);
+        exportIcon.setId("Export");
+
+        VBox container = new VBox(importJSON, exportJSON);
+        container.getStylesheets().add("/styling/saving_styling.css");
+
+        JFXPopup menu = new JFXPopup();
+        menu.setPopupContent(container);
+
+        return menu;
+    }
+
+    private static JFXButton makeColumnRoleOption(String role){
+        JFXButton roleButton = new JFXButton(role);
+        roleButton.getStylesheets().add("/styling/column_role_option.css");
+        return roleButton;
+    }
+
+    public static JFXPopup makeColumnRoleDropDown(){
+        VBox options = new VBox();
+        options.getChildren().addAll(
+                makeColumnRoleOption("Backlog"),  makeColumnRoleOption("Work In Progress"),
+                makeColumnRoleOption("On Hold"), makeColumnRoleOption("Completed Work"),
+                makeColumnRoleOption("Info only")
+                );
+        JFXButton backlog = makeColumnRoleOption("Backlog");
+
+        options.getChildren().add(backlog);
+        JFXPopup dropDown = new JFXPopup();
+        dropDown.setPopupContent(options);
+        return dropDown;
+    }
+
+    public static void makeWipLimitSnackbar(Pane snackbarContainer){
+        JFXSnackbar snackbar = new JFXSnackbar(snackbarContainer);
+        JFXSnackbarLayout snackbarLayout = new JFXSnackbarLayout("WIP Limit exceeded");
+        snackbarLayout.getStylesheets().add("/styling/wip_limit_snackbar_styling.css");
+        snackbar.enqueue(new JFXSnackbar.SnackbarEvent(snackbarLayout));
     }
 }

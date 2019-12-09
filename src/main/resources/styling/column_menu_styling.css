@@ -1,0 +1,23 @@
+@font-face {
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+.jfx-button{
+    -fx-font-family: "Roboto";
+    -fx-font-size: 15;
+    -fx-min-width: 120;
+    -fx-alignment: baseline-left;
+}
+
+.ikonli-font-icon{
+    -fx-icon-color: #7e57c2;
+}
+
+#AddButton{
+    -fx-icon-code: "gmi-add";
+    -fx-icon-size: 19px;
+}
+
+#DeleteButton{
+    -fx-icon-code: "gmi-delete";
+    -fx-icon-size: 17px;
+}

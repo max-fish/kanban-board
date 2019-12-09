@@ -19,14 +19,24 @@ public class HomePageController implements Initializable {
     private BorderPane rootPane;
     @FXML
     private GridPane boardGrid;
+    @FXML
+    private JFXButton fileMenuButton;
+
     private int colCounter = 0;
     private int rowCounter = 0;
+    private JFXPopup fileMenu;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        KanbanModel.instance(); // create the model for the application
+        //KanbanModel.instance(); // create the data.model for the application
         boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
         boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
+
+        fileMenu = ComponentMaker.makeFileMenu();
+        JFXButton importButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(0);
+        importButton.setOnAction(event -> KanbanModel.instance().loadJSON());
+        JFXButton exportButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(1);
+        exportButton.setOnAction(event -> KanbanModel.instance().saveJSON());
     }
 
     @FXML
@@ -37,7 +47,7 @@ public class HomePageController implements Initializable {
     }
 
     public void askToNameBoard() {
-        ComponentMaker.makeBoardNamePopup(new BoardNamePopupCallBack() {
+        BoardNamePopup dialog = new BoardNamePopup(new BoardNamePopupCallBack() {
             @Override
             public void onStart(StackPane stackPane) {
                 rootPane.setCenter(stackPane);
@@ -45,7 +55,7 @@ public class HomePageController implements Initializable {
 
             @Override
             public void onValidName(String boardTitle) {
-                makeNewBoard(boardTitle);
+                makeNewBoard(new BoardModel(boardTitle), boardTitle);
                 rootPane.setCenter(boardGrid);
             }
 
@@ -53,7 +63,8 @@ public class HomePageController implements Initializable {
             public void onCancel() {
                 rootPane.setCenter(boardGrid);
             }
-        });
+        }, rootPane.getCenter());
+        dialog.show();
     }
 
     @FXML
@@ -73,21 +84,39 @@ public class HomePageController implements Initializable {
             Label boardLabel = new Label(title);
             StackPane newBoardCard = ComponentMaker.makeBoardCard(boardLabel);
 
-            BoardModel boardModel = new BoardModel(boardLabel.getText());
+            StackPane newBoardCard = ComponentMaker.makeBoardCard(boardTitle);
+
             KanbanModel.instance().addBoard(boardModel);
 
             board.getController().setBoard(boardModel);
-            board.getController().changeTitle(boardLabel.getText());
-
-            board.getController().setHomePageLabel(boardLabel);
+            board.getController().changeTitle(boardTitle);
+            board.getController().setHomePageLabel(boardTitle);
             board.getController().setTitleChangeListener();
+
+            if(boardModel.hasColumns())
+                createColumns(boardModel, board);
 
             newBoardCard.setOnMouseClicked(event -> rootPane.setCenter(board));
 
             boardGrid.add(newBoardCard, colCounter, rowCounter);
             colCounter++;
         } catch (IOException e) {
+            System.out.println("The board could not be created.");
             e.printStackTrace();
         }
+    }
+
+    private void createColumns(BoardModel boardModel, KanbanBoard board)
+    {
+        List<ColumnModel> columns = boardModel.getColumns();
+        for(ColumnModel column : columns)
+            board.getController().makeNewColumn(column);
+    }
+
+    @FXML
+    public void openFileMenu()
+    {
+        fileMenu.show(fileMenuButton, JFXPopup.PopupVPosition.TOP,
+                      JFXPopup.PopupHPosition.LEFT, 0, fileMenuButton.getHeight());
     }
 }

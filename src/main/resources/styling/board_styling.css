@@ -25,3 +25,7 @@
     -fx-background-radius: 100;
     -fx-padding: 5;
 }
+
+#StatsButton{
+    -fx-padding: 5;
+}

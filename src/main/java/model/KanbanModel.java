@@ -32,5 +32,5 @@ public class KanbanModel{
     {
         boards.add(board);
     }
-    
+
 }

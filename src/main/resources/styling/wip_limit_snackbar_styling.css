@@ -1,0 +1,13 @@
+@font-face {
+    src: url("../fonts/Roboto-Medium.ttf");
+}
+
+.jfx-snackbar-layout{
+    -fx-background-color: white;
+}
+
+.jfx-snackbar-toast{
+    -fx-font-family: "Roboto Medium";
+    -fx-font-size: 16;
+    -fx-text-fill: #7e57c2;
+}
