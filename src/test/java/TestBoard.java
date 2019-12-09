@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class TestBoard extends BaseTest 
+public class TestBoard extends BaseTest
 {
     @Test
     public void testIfANewBoardIsCreatedAndCanBeViewed() {

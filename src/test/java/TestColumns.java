@@ -1,43 +1,37 @@
-import data.model.BoardModel;
-import data.model.ColumnModel;
-import org.junit.Before;
 import org.junit.Test;
+import javafx.scene.input.MouseButton;
 
-import static org.junit.Assert.assertEquals;
-
-public class TestColumns 
+public class TestColumns extends BaseTest
 {
-    private BoardModel board;
-    private ColumnModel col1;
-
-    @Before
-    public void setUp() {
-        board = new BoardModel("board");
-
-        col1 = new ColumnModel(board, "col1", "");
-
-        ColumnModel col2 = new ColumnModel(board, "col2", "");
-        ColumnModel col3 = new ColumnModel(board, "col3", "");
-
-        board.addColumn(col1);
-        board.addColumn(col2);
-        board.addColumn(col3);
+    @Test
+    public void testAddColumn() {
+        createColumn();
+        sleep(500);
     }
 
     @Test
-    public void TestAddColumnShouldIncreaseArraySize() {
-        int size = board.getColumnModels().size();
-        ColumnModel col4 = new ColumnModel(board, "col4", "");
-        board.addColumn(col4);
-        assertEquals(board.getColumnModels().size(), size + 1);
-        assert board.getColumnModels().contains(col4);
+    public void testIfColumnNameAndRoleAreModifiable() {
+        createColumn();
+
+        //Add column name
+        clickOn("Add columnModel name");
+        write("Column1");
+
+        //Add column role
+        clickOn("Add columnModel role");
+        write("Test");
+        sleep(500);
     }
 
     @Test
-    public void TestdeleteColumnShouldDecreaseArraySize() {
-        int size = board.getColumnModels().size();
-        board.deleteColumn(col1);
-        assertEquals(board.getColumnModels().size(), size - 1);
-        assert !board.getColumnModels().contains(col1);
+    public void TestDeleteColumn() {
+        createColumn();
+
+        //Move to the delete button
+        moveTo("Add columnModel name");
+        moveBy(-84, -50);
+
+        clickOn(MouseButton.PRIMARY);
+        sleep(500);
     }
 }

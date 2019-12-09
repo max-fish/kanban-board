@@ -51,6 +51,7 @@ public class KanbanBoardController implements Initializable {
 
         addButton = ComponentMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> makeNewColumn());
+        addButton.setId("addColumn");
 
         columns.getChildren().add(addButton);
     }
