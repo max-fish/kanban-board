@@ -7,13 +7,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import ui.BoardNamePopup;
 import ui.KanbanBoard;
-import data.model.KanbanModel;
+import data.db.KanbanModel;
 import data.model.BoardModel;
 import data.model.ColumnModel;
 import utils.ComponentMaker;
 import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
@@ -87,10 +86,7 @@ public class HomePageController implements Initializable {
 
             KanbanModel.instance().addBoard(boardModel);
 
-            board.getController().setBoard(boardModel);
-            board.getController().changeTitle(boardTitle);
-            board.getController().setHomePageLabel(boardTitle);
-            board.getController().setTitleChangeListener();
+            board.getController().fillWithData(boardModel);
 
             if(boardModel.hasColumns())
                 createColumns(boardModel, board);

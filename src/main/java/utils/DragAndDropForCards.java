@@ -88,8 +88,6 @@ public class DragAndDropForCards {
                     itemBeingDragged = (BorderPane) event.getSource();
 
                     int itemBeingDraggedIndex = column.getChildren().indexOf(itemBeingDragged);
-//                    double cardBegin = itemBeingDraggedIndex * itemBeingDragged.getHeight() + columnHeaderOffset;
-//                    double cardEnd = cardBegin + itemBeingDragged.getHeight();
 
                     if (offsetY < -100 || offsetY > 100) {
                         if (offsetY < 100) {
@@ -101,8 +99,6 @@ public class DragAndDropForCards {
                                 newTranslateY = 0;
                             }
                         } else {
-//                            System.out.println("pos: " + event.getSceneY());
-//                            System.out.println("cardEnd: " + cardEnd);
                             if (itemBeingDraggedIndex + 1 < column.getChildren().size()) {
                                 ObservableList<Node> workingCollection = FXCollections.observableArrayList(column.getChildren());
                                 Collections.swap(workingCollection, itemBeingDraggedIndex, itemBeingDraggedIndex + 1);

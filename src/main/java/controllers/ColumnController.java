@@ -1,6 +1,7 @@
 package controllers;
 
 import com.jfoenix.controls.*;
+import data.db.KanbanModel;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -43,7 +44,10 @@ public class ColumnController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        columnModel = new ColumnModel();
+
         columnMenu = ComponentMaker.makeColumnMenu();
+
         JFXButton addCardButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(0);
         addCardButton.setOnAction(event -> makeNewCard());
 
@@ -57,31 +61,28 @@ public class ColumnController implements Initializable {
             optionButton.setOnAction(event -> setRole(optionButton.getText()));
         }
 
-        wipLimitDropDown.setOnAction(event -> columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText().substring(0,1))));
+        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
+
+        wipLimitDropDown.setOnAction(event -> columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText().substring(0, 1))));
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
         dragAnimation.setDragAnimation(kanbanColumn, dragButton, (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
-
     }
 
-    public void makeNewCard() {
+    private void makeNewCard() {
         if (columnModel.getCurrentWip() >= columnModel.getWipLimit() && columnModel.getWipLimit() != 0) {
             ComponentMaker.makeWipLimitSnackbar(((KanbanColumn) rootPane).getBoard());
-        } else {
-            CardModel newCardModel = new CardModel(/*columnModel*/);
-            makeNewCard(newCardModel);
-        }
+        } else makeNewCard(new CardModel());
     }
 
     public void makeNewCard(CardModel newCardModel) {
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
         cards.getChildren().add(newCard);
 
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
-
-        newCard.getController().fillWithData(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
     }
 
@@ -102,20 +103,10 @@ public class ColumnController implements Initializable {
                 JFXPopup.PopupHPosition.LEFT, 0, columnMenuButton.getHeight());
     }
 
-    public void setColumnModel(ColumnModel columnModel) {
+    public void fillWithData(ColumnModel columnModel) {
         this.columnModel = columnModel;
-    }
-
-    public void setColumnName(String name) {
-        columnName.setText(name);
-    }
-
-    public void setColumnRole(String role) {
-        columnRole.setText(role);
-    }
-
-    public void setNameChangeListener() {
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
+        columnName.setText(columnModel.getName());
+        columnRole.setText(columnModel.getRole());
     }
 
     public void setRole(String role) {

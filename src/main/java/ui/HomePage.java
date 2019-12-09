@@ -3,7 +3,7 @@ package ui;
 import com.jfoenix.controls.JFXDecorator;
 import controllers.HomePageController;
 import data.db.JSONLoader;
-import data.model.KanbanModel;
+import data.db.KanbanModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

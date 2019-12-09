@@ -1,6 +1,7 @@
 package controllers;
 
 import callbacks.CardDetailPopupCallback;
+import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import data.model.CardModel;
 
 import javafx.scene.layout.StackPane;
 import ui.CardDetailPopup;
+import ui.DeleteConfirmationPopup;
 import ui.KanbanBoard;
 import ui.KanbanCard;
 import utils.DragAndDropForCards;
@@ -37,8 +39,8 @@ public class CardController implements Initializable {
     }
 
     public void fillWithData(CardModel cardModel) {
-        this.cardModel = cardModel;
-        cardTitle.setText(cardModel.getTitle());
+            this.cardModel = cardModel;
+            cardTitle.setText(cardModel.getTitle());
     }
 
     @FXML
@@ -73,8 +75,28 @@ public class CardController implements Initializable {
     @FXML
     public void deleteCard() {
         KanbanCard kanbanCardToDelete = (KanbanCard) rootPane;
-        kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
-        cardModel = null;
+        KanbanBoard board = kanbanCardToDelete.getColumn().getBoard();
+        BorderPane homePage = board.getHomePage();
+        DeleteConfirmationPopup deleteCardConfirmation = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+            @Override
+            public void onStart(StackPane stackPane) {
+                homePage.setCenter(stackPane);
+            }
+
+            @Override
+            public void onDelete() {
+                kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
+                cardModel = null;
+                homePage.setCenter(board);
+            }
+
+            @Override
+            public void onCancel() {
+                homePage.setCenter(board);
+            }
+        }, homePage.getCenter());
+
+        deleteCardConfirmation.show();
     }
 
     public CardModel getData() {

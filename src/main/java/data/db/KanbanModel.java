@@ -1,7 +1,7 @@
-package data.model;
+package data.db;
 
-import data.db.JSONLoader;
 import controllers.HomePageController;
+import data.model.BoardModel;
 
 import java.util.List;
 import java.util.ArrayList;
