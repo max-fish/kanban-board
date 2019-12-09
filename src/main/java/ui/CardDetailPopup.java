@@ -1,17 +1,12 @@
 package ui;
 
 import callbacks.CardDetailPopupCallback;
-import com.jfoenix.controls.JFXDecorator;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import controllers.BoardNamePopupController;
 import controllers.CardDetailController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 

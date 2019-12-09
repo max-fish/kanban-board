@@ -9,5 +9,5 @@ public class CardDetailModel {
         this.card = card;
     }
 
-    public CardModel getCard(){ return card; }
+    public CardModel getCardModel(){ return card; }
 }

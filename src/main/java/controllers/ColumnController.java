@@ -81,7 +81,7 @@ public class ColumnController implements Initializable {
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
 
-        newCard.getController().setCardModel(newCardModel);
+        newCard.getController().fillWithData(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
     }
 

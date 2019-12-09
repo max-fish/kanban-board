@@ -5,7 +5,6 @@ import com.jfoenix.controls.*;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import data.model.CardDetailModel;
-import javafx.scene.input.MouseEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -42,16 +41,16 @@ public class CardDetailController implements Initializable {
 
     void setCardDetailModel(CardDetailModel cardDetailModel) {
         this.cardDetailModel = cardDetailModel;
-        titleTextField.setText(cardDetailModel.getCard().get_title());
-        descriptionTextArea.setText(cardDetailModel.getCard().getDescription());
-        storyPointCombo.setValue(cardDetailModel.getCard().getStoryPoints());
+        titleTextField.setText(cardDetailModel.getCardModel().getTitle());
+        descriptionTextArea.setText(cardDetailModel.getCardModel().getDescription());
+        storyPointCombo.setValue(cardDetailModel.getCardModel().getStoryPoints());
     }
 
     @FXML
     public void saveDetails(){
-        cardDetailModel.getCard().setTitle(titleTextField.getText());
-        cardDetailModel.getCard().setStoryPoint(storyPointCombo.getValue());
-        cardDetailModel.getCard().setDescription(descriptionTextArea.getText());
+        cardDetailModel.getCardModel().setTitle(titleTextField.getText());
+        cardDetailModel.getCardModel().setStoryPoint(storyPointCombo.getValue());
+        cardDetailModel.getCardModel().setDescription(descriptionTextArea.getText());
         callback.onSave();
         dialog.close();
     }
@@ -61,5 +60,4 @@ public class CardDetailController implements Initializable {
         callback.onCancel();
         dialog.close();
     }
-
 }

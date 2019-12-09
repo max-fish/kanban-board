@@ -48,7 +48,7 @@ public class CardModel {
         this.title = title;
     }
 
-    public String get_title(){
+    public String getTitle(){
         return title;
     }
 

@@ -22,7 +22,7 @@
         <Label text="Details"/>
     </heading>
     <body>
-        <VBox>
+        <VBox spacing="20">
             <VBox.margin>
                 <Insets>
                     <bottom>10</bottom>
@@ -33,30 +33,21 @@
                 <JFXTextField fx:id="titleTextField" maxWidth="600" HBox.hgrow="ALWAYS"/>
             </HBox>
             <Label minWidth="50.0" text="Task description:"/>
-            <JFXTextArea fx:id="descriptionTextArea" VBox.vgrow="ALWAYS" style="-fx-padding: 20">
-                <VBox.margin>
-                    <Insets/>
-                </VBox.margin>
-            </JFXTextArea>
-
-
+            <JFXTextArea fx:id="descriptionTextArea" VBox.vgrow="ALWAYS"/>
             <Label minWidth="50.0" text="Story Point:"/>
-            <JFXComboBox fx:id="storyPointCombo" VBox.vgrow="ALWAYS" style="-fx-padding: 20" promptText="choose" prefWidth="123.0" >
+            <JFXComboBox fx:id="storyPointCombo" VBox.vgrow="ALWAYS" promptText="choose" prefWidth="123.0">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
-                        <Integer fx:value="1" />
-                        <Integer fx:value="2" />
-                        <Integer fx:value="3" />
+                        <Integer fx:value="1"/>
+                        <Integer fx:value="2"/>
+                        <Integer fx:value="3"/>
                     </FXCollections>
                 </items>
-                <VBox.margin>
-                    <Insets/>
-                </VBox.margin>
             </JFXComboBox>
         </VBox>
     </body>
     <actions>
         <JFXButton id="save_button" mnemonicParsing="false" text="Save" onMouseClicked="#saveDetails"/>
-        <JFXButton id="cancel_button" text="Cancel" onMouseClicked="#cancel" />
+        <JFXButton id="cancel_button" text="Cancel" onMouseClicked="#cancel"/>
     </actions>
 </JFXDialogLayout>

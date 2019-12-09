@@ -22,21 +22,8 @@ import java.util.ResourceBundle;
 public class CardController implements Initializable {
     @FXML
     private JFXTextField cardTitle;
-
-//    @FXML
-//    private DatePicker dueDatePicker;
-
-    @FXML
-    private JFXTextField descTextArea;
-
     @FXML
     private BorderPane rootPane;
-
-    @FXML
-    private BorderPane infoPage;
-
-//    @FXML
-//    private Button add;
 
     private CardModel cardModel;
 
@@ -48,14 +35,11 @@ public class CardController implements Initializable {
         dragAnimation.setDragAnimation(card);
 
         cardTitle.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setTitle(newValue));
-
-//        descTextArea.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setDescription(newValue));
-
     }
 
-    public void setCardModel(CardModel cardModel) {
+    public void fillWithData(CardModel cardModel) {
         this.cardModel = cardModel;
-        cardTitle.setText(cardModel.get_title());
+        cardTitle.setText(cardModel.getTitle());
     }
 
     @FXML
@@ -67,23 +51,24 @@ public class CardController implements Initializable {
         CardDetailPopup cardDetailPopup = new CardDetailPopup(new CardDetailPopupCallback() {
             @Override
             public void onStart(StackPane dialogContainer) {
-            homePage.setCenter(dialogContainer);
+                homePage.setCenter(dialogContainer);
             }
 
             @Override
             public void onSave() {
-            homePage.setCenter(board);
+                cardTitle.setText(cardModel.getTitle());
+                homePage.setCenter(board);
             }
 
             @Override
             public void onCancel() {
-            homePage.setCenter(board);
+                homePage.setCenter(board);
             }
         }, homePage.getCenter());
 
-        cardDetailPopup.show();
         CardDetailModel model = new CardDetailModel(cardModel);
         cardDetailPopup.getController().setCardDetailModel(model);
+        cardDetailPopup.show();
     }
 
     @FXML
@@ -93,9 +78,7 @@ public class CardController implements Initializable {
         cardModel = null;
     }
 
-    public CardModel getCardModel() {
+    public CardModel getData() {
         return cardModel;
     }
-
-
 }
