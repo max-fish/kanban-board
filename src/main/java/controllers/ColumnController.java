@@ -44,8 +44,6 @@ public class ColumnController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnModel = new ColumnModel();
-
         columnMenu = ComponentMaker.makeColumnMenu();
 
         JFXButton addCardButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(0);

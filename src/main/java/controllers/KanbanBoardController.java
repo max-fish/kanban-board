@@ -64,6 +64,7 @@ public class KanbanBoardController implements Initializable {
 
     public void makeNewColumn(ColumnModel newColumnModel) {
         KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
+        toInsert.getController().fillWithData(newColumnModel);
 
         TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
         TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
