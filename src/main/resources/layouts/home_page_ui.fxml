@@ -17,13 +17,12 @@
                        text="Your Boards"/>
             </leftItems>
             <rightItems>
-                <JFXButton fx:id="test" onMouseClicked="#defaultMakeNewBoard"></JFXButton>
                 <JFXButton fx:id="addButton" onMouseClicked="#askToNameBoard" maxWidth="20" maxHeight="20" prefHeight="20" prefWidth="20" buttonType="FLAT">
                     <graphic>
                         <FontIcon iconLiteral="gmi-add" iconColor="white" iconSize="30" />
                     </graphic>
                 </JFXButton>
-                <JFXButton onMouseClicked="#goToHomeScreen" maxWidth="20" maxHeight="20" prefWidth="20" prefHeight="20"
+                <JFXButton fx:id="homepage" onMouseClicked="#goToHomeScreen" maxWidth="20" maxHeight="20" prefWidth="20" prefHeight="20"
                            buttonType="FLAT">
                     <graphic>
                         <FontIcon iconLiteral="gmi-home" iconColor="white" iconSize="30"/>
