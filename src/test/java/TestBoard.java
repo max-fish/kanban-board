@@ -10,6 +10,7 @@ public class TestBoard extends BaseTest
         clickOn("Board Name");
         write("Board");
         clickOn("Ok");
+        sleep(500);
     }
 
     @Test
@@ -17,5 +18,6 @@ public class TestBoard extends BaseTest
         openBoard();
 
         clickOn("#homepage");
+        sleep(500);
     }
 }

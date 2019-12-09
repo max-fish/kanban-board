@@ -6,6 +6,7 @@ public class TestCards extends BaseTest
     @Test
     public void TestAddCard() {
         createCard();
+        sleep(500);
     }
 
     @Test
@@ -14,6 +15,7 @@ public class TestCards extends BaseTest
 
         clickOn("Add Card Title");
         write("Test");
+        sleep(500);
     }
 
     @Test
@@ -25,6 +27,6 @@ public class TestCards extends BaseTest
         moveBy(92, -17);
 
         clickOn(MouseButton.PRIMARY);
-        sleep(3000);
+        sleep(500);
     }
 }

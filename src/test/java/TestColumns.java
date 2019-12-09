@@ -6,6 +6,7 @@ public class TestColumns extends BaseTest
     @Test
     public void testAddColumn() {
         createColumn();
+        sleep(500);
     }
 
     @Test
@@ -19,6 +20,7 @@ public class TestColumns extends BaseTest
         //Add column role
         clickOn("Add columnModel role");
         write("Test");
+        sleep(500);
     }
 
     @Test
@@ -30,5 +32,6 @@ public class TestColumns extends BaseTest
         moveBy(-84, -50);
 
         clickOn(MouseButton.PRIMARY);
+        sleep(500);
     }
 }
