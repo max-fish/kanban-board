@@ -46,6 +46,7 @@ public class KanbanBoardController implements Initializable {
                 e.printStackTrace();
             }
         });
+        addButton.setId("addColumn");
         columns.getChildren().add(addButton);
     }
 
