@@ -8,7 +8,6 @@ import javafx.scene.layout.BorderPane;
 
 import data.model.CardModel;
 
-import data.model.CardDetailModel;
 import javafx.scene.layout.StackPane;
 import ui.CardDetailPopup;
 import ui.KanbanBoard;
@@ -50,12 +49,14 @@ public class CardController implements Initializable {
         cardModel.setTitle(cardTitle.getText());
         CardDetailPopup cardDetailPopup = new CardDetailPopup(new CardDetailPopupCallback() {
             @Override
-            public void onStart(StackPane dialogContainer) {
+            public CardModel onStart(StackPane dialogContainer) {
                 homePage.setCenter(dialogContainer);
+                return cardModel;
             }
 
             @Override
-            public void onSave() {
+            public void onSave(CardModel cardModel) {
+                CardController.this.cardModel = cardModel;
                 cardTitle.setText(cardModel.getTitle());
                 homePage.setCenter(board);
             }
@@ -66,8 +67,6 @@ public class CardController implements Initializable {
             }
         }, homePage.getCenter());
 
-        CardDetailModel model = new CardDetailModel(cardModel);
-        cardDetailPopup.getController().setCardDetailModel(model);
         cardDetailPopup.show();
     }
 

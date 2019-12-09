@@ -46,7 +46,7 @@ public class CardDetailPopup extends JFXDialog {
 
     @Override
     public void show() {
-        callback.onStart(dialogContainer);
+        cardDetailController.fillWithData(callback.onStart(dialogContainer));
         super.show();
     }
 }
