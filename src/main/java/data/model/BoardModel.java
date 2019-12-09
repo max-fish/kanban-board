@@ -74,4 +74,8 @@ public class BoardModel {
     public LocalDate getCreationDate() { return creationDate; }
 
     public boolean hasCompleteColumn() { return !getCompletedColumns().isEmpty(); }
+
+    public List<ColumnModel> getColumnModels() {
+        return columnModels;
+    }
 }
