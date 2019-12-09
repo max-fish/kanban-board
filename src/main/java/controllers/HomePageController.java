@@ -1,22 +1,21 @@
 package controllers;
 
-import com.jfoenix.controls.JFXPopup;
-import com.jfoenix.controls.JFXButton;
 import callbacks.BoardNamePopupCallBack;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
+import data.model.BoardModel;
+import data.model.ColumnModel;
+import data.model.KanbanModel;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import ui.BoardNamePopup;
 import ui.KanbanBoard;
-import data.model.KanbanModel;
-import data.model.BoardModel;
-import data.model.ColumnModel;
 import utils.ComponentMaker;
-import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -34,10 +33,6 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //KanbanModel.instance(); // create the data.model for the application
-        boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
-        boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
-
         fileMenu = ComponentMaker.makeFileMenu();
         JFXButton importButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(0);
         importButton.setOnAction(event -> KanbanModel.instance().loadJSON());
@@ -70,11 +65,17 @@ public class HomePageController implements Initializable {
                 rootPane.setCenter(boardGrid);
             }
         }, rootPane.getCenter());
+
         dialog.show();
     }
 
-    public void makeNewBoard(BoardModel boardModel, String boardTitle)
-    {
+    @FXML
+    public void defaultMakeNewBoard() {
+        makeNewBoard(new BoardModel("default"), "default");
+    }
+
+    @FXML
+    public void makeNewBoard(BoardModel boardModel, String boardTitle) {
         try {
             KanbanBoard board = new KanbanBoard();
 

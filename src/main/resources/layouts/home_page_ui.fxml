@@ -17,6 +17,7 @@
                        text="Your Boards"/>
             </leftItems>
             <rightItems>
+                <JFXButton fx:id="addButton" onMouseClicked="#askToNameBoard" maxWidth="20" maxHeight="20" prefHeight="20" prefWidth="20" buttonType="FLAT" />
                 <JFXButton id="ImportExportButton" fx:id="fileMenuButton" onMouseClicked="#openFileMenu" minWidth="100" maxHeight="40" prefHeight="40" prefWidth="140" buttonType="FLAT"
 text="Import/Export" alignment="BASELINE_LEFT">
                     <graphic>
@@ -29,8 +30,7 @@ text="Import/Export" alignment="BASELINE_LEFT">
                         <FontIcon iconLiteral="gmi-add" iconColor="white" iconSize="30" />
                     </graphic>
                 </JFXButton>
-
-                <JFXButton onMouseClicked="#goToHomeScreen" maxWidth="20" maxHeight="20" prefWidth="20" prefHeight="20"
+                <JFXButton fx:id="homepage" onMouseClicked="#goToHomeScreen" maxWidth="20" maxHeight="20" prefWidth="20" prefHeight="20"
                            buttonType="FLAT">
                     <graphic>
                         <FontIcon iconLiteral="gmi-home" iconColor="white" iconSize="30"/>
