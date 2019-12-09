@@ -1,7 +1,6 @@
 package controllers;
 
 import com.jfoenix.controls.*;
-import data.db.KanbanModel;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -47,10 +46,16 @@ public class ColumnController implements Initializable {
         columnMenu = ComponentMaker.makeColumnMenu();
 
         JFXButton addCardButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(0);
-        addCardButton.setOnAction(event -> makeNewCard());
+        addCardButton.setOnAction(event -> {
+            makeNewCard();
+            columnMenu.hide();
+        });
 
         JFXButton deleteColumnButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(1);
-        deleteColumnButton.setOnAction(event -> deleteColumn());
+        deleteColumnButton.setOnAction(event -> {
+            deleteColumn();
+            columnMenu.hide();
+        });
 
         columnRoleOptions = ComponentMaker.makeColumnRoleDropDown();
 

@@ -32,8 +32,6 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
-    private AnchorPane topBoard;
-    @FXML
     private JFXTextField boardTitle;
     @FXML
     private HBox columns;

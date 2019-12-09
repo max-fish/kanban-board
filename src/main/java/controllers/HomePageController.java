@@ -33,10 +33,6 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //KanbanModel.instance(); // create the data.model for the application
-        boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
-        boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
-
         fileMenu = ComponentMaker.makeFileMenu();
         JFXButton importButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(0);
         importButton.setOnAction(event -> KanbanModel.instance().loadJSON());
