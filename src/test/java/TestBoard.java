@@ -1,13 +1,5 @@
-import static org.testfx.api.FxAssert.verifyThat;
-import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.api.FxToolkit;
-
-import ui.HomePage;
-import javafx.stage.Stage;
 
 import org.junit.Test;
-
-import java.io.IOException;
 
 
 

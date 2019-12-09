@@ -1,9 +1,9 @@
-import static org.junit.Assert.*;
+import data.model.BoardModel;
+import data.model.ColumnModel;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.BoardModel;
-import model.ColumnModel;
+import static org.junit.Assert.assertEquals;
 
 public class TestColumns 
 {

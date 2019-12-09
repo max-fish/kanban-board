@@ -79,4 +79,8 @@ public class ColumnModel {
     public void setCurrentWip(int currentWip) {
         this.currentWip = currentWip;
     }
+
+    public List<CardModel> getCardModels() {
+        return this.cardModels;
+    }
 }

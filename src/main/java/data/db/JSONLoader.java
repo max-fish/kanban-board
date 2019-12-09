@@ -103,33 +103,4 @@ public class JSONLoader {
             //System.out.println("Could not access the file");
         }
     }
-
-//    public void init(JsonData callback) {
-//        String getCurrentDirectory = System.getProperty("user.dir");
-//        File autoSaveFile = new File(getCurrentDirectory);
-//        File directory = new File(autoSaveFile.getParent());
-//        if (!autoSaveFile.exists()) {
-//            if (!directory.exists()) {
-//                directory.mkdirs();
-//            }
-//            try {
-//                autoSaveFile.createNewFile();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            InputStreamReader isReader;
-//            try {
-//                isReader = new InputStreamReader(new FileInputStream(autoSaveFile), StandardCharsets.UTF_8);
-//
-//                JsonReader myReader = new JsonReader(isReader);
-//                Gson gson = new Gson();
-//                List<BoardModel> boardModels = gson.fromJson(myReader, BoardModel.class);
-//                callback.onFound(boardModels);
-//
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 }

@@ -1,16 +1,21 @@
 package controllers;
 
 import callbacks.BoardNamePopupCallBack;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPopup;
+import data.model.BoardModel;
+import data.model.ColumnModel;
+import data.model.KanbanModel;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
+import ui.BoardNamePopup;
 import ui.KanbanBoard;
-import model.KanbanModel;
-import model.BoardModel;
 import utils.ComponentMaker;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
+
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -28,10 +33,6 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //KanbanModel.instance(); // create the data.model for the application
-        boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
-        boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
-
         fileMenu = ComponentMaker.makeFileMenu();
         JFXButton importButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(0);
         importButton.setOnAction(event -> KanbanModel.instance().loadJSON());
@@ -64,16 +65,17 @@ public class HomePageController implements Initializable {
                 rootPane.setCenter(boardGrid);
             }
         }, rootPane.getCenter());
+
         dialog.show();
     }
 
     @FXML
     public void defaultMakeNewBoard() {
-        makeNewBoard("board");
+        makeNewBoard(new BoardModel("default"), "default");
     }
 
     @FXML
-    private void makeNewBoard(String title) {
+    public void makeNewBoard(BoardModel boardModel, String boardTitle) {
         try {
             KanbanBoard board = new KanbanBoard();
 
@@ -81,8 +83,6 @@ public class HomePageController implements Initializable {
                 rowCounter++;
                 colCounter = 0;
             }
-            Label boardLabel = new Label(title);
-            StackPane newBoardCard = ComponentMaker.makeBoardCard(boardLabel);
 
             StackPane newBoardCard = ComponentMaker.makeBoardCard(boardTitle);
 
