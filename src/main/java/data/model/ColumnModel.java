@@ -1,33 +1,37 @@
 package data.model;
 
+import utils.Constants;
+
+import static utils.Constants.ColumnRole.*;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
 public class ColumnModel {
     private String name;
-    private String role;
+    private Constants.ColumnRole role;
     private int currentWip;
     private int wipLimit;
     private List<CardModel> cardModels;
 
-    public ColumnModel(String name, String role) {
+    public ColumnModel(String name, Constants.ColumnRole role) {
         this.name = name;
         this.role = role;
         cardModels = new ArrayList<>();
     }
 
     public ColumnModel(String name) {
-        this(name, "");
+        this(name, Constants.ColumnRole.BACKLOG);
     }
 
     public ColumnModel() {
-        this("", "");
+        this("", Constants.ColumnRole.BACKLOG);
     }
 
     public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
-        if (role.equals("Completed Work")) cardModel.setCompletedDate(LocalDate.now());
+        if (role == COMPLETED_WORK) cardModel.setCompletedDate(LocalDate.now());
     }
 
     public void deleteCard(CardModel cardModel) {
@@ -38,7 +42,7 @@ public class ColumnModel {
         this.name = name;
     }
 
-    public void setRole(String role) {
+    public void setRole(Constants.ColumnRole role) {
         this.role = role;
     }
 
@@ -58,7 +62,7 @@ public class ColumnModel {
         return name;
     }
 
-    public String getRole() {
+    public Constants.ColumnRole getRole() {
         return role;
     }
 

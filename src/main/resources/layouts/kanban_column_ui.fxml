@@ -4,8 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Label?>
 <fx:root id="Column_root" fx:id="rootPane" minWidth="240" prefHeight="NaN" prefWidth="260"
          stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
@@ -22,20 +22,21 @@
                     </graphic>
                 </JFXButton>
                 <Region HBox.hgrow="ALWAYS"/>
-                <JFXComboBox fx:id="wipLimitDropDown" promptText="WIP limit" maxWidth="NaN" maxHeight="NaN" visibleRowCount="3">
+                <JFXComboBox fx:id="wipLimitDropDown" promptText="WIP limit" maxWidth="NaN" maxHeight="NaN"
+                             visibleRowCount="3">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <Label text="0 (No Limit)"/>
+                            <Label text="N/A"/>
                             <Label text="1"/>
                             <Label text="2"/>
                             <Label text="3"/>
                             <Label text="4"/>
                             <Label text="5"/>
-                            <Label text="6" />
-                            <Label text="7" />
-                            <Label text="8" />
-                            <Label text="9" />
-                            <Label text="10" />
+                            <Label text="6"/>
+                            <Label text="7"/>
+                            <Label text="8"/>
+                            <Label text="9"/>
+                            <Label text="10"/>
                         </FXCollections>
                     </items>
                 </JFXComboBox>

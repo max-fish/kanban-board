@@ -36,6 +36,7 @@
     -jfx-unfocus-color: transparent;
     -jfx-focus-color: transparent;
     -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
 }
 
 .jfx-combo-box .arrow{

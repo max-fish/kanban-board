@@ -1,9 +1,8 @@
 package data.model;
 
-import javax.smartcardio.Card;
-import java.lang.reflect.Array;
+import utils.Constants;
+
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -45,7 +44,7 @@ public class BoardModel {
     public List<ColumnModel> getCompletedColumns() {
         List<ColumnModel> completedColumns = new ArrayList<>();
         for(ColumnModel col : columnModels){
-            if(col.getRole().equals("Completed Work")) { completedColumns.add(col); }
+            if(col.getRole() == Constants.ColumnRole.COMPLETED_WORK) { completedColumns.add(col); }
         }
         return completedColumns;
     }
@@ -53,7 +52,7 @@ public class BoardModel {
     public List<ColumnModel> getWIPColumns() {
         List<ColumnModel> WIPcolumns = new ArrayList<>();
         for(ColumnModel col : columnModels){
-            boolean isWIPColumn = col.getRole().equals("Work In Progress") || col.getRole().equals("On hold");
+            boolean isWIPColumn = col.getRole() == Constants.ColumnRole.WORK_IN_PROGRESS || col.getRole() == Constants.ColumnRole.ON_HOLD;
             if(isWIPColumn) { WIPcolumns.add(col); }
         }
         return WIPcolumns;

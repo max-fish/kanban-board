@@ -14,6 +14,7 @@ import data.model.ColumnModel;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 import utils.ComponentMaker;
+import utils.Constants;
 import utils.DragAndDrop;
 
 import java.net.URL;
@@ -61,12 +62,18 @@ public class ColumnController implements Initializable {
 
         for (Node option : ((VBox) columnRoleOptions.getPopupContent()).getChildren()) {
             JFXButton optionButton = (JFXButton) option;
-            optionButton.setOnAction(event -> setRole(optionButton.getText()));
+            optionButton.setOnAction(event -> setRole(Constants.ColumnRole.getEnumFromRoleString(optionButton.getText())));
         }
 
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
 
-        wipLimitDropDown.setOnAction(event -> columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText().substring(0, 1))));
+        wipLimitDropDown.setOnAction(event -> {
+            try {
+                columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().toString()));
+            } catch (NumberFormatException e) {
+                columnModel.setWipLimit(0);
+            }
+        });
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
@@ -109,11 +116,12 @@ public class ColumnController implements Initializable {
     public void fillWithData(ColumnModel columnModel) {
         this.columnModel = columnModel;
         columnName.setText(columnModel.getName());
-        columnRole.setText(columnModel.getRole());
+        columnRole.setText(columnModel.getRole().roleString);
     }
 
-    public void setRole(String role) {
-        columnRole.setText(role);
+    public void setRole(Constants.ColumnRole role) {
+
+        columnRole.setText(role.roleString);
         columnModel.setRole(role);
     }
 
