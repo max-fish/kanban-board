@@ -10,9 +10,12 @@ import data.model.CardModel;
 import data.model.ColumnModel;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
@@ -24,6 +27,7 @@ import utils.AnimationMaker;
 import utils.ComponentMaker;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -32,20 +36,20 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
-    private AnchorPane topBoard;
-    @FXML
     private JFXTextField boardTitle;
     @FXML
     private HBox columns;
 
-    private BoardModel board;
-    private String homePageTitle;
+    private BoardModel boardModel;
+
     private JFXButton addButton;
     @FXML
     private JFXButton statisticsButton;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> boardModel.setName(newValue));
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
@@ -57,16 +61,13 @@ public class KanbanBoardController implements Initializable {
     }
 
     @FXML
-    public void makeNewColumn()
-    {
-        ColumnModel newColumnModel = new ColumnModel(board);
-
-        makeNewColumn(newColumnModel);
+    public void makeNewColumn() {
+        makeNewColumn(new ColumnModel());
     }
 
-    public void makeNewColumn(ColumnModel newColumnModel)
-    {
-        KanbanColumn toInsert = new KanbanColumn((KanbanBoard)rootPane);
+    public void makeNewColumn(ColumnModel newColumnModel) {
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
+        toInsert.getController().fillWithData(newColumnModel);
 
         TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
         TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
@@ -78,27 +79,17 @@ public class KanbanBoardController implements Initializable {
 
         HBox.setMargin(toInsert, new Insets(10));
 
-        if(!board.contains(newColumnModel))
-            board.addColumn(newColumnModel);
+        if (!boardModel.contains(newColumnModel))
+            boardModel.addColumn(newColumnModel);
 
-        toInsert.getController().setColumnModel(newColumnModel);
-        toInsert.getController().setColumnName(newColumnModel.getName());
-        toInsert.getController().setColumnRole(newColumnModel.getRole());
-        toInsert.getController().setNameChangeListener();
-
-        if(newColumnModel.hasCards())
+        if (newColumnModel.hasCards())
             createCards(newColumnModel, toInsert);
     }
 
-    private void createCards(ColumnModel columnModel, KanbanColumn column)
-    {
+    private void createCards(ColumnModel columnModel, KanbanColumn column) {
         List<CardModel> cards = columnModel.getCards();
-        for(CardModel card : cards)
+        for (CardModel card : cards)
             column.getController().makeNewCard(card);
-    }
-
-    void changeTitle(String title) {
-        boardTitle.setText(title);
     }
 
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
@@ -134,34 +125,32 @@ public class KanbanBoardController implements Initializable {
         columns.getChildren().remove(column);
     }
 
-    private void getStatistics(){
+    private void getStatistics() {
         //add info ofr creating sttistics as parameters and keep record on fields
         Statistics statPopup = new Statistics();
-        StatisticsModel model = new StatisticsModel(board);
+        StatisticsModel model = new StatisticsModel(boardModel);
         statPopup.getController().setStatisticsModel(model);
         statPopup.getController().displayStats();
         statPopup.show(statisticsButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
     }
 
-    public void setTitleChangeListener() {
-        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
-            board.setName(newValue);
-            homePageTitle = newValue;
-        });
+
+    public void fillWithData(BoardModel boardModel) {
+        this.boardModel = boardModel;
+        boardTitle.setText(boardModel.getName());
     }
 
-    public void setBoard(BoardModel board)
-    {
-        this.board = board;
+
+    public BoardModel getBoardModel() {
+        return boardModel;
     }
 
-    public void setHomePageLabel(String title) {
-        homePageTitle = title;
-    }
-
-    public BoardModel getBoardModel()
-    {
-        return board;
+    public void swapColumns(int idx1, int idx2){
+        System.out.println(columns.getChildren().size());
+        ObservableList<Node> workingCollection = FXCollections.observableArrayList(columns.getChildren());
+        Collections.swap(workingCollection, idx1, idx2);
+        columns.getChildren().setAll(workingCollection);
+        Collections.swap(boardModel.getColumns(), idx1, idx2);
     }
 
 }

@@ -36,25 +36,27 @@
     -jfx-unfocus-color: transparent;
     -jfx-focus-color: transparent;
     -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
 }
 
 .jfx-combo-box .arrow{
     -fx-background-color: white;
 }
 
-.jfx-combo-box .list-view .list-cell .label {
+.jfx-combo-box .list-view .list-cell {
     -fx-font-family: "Roboto Medium";
     -fx-text-fill: #7e57c2;
 }
 
 .jfx-combo-box .list-view .list-cell:focused{
-    -fx-background-color: #ffeb3b;
+    -fx-background-color: #7e57c2;
+    -fx-text-fill: white;
 }
 
 
-.jfx-combo-box .list-view .list-cell:hover > .jfx-combo-box .list-view .list-cell .label {
-    -fx-text-fill: white;
+.jfx-combo-box .list-view .list-cell:hover {
     -fx-background-color: #7e57c2;
+    -fx-text-fill: white;
 }
 
 .jfx-combo-box .combo-box-selected-value-container .label{

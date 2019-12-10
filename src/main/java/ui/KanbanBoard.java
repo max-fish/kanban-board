@@ -21,6 +21,6 @@ public class KanbanBoard extends BorderPane {
     }
 
     public BorderPane getHomePage(){
-        return (BorderPane) this.getParent();
+        return (BorderPane) getParent();
     }
 }

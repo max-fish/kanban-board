@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseEvent;
@@ -12,19 +13,25 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
+import ui.KanbanBoard;
 
+import javax.swing.*;
 import java.util.Collections;
 
 public class DragAndDrop {
     private double orgSceneX;
     private double orgTranslateX;
+    private KanbanBoard kanbanBoard;
     private HBox board;
     private double boundX;
     private BorderPane itemBeingDragged;
 
-    public void setDragAnimation(BorderPane rootPane, JFXButton dragButton, HBox board) {
+    public void setDragAnimation(BorderPane rootPane, JFXButton dragButton, KanbanBoard kanbanBoard) {
         itemBeingDragged = rootPane;
-        this.board = board;
+        this.kanbanBoard = kanbanBoard;
+
+        board = (HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent();
+
         boundX = board.getChildren().size() * rootPane.getWidth();
 
         dragButton.setOnMousePressed(onMousePressed);
@@ -70,18 +77,14 @@ public class DragAndDrop {
                     if (offsetX < -100 || offsetX > 100) {
                         if (offsetX < -100) {
                             if (itemBeingDraggedIndex - 1 >= 0) {
-                                ObservableList<Node> workingCollection = FXCollections.observableArrayList(board.getChildren());
-                                Collections.swap(workingCollection, itemBeingDraggedIndex - 1, itemBeingDraggedIndex);
-                                board.getChildren().setAll(workingCollection);
+                                kanbanBoard.getController().swapColumns(itemBeingDraggedIndex - 1, itemBeingDraggedIndex);
                                 orgSceneX = event.getSceneX();
                                 newTranslateX = 0;
                             }
                         } else {
                             if (itemBeingDraggedIndex + 1 < board.getChildren().size()) {
                                 if (itemBeingDraggedIndex != board.getChildren().size() - 2) {
-                                    ObservableList<Node> workingCollection = FXCollections.observableArrayList(board.getChildren());
-                                    Collections.swap(workingCollection, itemBeingDraggedIndex, itemBeingDraggedIndex + 1);
-                                    board.getChildren().setAll(workingCollection);
+                                    kanbanBoard.getController().swapColumns(itemBeingDraggedIndex, itemBeingDraggedIndex + 1);
                                     orgSceneX = event.getSceneX();
                                     newTranslateX = 0;
                                 }

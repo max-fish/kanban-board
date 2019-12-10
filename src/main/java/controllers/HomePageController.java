@@ -1,21 +1,21 @@
 package controllers;
 
-import callbacks.BoardNamePopupCallBack;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
-import data.model.BoardModel;
-import data.model.ColumnModel;
-import data.model.KanbanModel;
+import com.jfoenix.controls.JFXButton;
+import callbacks.BoardNamePopupCallBack;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import ui.BoardNamePopup;
 import ui.KanbanBoard;
+import data.db.KanbanModel;
+import data.model.BoardModel;
+import data.model.ColumnModel;
 import utils.ComponentMaker;
+import java.util.List;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -65,17 +65,11 @@ public class HomePageController implements Initializable {
                 rootPane.setCenter(boardGrid);
             }
         }, rootPane.getCenter());
-
         dialog.show();
     }
 
-    @FXML
-    public void defaultMakeNewBoard() {
-        makeNewBoard(new BoardModel("default"), "default");
-    }
-
-    @FXML
-    public void makeNewBoard(BoardModel boardModel, String boardTitle) {
+    public void makeNewBoard(BoardModel boardModel, String boardTitle)
+    {
         try {
             KanbanBoard board = new KanbanBoard();
 
@@ -88,10 +82,7 @@ public class HomePageController implements Initializable {
 
             KanbanModel.instance().addBoard(boardModel);
 
-            board.getController().setBoard(boardModel);
-            board.getController().changeTitle(boardTitle);
-            board.getController().setHomePageLabel(boardTitle);
-            board.getController().setTitleChangeListener();
+            board.getController().fillWithData(boardModel);
 
             if(boardModel.hasColumns())
                 createColumns(boardModel, board);

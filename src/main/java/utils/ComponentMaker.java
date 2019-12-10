@@ -70,8 +70,8 @@ public class ComponentMaker {
         return menu;
     }
 
-    private static JFXButton makeColumnRoleOption(String role){
-        JFXButton roleButton = new JFXButton(role);
+    private static JFXButton makeColumnRoleOption(Constants.ColumnRole role){
+        JFXButton roleButton = new JFXButton(role.roleString);
         roleButton.getStylesheets().add("/styling/column_role_option.css");
         return roleButton;
     }
@@ -79,13 +79,11 @@ public class ComponentMaker {
     public static JFXPopup makeColumnRoleDropDown(){
         VBox options = new VBox();
         options.getChildren().addAll(
-                makeColumnRoleOption("Backlog"),  makeColumnRoleOption("Work In Progress"),
-                makeColumnRoleOption("On Hold"), makeColumnRoleOption("Completed Work"),
-                makeColumnRoleOption("Info only")
+                makeColumnRoleOption(Constants.ColumnRole.BACKLOG),  makeColumnRoleOption(Constants.ColumnRole.WORK_IN_PROGRESS),
+                makeColumnRoleOption(Constants.ColumnRole.ON_HOLD), makeColumnRoleOption(Constants.ColumnRole.COMPLETED_WORK),
+                makeColumnRoleOption(Constants.ColumnRole.INFO_ONLY)
                 );
-        JFXButton backlog = makeColumnRoleOption("Backlog");
 
-        options.getChildren().add(backlog);
         JFXPopup dropDown = new JFXPopup();
         dropDown.setPopupContent(options);
         return dropDown;

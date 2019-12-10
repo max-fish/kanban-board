@@ -1,7 +1,5 @@
 package data.model;
 
-import jdk.vm.ci.meta.Local;
-
 import java.time.LocalDate;
 
 public class CardModel {
@@ -15,17 +13,14 @@ public class CardModel {
     private LocalDate creationDate;
     private LocalDate completedDate = null;
 
-    //private ColumnModel parent;
-
     /**
      *
      */
-    public CardModel(String title, String description, Integer storyPoints/*, ColumnModel parent*/)
+    public CardModel(String title, String description, Integer storyPoints)
     {
         this.title = title;
         this.description = description;
         this.storyPoints = storyPoints;
-        //this.parent = parent;
 
         id = nextId;
         nextId++;
@@ -33,14 +28,14 @@ public class CardModel {
           System.out.println("The card was created: " + id);
     }
 
-    public CardModel(String title/*, ColumnModel parent*/)
+    public CardModel(String title)
     {
-        this(title, "", 1/*, parent*/);
+        this(title, "", 1);
     }
 
-    public CardModel(/*ColumnModel parent*/)
+    public CardModel()
     {
-        this("New KanbanCard"/*,parent*/);
+        this("");
     }
 
     public void setTitle(String title)
@@ -48,7 +43,7 @@ public class CardModel {
         this.title = title;
     }
 
-    public String get_title(){
+    public String getTitle(){
         return title;
     }
 
@@ -74,8 +69,4 @@ public class CardModel {
     public void setCompletedDate(LocalDate date) { completedDate = date; }
 
     public LocalDate getCompletedDate() { return completedDate; }
-
-    /*public ColumnModel getParent(){
-        return parent;
-    }*/
 }

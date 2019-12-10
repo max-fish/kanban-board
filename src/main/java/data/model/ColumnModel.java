@@ -1,68 +1,70 @@
 package data.model;
 
+import utils.Constants;
+
+import static utils.Constants.ColumnRole.*;
+
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
 public class ColumnModel {
     private String name;
-    private String role;
+    private Constants.ColumnRole role;
     private int currentWip;
     private int wipLimit;
     private List<CardModel> cardModels;
 
-    private transient BoardModel parentBoard;
-
-    public ColumnModel(BoardModel parentBoard, String name, String role)
-    {
+    public ColumnModel(String name, Constants.ColumnRole role) {
         this.name = name;
         this.role = role;
         cardModels = new ArrayList<>();
-        this.parentBoard = parentBoard;
     }
 
-    public ColumnModel(BoardModel parentBoard, String name) { this(parentBoard, name, ""); }
+    public ColumnModel(String name) {
+        this(name, Constants.ColumnRole.BACKLOG);
+    }
 
-    public ColumnModel(BoardModel parentBoard) { this(parentBoard, "New Column", "Add column role"); }
+    public ColumnModel() {
+        this("", Constants.ColumnRole.BACKLOG);
+    }
 
     public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
-        if(role.equals("Completed Work")) cardModel.setCompletedDate(LocalDate.now());
+        if (role == COMPLETED_WORK) cardModel.setCompletedDate(LocalDate.now());
     }
 
-    public void deleteCard(CardModel cardModel)
-    {
+    public void deleteCard(CardModel cardModel) {
         cardModels.remove(cardModel);
     }
 
-    public void setName(String name)
-    {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public void setRole(String role)
-    {
+    public void setRole(Constants.ColumnRole role) {
         this.role = role;
     }
 
-    public boolean contains(CardModel card)
-    {
+    public boolean contains(CardModel card) {
         return cardModels.contains(card);
     }
 
-    public boolean hasCards() { return !cardModels.isEmpty(); }
+    public boolean hasCards() {
+        return !cardModels.isEmpty();
+    }
 
-    public List<CardModel> getCards()
-    {
+    public List<CardModel> getCards() {
         return cardModels;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
-    public String getRole() { return role; }
+    public Constants.ColumnRole getRole() {
+        return role;
+    }
 
     public int getWipLimit() {
         return wipLimit;
