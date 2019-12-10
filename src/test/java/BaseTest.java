@@ -1,9 +1,9 @@
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.api.FxToolkit;
+import org.testfx.util.WaitForAsyncUtils;
 
 import ui.HomePage;
 import javafx.stage.Stage;
-import javafx.scene.input.MouseButton;
 
 import java.io.IOException;
 
@@ -46,6 +46,7 @@ public class BaseTest extends ApplicationTest
         openBoard();
 
         clickOn("#addColumn");
+        WaitForAsyncUtils.waitForFxEvents();
     }
 
     /**
@@ -54,10 +55,9 @@ public class BaseTest extends ApplicationTest
     protected void createCard() {
         createColumn();
 
-        //Move the mouse to the add button
-        moveTo("Add columnModel name");
-        moveBy(78, -50);
+        //Open column menu
+        clickOn("#columnMenuButton");
 
-        clickOn(MouseButton.PRIMARY);
+        clickOn("Add card");
     }
 }
