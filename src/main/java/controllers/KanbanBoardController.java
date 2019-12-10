@@ -10,9 +10,12 @@ import data.model.CardModel;
 import data.model.ColumnModel;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
@@ -24,6 +27,7 @@ import utils.AnimationMaker;
 import utils.ComponentMaker;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -139,6 +143,14 @@ public class KanbanBoardController implements Initializable {
 
     public BoardModel getBoardModel() {
         return boardModel;
+    }
+
+    public void swapColumns(int idx1, int idx2){
+        System.out.println(columns.getChildren().size());
+        ObservableList<Node> workingCollection = FXCollections.observableArrayList(columns.getChildren());
+        Collections.swap(workingCollection, idx1, idx2);
+        columns.getChildren().setAll(workingCollection);
+        Collections.swap(boardModel.getColumns(), idx1, idx2);
     }
 
 }

@@ -1,6 +1,8 @@
 package controllers;
 
 import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -18,6 +20,7 @@ import utils.Constants;
 import utils.DragAndDrop;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
 public class ColumnController implements Initializable {
@@ -77,7 +80,7 @@ public class ColumnController implements Initializable {
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
-        dragAnimation.setDragAnimation(kanbanColumn, dragButton, (HBox) ((ScrollPane) kanbanColumn.getBoard().getCenter()).getContent());
+        dragAnimation.setDragAnimation(kanbanColumn, dragButton, kanbanColumn.getBoard());
     }
 
     private void makeNewCard() {
@@ -127,6 +130,7 @@ public class ColumnController implements Initializable {
 
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
+        columnModel.deleteCard(kanbanCard.getController().getData());
     }
 
     @FXML
@@ -137,6 +141,13 @@ public class ColumnController implements Initializable {
 
     public ColumnModel getColumnModel() {
         return columnModel;
+    }
+
+    public void swapCards(int idx1, int idx2){
+        ObservableList<Node> workingCollection = FXCollections.observableArrayList(cards.getChildren());
+        Collections.swap(workingCollection, idx1, idx2);
+        cards.getChildren().setAll(workingCollection);
+        Collections.swap(columnModel.getCards(), idx1, idx2);
     }
 
 }
