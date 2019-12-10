@@ -65,14 +65,17 @@ public class ColumnController implements Initializable {
 
         for (Node option : ((VBox) columnRoleOptions.getPopupContent()).getChildren()) {
             JFXButton optionButton = (JFXButton) option;
-            optionButton.setOnAction(event -> setRole(Constants.ColumnRole.getEnumFromRoleString(optionButton.getText())));
+            optionButton.setOnAction(event -> {
+                setRole(Constants.ColumnRole.getEnumFromRoleString(optionButton.getText()));
+                columnRoleOptions.hide();
+            });
         }
 
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
 
         wipLimitDropDown.setOnAction(event -> {
             try {
-                columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().toString()));
+                columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText()));
             } catch (NumberFormatException e) {
                 columnModel.setWipLimit(0);
             }
@@ -97,6 +100,8 @@ public class ColumnController implements Initializable {
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+        System.out.println(columnModel.getCurrentWip());
+        System.out.println(columnModel.getWipLimit());
     }
 
     public void deleteColumn() {
@@ -143,7 +148,7 @@ public class ColumnController implements Initializable {
         return columnModel;
     }
 
-    public void swapCards(int idx1, int idx2){
+    public void swapCards(int idx1, int idx2) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(cards.getChildren());
         Collections.swap(workingCollection, idx1, idx2);
         cards.getChildren().setAll(workingCollection);

@@ -18,11 +18,11 @@
                            maxWidth="400" maxHeight="NaN" buttonType="FLAT" text="Add column role"
                            AnchorPane.leftAnchor="0.0">
                     <graphic>
-                        <FontIcon iconLiteral="gmi-expand-more" iconColor="white" iconSize="20"/>
+                        <FontIcon iconLiteral="gmi-expand-more" iconColor="white" iconSize="20" HBox.hgrow="ALWAYS"/>
                     </graphic>
                 </JFXButton>
                 <Region HBox.hgrow="ALWAYS"/>
-                <JFXComboBox fx:id="wipLimitDropDown" promptText="WIP limit" maxWidth="NaN" maxHeight="NaN"
+                <JFXComboBox fx:id="wipLimitDropDown" promptText="WIP" minWidth="65" maxWidth="65" maxHeight="NaN"
                              visibleRowCount="3">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
