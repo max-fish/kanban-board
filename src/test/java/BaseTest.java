@@ -46,7 +46,7 @@ public class BaseTest extends ApplicationTest
         openBoard();
 
         clickOn("#addColumn");
-        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
     }
 
     /**
