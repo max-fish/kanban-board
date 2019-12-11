@@ -68,8 +68,8 @@ public class CardController {
         });
     }
 
-
-
-
-
+    public void setTitle(String title)
+    {
+        cardTitle.setText(title);
+    }
 }

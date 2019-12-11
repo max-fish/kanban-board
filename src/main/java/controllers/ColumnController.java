@@ -64,6 +64,8 @@ public class ColumnController implements Initializable {
                 newCardModel.setColumn(columnModel);
 
             newCard.getController().setCard(newCardModel);
+            newCard.getController().setTitle(newCardModel.getTitle());
+            newCard.getController().setTitleChangeListener();
         }
         catch(IOException exception)
         {

@@ -41,6 +41,11 @@ public class CardModel {
         this.title = title;
     }
 
+    public String getTitle()
+    {
+        return title;
+    }
+
     public void setDescription(String description)
     {
         this.description = description;
