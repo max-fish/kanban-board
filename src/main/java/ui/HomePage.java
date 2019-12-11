@@ -2,7 +2,7 @@ package ui;
 
 import com.jfoenix.controls.JFXDecorator;
 import controllers.HomePageController;
-import utils.JSONLoader;
+import utils.FileIO;
 import model.KanbanModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +20,8 @@ public class HomePage extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // create the JSON loader
-        // note: same as just writing JSONLoader.instance().setStage(primaryStage);
-        JSONLoader.instance();
-        JSONLoader.instance().setStage(primaryStage);
+        // create the file loader
+        FileIO.instance().init(primaryStage);
 
         System.setProperty("prism.lcdtext", "false"); //for better font rendering
         FXMLLoader fxmlLoader = new FXMLLoader();

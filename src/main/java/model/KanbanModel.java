@@ -1,6 +1,6 @@
 package model;
 
-import utils.JSONLoader;
+import utils.FileIO;
 import controllers.HomePageController;
 
 import java.util.List;
@@ -49,7 +49,7 @@ public class KanbanModel{
 
     public void loadJSON(MouseEvent e)
     {
-        ArrayList<BoardModel> newBoardModels = JSONLoader.instance().loadFile();
+        List<BoardModel> newBoardModels = FileIO.instance().loadFromJson();
         if(newBoardModels == null)
             return;
 
@@ -61,7 +61,7 @@ public class KanbanModel{
 
     public void loadSession()
     {
-        ArrayList<BoardModel> newBoardModels = JSONLoader.instance().loadSession();
+        List<BoardModel> newBoardModels = FileIO.instance().loadSession();
         if(newBoardModels == null)
             return;
 
@@ -73,11 +73,11 @@ public class KanbanModel{
 
     public void saveJSON(MouseEvent e)
     {
-        JSONLoader.instance().saveFile(boards);
+        FileIO.instance().saveToJson(boards);
     }
 
     public void saveSession()
     {
-        JSONLoader.instance().saveSession(boards);
+        FileIO.instance().saveSession(boards);
     }
 }
