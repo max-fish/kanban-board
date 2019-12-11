@@ -6,12 +6,14 @@ public class TestCards extends BaseTest
 {
     @Test
     public void TestAddCard() {
+        sleep(500);
         createCard();
         sleep(500);
     }
 
     @Test
     public void TestIfCardNameCanBeEditied() {
+        sleep(500);
         createCard();
 
         clickOn("Add Card Title");
@@ -25,6 +27,7 @@ public class TestCards extends BaseTest
 
     @Test
     public void testIfExtraDetailsCanBeAddedToCard() {
+        sleep(500);
         createCard();
 
         //Click on edit button
@@ -55,13 +58,14 @@ public class TestCards extends BaseTest
         moveTo("Test");
         moveBy(-93, -53);
         clickOn(MouseButton.PRIMARY);
-        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
         moveTo("This is a test.");
         sleep(500);
     }
 
     @Test
     public void TestDeleteCard() {
+        sleep(500);
         createCard();
 
         //Move to delete button
@@ -73,6 +77,7 @@ public class TestCards extends BaseTest
 
     @Test
     public void testIfCardCanBeDragedInSameColumn() {
+        sleep(500);
         createCard();
 
         clickOn("Add Card Title");
@@ -95,6 +100,7 @@ public class TestCards extends BaseTest
 
     @Test
     public void TestIfCardCanBeDraggedToNextColumn() {
+        sleep(500);
         createCard();
 
         clickOn("#addColumn");
