@@ -2,8 +2,7 @@ import org.junit.Test;
 import javafx.scene.input.MouseButton;
 import org.testfx.util.WaitForAsyncUtils;
 
-public class TestColumns extends BaseTest
-{
+public class TestColumns extends BaseTest {
     @Test
     public void testAddColumn() {
         createColumn();
@@ -22,16 +21,16 @@ public class TestColumns extends BaseTest
         moveTo("Column1");
         sleep(500);
     }
-    
+
     @Test
     public void testIfColumnRoleCanBeSet() {
         createColumn();
-        sleep(5);
+        sleep(500);
         //Click on work in progress
         clickOn("Backlog");
         WaitForAsyncUtils.waitForFxEvents();
         moveTo("Work in Progress");
-        moveBy(0,10);
+        moveBy(0, 10);
         clickOn(MouseButton.PRIMARY);
         WaitForAsyncUtils.waitForFxEvents();
 
@@ -40,7 +39,7 @@ public class TestColumns extends BaseTest
         sleep(500);
     }
 
-    @Test 
+    @Test
     public void testIfwipLimitDropDown() {
         createColumn();
 
@@ -48,6 +47,7 @@ public class TestColumns extends BaseTest
 
         //Move to scroll bar
         moveBy(35,30);
+        WaitForAsyncUtils.waitForFxEvents();
 
         //Drag the slider down
         press(MouseButton.PRIMARY);
@@ -76,7 +76,7 @@ public class TestColumns extends BaseTest
 
         //Confirm deletion
         moveTo("Delete Column");
-        moveBy(220,95);
+        moveBy(220, 95);
         clickOn(MouseButton.PRIMARY);
         sleep(500);
     }
@@ -95,7 +95,7 @@ public class TestColumns extends BaseTest
         moveTo("#dragButton");
 
         press(MouseButton.PRIMARY);
-        moveBy(300,0);
+        moveBy(300, 0);
         release(MouseButton.PRIMARY);
         sleep(500);
     }
