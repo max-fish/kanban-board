@@ -43,7 +43,7 @@ public class CardDetailController implements Initializable {
         this.cardModel = cardModel;
         titleTextField.setText(cardModel.getTitle());
         descriptionTextArea.setText(cardModel.getDescription());
-        storyPointCombo.setValue(cardModel.getStoryPoints());
+        storyPointCombo.setValue(cardModel.getStoryPoint());
     }
 
     @FXML

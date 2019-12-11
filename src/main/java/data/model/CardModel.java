@@ -52,7 +52,7 @@ public class CardModel {
         this.description = description;
     }
 
-    public void setStoryPoint(Integer story){
+    public void setStoryPoint(int story){
         this.storyPoints = story;
     }
 
@@ -60,7 +60,7 @@ public class CardModel {
         return description;
     }
 
-    public Integer getStoryPoints(){
+    public int getStoryPoint(){
         return storyPoints;
     }
 
