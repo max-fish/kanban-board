@@ -4,6 +4,7 @@ public class TestBoard extends BaseTest
 {
     @Test
     public void testIfANewBoardIsCreatedAndCanBeViewed() {
+        sleep(500);
         clickOn("#addButton");
 
         //Fill in dialogue box to create new board
@@ -15,6 +16,7 @@ public class TestBoard extends BaseTest
 
     @Test
     public void TestHomePageButton() {
+        sleep(500);
         openBoard();
 
         clickOn("#homepage");
