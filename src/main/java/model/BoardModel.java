@@ -21,6 +21,8 @@ public class BoardModel {
         columnModels = new ArrayList<>();
         cardsDate = new ArrayList<>();
         creationDate = LocalDate.now();
+
+        System.out.println("New board created");
     }
 
     public void addColumn(ColumnModel columnModel)

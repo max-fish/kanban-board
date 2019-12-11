@@ -62,9 +62,13 @@ public class ColumnModel {
 
     public String getRole() { return role; }
 
-    public void setParentBoard(BoardModel board)
+    public void setBoard(BoardModel board)
     {
         parentBoard = board;
     }
 
+    public BoardModel getBoard()
+    {
+        return parentBoard;
+    }
 }

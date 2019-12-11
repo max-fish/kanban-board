@@ -68,6 +68,8 @@ public class KanbanModel{
         for(BoardModel board : newBoardModels)
             homePageController.makeNewBoard(board, new Label(board.getName()));
 
+        System.out.println(boards.size());
+
         //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method
     }
 

@@ -9,31 +9,31 @@ public class CardModel {
     private String description;
     private String storyPoint;
 
-    //private ColumnModel parent;
+    private transient ColumnModel parentColumn;
 
     /**
      *
      */
-    public CardModel(String title, String description, String storyPoint/*, ColumnModel parent*/)
+    public CardModel(String title, String description, String storyPoint, ColumnModel parentColumn)
     {
         this.title = title;
         this.description = description;
         this.storyPoint = storyPoint;
-        //this.parent = parent;
+        this.parentColumn = parentColumn;
 
         id = nextId;
         nextId++;
           System.out.println("The card was created: " + id);
     }
 
-    public CardModel(String title/*, ColumnModel parent*/)
+    public CardModel(String title, ColumnModel parentColumn)
     {
-        this(title, "", ""/*, parent*/);
+        this(title, "", "", parentColumn);
     }
 
-    public CardModel(/*ColumnModel parent*/)
+    public CardModel(ColumnModel parentColumn)
     {
-        this("New KanbanCard"/*,parent*/);
+        this("New KanbanCard", parentColumn);
     }
 
     public void setTitle(String title)
@@ -46,7 +46,12 @@ public class CardModel {
         this.description = description;
     }
 
-    /*public ColumnModel getParent(){
-        return parent;
-    }*/
+    public ColumnModel getColumn(){
+        return parentColumn;
+    }
+
+    public void setColumn(ColumnModel parentColumn)
+    {
+        this.parentColumn = parentColumn;
+    }
 }

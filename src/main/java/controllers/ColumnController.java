@@ -46,7 +46,7 @@ public class ColumnController implements Initializable {
 
     public void makeNewCard(MouseEvent event)
     {
-        CardModel newCardModel = new CardModel(/*columnModel*/);
+        CardModel newCardModel = new CardModel(columnModel);
 
         makeNewCard(newCardModel);
     }
@@ -60,6 +60,8 @@ public class ColumnController implements Initializable {
 
             if(!columnModel.contains(newCardModel))
                 columnModel.addCard(newCardModel);
+            else
+                newCardModel.setColumn(columnModel);
 
             newCard.getController().setCard(newCardModel);
         }
@@ -76,8 +78,8 @@ public class ColumnController implements Initializable {
             if(columnMenu.isShowing())
                 columnMenu.hide();
 
-            columnToDelete.getBoard().getController().getBoardModel().deleteColumn(columnModel);
-            //columnModel.getBoard().deleteColumn(columnModel);
+            //columnToDelete.getBoard().getController().getBoardModel().deleteColumn(columnModel);
+            columnModel.getBoard().deleteColumn(columnModel);
             columnModel = null;
         });
     }
