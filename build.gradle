@@ -9,7 +9,6 @@ version '1.0-SNAPSHOT'
 
 mainClassName="ui.HomePage"
 sourceCompatibility = 1.8
-gradle.startParameter.showStacktrace = ShowStacktrace.ALWAYS
 
 repositories {
     mavenCentral()

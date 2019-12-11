@@ -1,11 +1,7 @@
 package data.model;
 
-import data.model.BoardModel;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class StatisticsModel
 {
@@ -23,7 +19,7 @@ public class StatisticsModel
         for (ColumnModel col : board.getCompletedColumns()) {
             //Go through all the cards in the "completed" columns
             for (CardModel card : col.getCards()) {
-                storyPointsCount += card.getStoryPoints();
+                storyPointsCount += card.getStoryPoint();
             }
         }
         return storyPointsCount;
@@ -56,7 +52,7 @@ public class StatisticsModel
         //Add story points currently in WIP
         for(ColumnModel col : board.getWIPColumns()){
             for (CardModel card : col.getCards()) {
-                storyPoints += card.getStoryPoints();
+                storyPoints += card.getStoryPoint();
             }
         }
         if(storyPoints == 0) return -1;

@@ -10,6 +10,8 @@ public class TestBoard extends BaseTest
         //Fill in dialogue box to create new board
         clickOn("Board Name");
         write("Board");
+
+        sleep(500);
         clickOn("Ok");
         sleep(500);
     }
@@ -19,6 +21,7 @@ public class TestBoard extends BaseTest
         sleep(500);
         openBoard();
 
+        sleep(500);
         clickOn("#homepage");
         sleep(500);
     }
