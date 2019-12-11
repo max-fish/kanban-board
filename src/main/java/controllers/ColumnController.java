@@ -14,7 +14,7 @@ import model.CardModel;
 import model.ColumnModel;
 import ui.KanbanCard;
 import ui.KanbanColumn;
-import utils.ComponentMaker;
+import utils.GUIMaker;
 import utils.DragAndDrop;
 import java.io.IOException;
 import java.net.URL;
@@ -37,7 +37,7 @@ public class ColumnController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnMenu = ComponentMaker.makeColumnMenu(this);
+        columnMenu = GUIMaker.makeColumnMenu(this);
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;

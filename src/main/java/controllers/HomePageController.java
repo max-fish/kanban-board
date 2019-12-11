@@ -12,7 +12,7 @@ import ui.KanbanBoard;
 import model.KanbanModel;
 import model.BoardModel;
 import model.ColumnModel;
-import utils.ComponentMaker;
+import utils.GUIMaker;
 import java.util.List;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -40,7 +40,7 @@ public class HomePageController implements Initializable {
         boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
         boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
 
-        fileMenu = ComponentMaker.makeFileMenu();
+        fileMenu = GUIMaker.makeFileMenu();
     }
 
     @FXML
@@ -81,7 +81,7 @@ public class HomePageController implements Initializable {
                 colCounter = 0;
             }
 
-            StackPane newBoardCard = ComponentMaker.makeBoardCard(boardLabel);
+            StackPane newBoardCard = GUIMaker.makeBoardCard(boardLabel);
 
             KanbanModel.instance().addBoard(boardModel);
 

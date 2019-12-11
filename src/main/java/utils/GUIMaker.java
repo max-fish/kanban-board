@@ -11,7 +11,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import controllers.ColumnController;
 import model.KanbanModel;
 
-public class ComponentMaker {
+public class GUIMaker {
     public static StackPane makeBoardCard(Label title) {
         StackPane boardCard = new StackPane();
         boardCard.setPrefWidth(185);
@@ -19,7 +19,7 @@ public class ComponentMaker {
         boardCard.setMaxWidth(185);
         boardCard.setMaxHeight(80);
 
-        title.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
+        title.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
         title.setTextFill(Color.WHITE);
 
         boardCard.getChildren().add(title);
@@ -59,7 +59,7 @@ public class ComponentMaker {
         addCardIcon.setIconLiteral("gmi-add");
         addCardIcon.setIconSize(19);
         addCard.setGraphic(addCardIcon);
-        addCard.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        addCard.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         addCard.setAlignment(Pos.BASELINE_LEFT);
         addCard.setMinWidth(120);
         addCard.setOnMouseClicked(controller::makeNewCard);
@@ -70,7 +70,7 @@ public class ComponentMaker {
         deleteColumnIcon.setIconLiteral("gmi-delete");
         deleteColumnIcon.setIconSize(17);
         deleteColumn.setGraphic(deleteColumnIcon);
-        deleteColumn.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        deleteColumn.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         deleteColumn.setAlignment(Pos.BASELINE_LEFT);
         deleteColumn.setMinWidth(120);
         deleteColumn.setOnMouseClicked(controller::deleteColumn);
@@ -91,7 +91,7 @@ public class ComponentMaker {
         importIcon.setIconLiteral("gmi-file-download");
         importIcon.setIconSize(17);
         importJSON.setGraphic(importIcon);
-        importJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        importJSON.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         importJSON.setAlignment(Pos.BASELINE_LEFT);
         importJSON.setMinWidth(165);
         importJSON.setOnMouseClicked(KanbanModel.instance()::loadJSON);
@@ -102,7 +102,7 @@ public class ComponentMaker {
         exportIcon.setIconLiteral("gmi-file-upload");
         exportIcon.setIconSize(17);
         exportJSON.setGraphic(exportIcon);
-        exportJSON.setFont(Font.loadFont(ComponentMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
+        exportJSON.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
         exportJSON.setAlignment(Pos.BASELINE_LEFT);
         exportJSON.setMinWidth(165);
         exportJSON.setOnMouseClicked(KanbanModel.instance()::saveJSON);

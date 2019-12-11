@@ -20,7 +20,7 @@ import ui.KanbanBoard;
 import ui.KanbanColumn;
 import ui.Statistics;
 import utils.AnimationMaker;
-import utils.ComponentMaker;
+import utils.GUIMaker;
 import model.BoardModel;
 import model.CardModel;
 import model.ColumnModel;
@@ -53,14 +53,14 @@ public class KanbanBoardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        statisticsButton = ComponentMaker.makeStatisticsButton();
+        statisticsButton = GUIMaker.makeStatisticsButton();
         topBoard.setRightAnchor(statisticsButton,10.0);
         topBoard.setTopAnchor(statisticsButton,10.0);
         topBoard.getChildren().add(statisticsButton);
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
-        addButton = ComponentMaker.makeAddButton();
+        addButton = GUIMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> {
             makeNewColumn();
         });
