@@ -26,7 +26,7 @@ public class TestColumns extends BaseTest
     @Test
     public void testIfColumnRoleCanBeSet() {
         createColumn();
-        sleep(5);
+        sleep(500);
         //Click on work in progress
         clickOn("Backlog");
         WaitForAsyncUtils.waitForFxEvents();
@@ -48,7 +48,7 @@ public class TestColumns extends BaseTest
 
         //Move to scroll bar
         moveBy(35,30);
-
+        WaitForAsyncUtils.waitForFxEvents();
         //Drag the slider down
         press(MouseButton.PRIMARY);
         moveBy(0,30);
