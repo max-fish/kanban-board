@@ -7,6 +7,7 @@ import java.lang.RuntimeException;
 
 // classes for JSON parsing
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 
@@ -20,7 +21,7 @@ public class JSONParser{
     {
         try
         {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             Type collectionType = new TypeToken<ArrayList<BoardModel>>(){}.getType();
             ArrayList<BoardModel> newBoards = gson.fromJson(json, collectionType);
 
@@ -59,7 +60,7 @@ public class JSONParser{
 
     public static String toJson(List<BoardModel> boards)
     {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String json = gson.toJson(boards);
 
         return json;
