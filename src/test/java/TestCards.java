@@ -1,5 +1,6 @@
 import org.junit.Test;
 import javafx.scene.input.MouseButton;
+import org.testfx.util.WaitForAsyncUtils;
 
 public class TestCards extends BaseTest
 {
@@ -13,13 +14,12 @@ public class TestCards extends BaseTest
     public void TestIfCardNameCanBeEditied() {
         createCard();
 
-        //Move to end of text
-        moveTo("New KanbanCard");
-        moveBy(50,0);
-        clickOn(MouseButton.PRIMARY);
+        clickOn("Add Card Title");
 
-        eraseText(14);
         write("Test");
+
+        //Verify name has been changed
+        moveTo("Test");
         sleep(500);
     }
 
@@ -28,13 +28,19 @@ public class TestCards extends BaseTest
         createCard();
 
         //Click on edit button
-        moveTo("New KanbanCard");
+        moveTo("Add Card Title");
         moveBy(-93, -53);
         clickOn(MouseButton.PRIMARY);
 
+        moveTo("Title:");
+        moveBy(60, 0);
+        clickOn(MouseButton.PRIMARY);
+
+        write("Test");
+
         //Move to description box
         moveTo("Task description:");
-        moveBy(0,20);
+        moveBy(0,40);
         clickOn(MouseButton.PRIMARY);
 
         write("This is a test.");
@@ -46,12 +52,11 @@ public class TestCards extends BaseTest
         clickOn("Save");
 
         //Verify that details are saved
-        moveTo("New KanbanCard");
+        moveTo("Test");
         moveBy(-93, -53);
         clickOn(MouseButton.PRIMARY);
-
+        WaitForAsyncUtils.waitForFxEvents();
         moveTo("This is a test.");
-
         sleep(500);
     }
 
@@ -59,14 +64,10 @@ public class TestCards extends BaseTest
     public void TestDeleteCard() {
         createCard();
 
-        moveBy(100,100);
-        clickOn(MouseButton.PRIMARY);
-
         //Move to delete button
-        moveTo("New KanbanCard");
+        moveTo("Add Card Title");
         moveBy(93, -53);
         clickOn(MouseButton.PRIMARY);
-        
         sleep(500);
     }
 
@@ -74,20 +75,14 @@ public class TestCards extends BaseTest
     public void testIfCardCanBeDragedInSameColumn() {
         createCard();
 
-        //Move to end of text
-        moveTo("New KanbanCard");
-        moveBy(50,0);
-        clickOn(MouseButton.PRIMARY);
+        clickOn("Add Card Title");
 
-        eraseText(14);
         write("Test");
 
         clickOn("#columnMenuButton");
 
         clickOn("Add card");
 
-        moveBy(100,100);
-        clickOn(MouseButton.PRIMARY);
 
         moveTo("Test");
         moveBy(0,-20);
@@ -95,7 +90,6 @@ public class TestCards extends BaseTest
         press(MouseButton.PRIMARY);
         moveBy(0,150);
         release(MouseButton.PRIMARY);
-
         sleep(500);
     }
 
@@ -105,13 +99,12 @@ public class TestCards extends BaseTest
 
         clickOn("#addColumn");
 
-        moveTo("New KanbanCard");
+        moveTo("Add Card Title");
         moveBy(0,-20);
 
         press(MouseButton.PRIMARY);
         moveBy(250,0);
         release(MouseButton.PRIMARY);
-
         sleep(500);
     }
 }

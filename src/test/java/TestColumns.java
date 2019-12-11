@@ -15,27 +15,28 @@ public class TestColumns extends BaseTest
         createColumn();
 
         //Add column name
-        clickOn("New Column");
-        eraseText(10);
+        clickOn("Add column name");
         write("Column1");
+
+        //Verify name changed
+        moveTo("Column1");
         sleep(500);
     }
     
     @Test
     public void testIfColumnRoleCanBeSet() {
         createColumn();
-
+        sleep(5);
         //Click on work in progress
-        clickOn("Add column role");
-        clickOn("Work In Progress");
-
-        //Click somewhere else to close the drop down
-        moveBy(200, 50);
+        clickOn("Backlog");
+        WaitForAsyncUtils.waitForFxEvents();
+        moveTo("Work in Progress");
+        moveBy(0,10);
         clickOn(MouseButton.PRIMARY);
+        WaitForAsyncUtils.waitForFxEvents();
 
         //Verify 'work in progress' is selected
-        WaitForAsyncUtils.waitForFxEvents();
-        moveTo("Work In Progress");
+        moveTo("Work in Progress");
         sleep(500);
     }
 
@@ -46,7 +47,7 @@ public class TestColumns extends BaseTest
         clickOn("#wipLimitDropDown");
 
         //Move to scroll bar
-        moveBy(85,30);
+        moveBy(35,30);
 
         //Drag the slider down
         press(MouseButton.PRIMARY);
@@ -56,6 +57,8 @@ public class TestColumns extends BaseTest
         WaitForAsyncUtils.waitForFxEvents();
         clickOn("5");
 
+        //Verify 5 was clicked
+        moveTo("5");
         sleep(500);
     }
 
@@ -75,7 +78,6 @@ public class TestColumns extends BaseTest
         moveTo("Delete Column");
         moveBy(220,95);
         clickOn(MouseButton.PRIMARY);
-
         sleep(500);
     }
 
@@ -83,7 +85,7 @@ public class TestColumns extends BaseTest
     public void testDragAndDropColumn() {
         //Add name to column
         createColumn();
-        clickOn("New Column");
+        clickOn("Add column name");
         eraseText(10);
         write("Column1");
 
@@ -95,7 +97,6 @@ public class TestColumns extends BaseTest
         press(MouseButton.PRIMARY);
         moveBy(300,0);
         release(MouseButton.PRIMARY);
-
         sleep(500);
     }
 }
