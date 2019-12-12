@@ -100,8 +100,17 @@ public class ColumnController implements Initializable {
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
-        System.out.println(columnModel.getCurrentWip());
-        System.out.println(columnModel.getWipLimit());
+    }
+
+    public void makeNewCard(int index, CardModel newCardModel){
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
+        cards.getChildren().add(index, newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+        columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+
     }
 
     public void deleteColumn() {

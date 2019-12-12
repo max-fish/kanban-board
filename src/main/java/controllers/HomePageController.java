@@ -70,31 +70,26 @@ public class HomePageController implements Initializable {
 
     public void makeNewBoard(BoardModel boardModel, String boardTitle)
     {
-        try {
-            KanbanBoard board = new KanbanBoard();
+        KanbanBoard board = new KanbanBoard();
 
-            if (colCounter == 4) {
-                rowCounter++;
-                colCounter = 0;
-            }
-
-            StackPane newBoardCard = GUIMaker.makeBoardCard(boardTitle);
-
-            KanbanModel.instance().addBoard(boardModel);
-
-            board.getController().fillWithData(boardModel);
-
-            if(boardModel.hasColumns())
-                createColumns(boardModel, board);
-
-            newBoardCard.setOnMouseClicked(event -> rootPane.setCenter(board));
-
-            boardGrid.add(newBoardCard, colCounter, rowCounter);
-            colCounter++;
-        } catch (IOException e) {
-            System.out.println("The board could not be created.");
-            e.printStackTrace();
+        if (colCounter == 4) {
+            rowCounter++;
+            colCounter = 0;
         }
+
+        StackPane newBoardCard = GUIMaker.makeBoardCard(boardTitle);
+
+        KanbanModel.instance().addBoard(boardModel);
+
+        board.getController().fillWithData(boardModel);
+
+        if(boardModel.hasColumns())
+            createColumns(boardModel, board);
+
+        newBoardCard.setOnMouseClicked(event -> rootPane.setCenter(board));
+
+        boardGrid.add(newBoardCard, colCounter, rowCounter);
+        colCounter++;
     }
 
     private void createColumns(BoardModel boardModel, KanbanBoard board)
