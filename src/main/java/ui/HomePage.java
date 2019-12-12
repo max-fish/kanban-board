@@ -2,7 +2,7 @@ package ui;
 
 import com.jfoenix.controls.JFXDecorator;
 import controllers.HomePageController;
-import data.db.JSONLoader;
+import utils.FileIO;
 import data.db.KanbanModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -20,10 +20,8 @@ public class HomePage extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        // create the JSON loader
-        // note: same as just writing JSONLoader.instance().setStage(primaryStage);
-        JSONLoader.instance();
-        JSONLoader.instance().setStage(primaryStage);
+        // create the file loader
+        FileIO.instance().init(primaryStage);
 
         System.setProperty("prism.lcdtext", "false"); //for better font rendering
         FXMLLoader fxmlLoader = new FXMLLoader();
@@ -34,6 +32,7 @@ public class HomePage extends Application {
 
         KanbanModel.instance(); // create the data.model for the application
         KanbanModel.instance().setHomePageController(homePageController);
+        KanbanModel.instance().loadSession();
 
 	      JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
@@ -41,6 +40,9 @@ public class HomePage extends Application {
         Scene scene = new Scene(jfxDecorator, 1200, 600);
         scene.getStylesheets().add(getClass().getResource("/styling/scene_styling.css").toExternalForm());
         primaryStage.setScene(scene);
+
+        primaryStage.setOnCloseRequest(event -> KanbanModel.instance().saveSession());
+
         primaryStage.show();
     }
 }

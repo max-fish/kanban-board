@@ -10,7 +10,7 @@ import ui.KanbanBoard;
 import data.db.KanbanModel;
 import data.model.BoardModel;
 import data.model.ColumnModel;
-import utils.ComponentMaker;
+import utils.GUIMaker;
 import java.util.List;
 import javafx.fxml.FXML;
 
@@ -33,7 +33,7 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        fileMenu = ComponentMaker.makeFileMenu();
+        fileMenu = GUIMaker.makeFileMenu();
         JFXButton importButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(0);
         importButton.setOnAction(event -> KanbanModel.instance().loadJSON());
         JFXButton exportButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(1);
@@ -78,7 +78,7 @@ public class HomePageController implements Initializable {
                 colCounter = 0;
             }
 
-            StackPane newBoardCard = ComponentMaker.makeBoardCard(boardTitle);
+            StackPane newBoardCard = GUIMaker.makeBoardCard(boardTitle);
 
             KanbanModel.instance().addBoard(boardModel);
 

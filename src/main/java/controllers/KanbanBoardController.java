@@ -24,7 +24,7 @@ import ui.KanbanBoard;
 import ui.KanbanColumn;
 import ui.Statistics;
 import utils.AnimationMaker;
-import utils.ComponentMaker;
+import utils.GUIMaker;
 
 import java.net.URL;
 import java.util.Collections;
@@ -53,7 +53,7 @@ public class KanbanBoardController implements Initializable {
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
-        addButton = ComponentMaker.makeAddButton();
+        addButton = GUIMaker.makeAddButton();
         addButton.setOnMouseClicked(event -> makeNewColumn());
         addButton.setId("addColumn");
 

@@ -6,7 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-public class ComponentMaker {
+public class GUIMaker {
+
     public static StackPane makeBoardCard(String title) {
         StackPane boardCard = new StackPane();
         boardCard.setId("BoardCard");

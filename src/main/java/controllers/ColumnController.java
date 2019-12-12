@@ -15,7 +15,7 @@ import data.model.CardModel;
 import data.model.ColumnModel;
 import ui.KanbanCard;
 import ui.KanbanColumn;
-import utils.ComponentMaker;
+import utils.GUIMaker;
 import utils.Constants;
 import utils.DragAndDrop;
 
@@ -47,7 +47,7 @@ public class ColumnController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        columnMenu = ComponentMaker.makeColumnMenu();
+        columnMenu = GUIMaker.makeColumnMenu();
 
         JFXButton addCardButton = (JFXButton) ((VBox) columnMenu.getPopupContent()).getChildren().get(0);
         addCardButton.setOnAction(event -> {
@@ -61,7 +61,7 @@ public class ColumnController implements Initializable {
             columnMenu.hide();
         });
 
-        columnRoleOptions = ComponentMaker.makeColumnRoleDropDown();
+        columnRoleOptions = GUIMaker.makeColumnRoleDropDown();
 
         for (Node option : ((VBox) columnRoleOptions.getPopupContent()).getChildren()) {
             JFXButton optionButton = (JFXButton) option;
@@ -88,7 +88,7 @@ public class ColumnController implements Initializable {
 
     private void makeNewCard() {
         if (columnModel.getCurrentWip() >= columnModel.getWipLimit() && columnModel.getWipLimit() != 0) {
-            ComponentMaker.makeWipLimitSnackbar(((KanbanColumn) rootPane).getBoard());
+            GUIMaker.makeWipLimitSnackbar(((KanbanColumn) rootPane).getBoard());
         } else makeNewCard(new CardModel());
     }
 

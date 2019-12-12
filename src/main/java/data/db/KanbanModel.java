@@ -1,5 +1,6 @@
 package data.db;
 
+import utils.FileIO;
 import controllers.HomePageController;
 import data.model.BoardModel;
 
@@ -45,7 +46,7 @@ public class KanbanModel{
 
     public void loadJSON()
     {
-        ArrayList<BoardModel> newBoardModels = JSONLoader.instance().loadFile();
+        List<BoardModel> newBoardModels = FileIO.instance().loadFromJson();
         if(newBoardModels == null)
             return;
 
@@ -53,8 +54,27 @@ public class KanbanModel{
             homePageController.makeNewBoard(board, board.getName());
     }
 
+    public void loadSession()
+    {
+        List<BoardModel> newBoardModels = FileIO.instance().loadSession();
+        if(newBoardModels == null)
+            return;
+
+        for(BoardModel board : newBoardModels)
+            homePageController.makeNewBoard(board, board.getName());
+
+        System.out.println(boards.size());
+
+        //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method, left as a reminder in case of refactoring
+    }
+
     public void saveJSON()
     {
-        JSONLoader.instance().saveFile(boards);
+        FileIO.instance().saveToJson(boards);
+    }
+
+    public void saveSession()
+    {
+        FileIO.instance().saveSession(boards);
     }
 }

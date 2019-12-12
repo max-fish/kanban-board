@@ -43,7 +43,8 @@ public class CardModel {
         this.title = title;
     }
 
-    public String getTitle(){
+    public String getTitle()
+    {
         return title;
     }
 
@@ -56,7 +57,8 @@ public class CardModel {
         this.storyPoints = story;
     }
 
-    public String getDescription(){
+    public String getDescription()
+    {
         return description;
     }
 
