@@ -1,6 +1,7 @@
 package ui;
 
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXTabPane;
 import controllers.StatisticsController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.StackPane;
