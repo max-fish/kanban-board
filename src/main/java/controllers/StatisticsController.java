@@ -47,7 +47,7 @@ public class StatisticsController implements Initializable {
         else {
             double overallVelocityVal = statisticsModel.getOverallVelocity();
             double leadTimeVal = statisticsModel.getLeadTime();
-            double averageWIPVal = statisticsModel.getAverageWIP(statisticsModel.getActiveWeek());
+            double averageWIPVal = statisticsModel.getAverageWIP(statisticsModel.getBoard().getActiveWeeks());
 
             if(overallVelocityVal == -1) overallVelocity.setText("There's no story points on the Completed Work column yet");
             else overallVelocity.setText(overallVelocityVal + " story points per week");
@@ -67,7 +67,7 @@ public class StatisticsController implements Initializable {
         XYChart.Series ltSeries = new XYChart.Series();
         XYChart.Series wipSeries = new XYChart.Series();
 
-        double week = statisticsModel.getActiveWeek();
+        double week = statisticsModel.getBoard().getActiveWeeks();
         System.out.println("week: ");
         System.out.println(week);
 

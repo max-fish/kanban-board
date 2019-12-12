@@ -26,16 +26,11 @@ public class StatisticsModel
     }
 
     public double getOverallVelocity() {
-        double activeWeeks = (double) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
         double storyPointsCount = countCompletedStoryPoints();
         if(storyPointsCount == 0) return -1;
-        return storyPointsCount / activeWeeks;
+        return storyPointsCount / board.getActiveWeeks();
     }
 
-    public double getActiveWeek(){
-        double activeWeeks = (double) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
-        return activeWeeks;
-    }
 
     public double getLeadTime() {
         double leadTimes = 0;
@@ -51,8 +46,8 @@ public class StatisticsModel
         return leadTimes / cardCount;
     }
 
+    //Get average WIP in the active week given.
     public double getAverageWIP(double activeWeeks) {
-//        double activeWeeks = (double) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
         double storyPoints = countCompletedStoryPoints();
         //Add story points currently in WIP
         for(ColumnModel col : board.getWIPColumns()){
