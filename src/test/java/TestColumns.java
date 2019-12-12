@@ -6,12 +6,14 @@ public class TestColumns extends BaseTest
 {
     @Test
     public void testAddColumn() {
+        sleep(500);
         createColumn();
         sleep(500);
     }
 
     @Test
     public void testIfColumnNameIsEditable() {
+        sleep(500);
         createColumn();
 
         //Add column name
@@ -25,15 +27,16 @@ public class TestColumns extends BaseTest
     
     @Test
     public void testIfColumnRoleCanBeSet() {
+        sleep(500);
         createColumn();
         sleep(500);
         //Click on work in progress
         clickOn("Backlog");
-        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
         moveTo("Work in Progress");
         moveBy(0,10);
         clickOn(MouseButton.PRIMARY);
-        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
 
         //Verify 'work in progress' is selected
         moveTo("Work in Progress");
@@ -42,19 +45,20 @@ public class TestColumns extends BaseTest
 
     @Test 
     public void testIfwipLimitDropDown() {
+        sleep(500);
         createColumn();
 
         clickOn("#wipLimitDropDown");
 
         //Move to scroll bar
         moveBy(35,30);
-        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
         //Drag the slider down
         press(MouseButton.PRIMARY);
         moveBy(0,30);
         release(MouseButton.PRIMARY);
 
-        WaitForAsyncUtils.waitForFxEvents();
+        sleep(500);
         clickOn("5");
 
         //Verify 5 was clicked
@@ -64,6 +68,7 @@ public class TestColumns extends BaseTest
 
     @Test
     public void TestDeleteColumn() {
+        sleep(500);
         createColumn();
 
         //Open column menu
@@ -83,6 +88,7 @@ public class TestColumns extends BaseTest
 
     @Test
     public void testDragAndDropColumn() {
+        sleep(500);
         //Add name to column
         createColumn();
         clickOn("Add column name");
