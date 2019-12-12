@@ -1,81 +1,48 @@
 package utils;
 
 import com.jfoenix.controls.*;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import org.kordamp.ikonli.javafx.FontIcon;
-import controllers.ColumnController;
-import model.KanbanModel;
 
 public class GUIMaker {
-    public static StackPane makeBoardCard(Label title) {
+
+    public static StackPane makeBoardCard(String title) {
         StackPane boardCard = new StackPane();
-        boardCard.setPrefWidth(185);
-        boardCard.setPrefHeight(80);
-        boardCard.setMaxWidth(185);
-        boardCard.setMaxHeight(80);
+        boardCard.setId("BoardCard");
 
-        title.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 19));
-        title.setTextFill(Color.WHITE);
-
-        boardCard.getChildren().add(title);
-        StackPane.setAlignment(title, Pos.TOP_LEFT);
-
-        boardCard.setBackground(new Background(new BackgroundFill(MaterialColors.colorPrimary, new CornerRadii(5), Insets.EMPTY)));
+        Label boardLabel = new Label(title);
+        boardCard.getChildren().add(boardLabel);
+        StackPane.setAlignment(boardLabel, Pos.TOP_LEFT);
 
         JFXRippler jfxRippler = new JFXRippler(boardCard);
-        jfxRippler.setRipplerFill(Color.rgb(176, 133, 245, 0.26));
+        jfxRippler.getStylesheets().add("/styling/board_card_styling.css");
         return jfxRippler;
     }
 
     public static JFXButton makeAddButton() {
         JFXButton jfxButton = new JFXButton();
-        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
-        jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
-        jfxButton.setStyle("-fx-padding: 5");
-
+        jfxButton.getStylesheets().add("/styling/add_button_styling.css");
         FontIcon fontIcon = new FontIcon();
-        fontIcon.setIconColor(MaterialColors.colorPrimary);
-        fontIcon.setIconLiteral("gmi-add");
-        fontIcon.setIconSize(30);
-
         jfxButton.setGraphic(fontIcon);
-        jfxButton.setMaxHeight(30);
-        jfxButton.setMaxWidth(30);
-        jfxButton.setMinHeight(30);
-        jfxButton.setMinWidth(30);
         return jfxButton;
     }
 
-    public static JFXPopup makeColumnMenu(ColumnController controller)
+    public static JFXPopup makeColumnMenu()
     {
         JFXButton addCard = new JFXButton("Add card");
         FontIcon addCardIcon = new FontIcon();
-        addCardIcon.setIconColor(MaterialColors.colorPrimary);
-        addCardIcon.setIconLiteral("gmi-add");
-        addCardIcon.setIconSize(19);
         addCard.setGraphic(addCardIcon);
-        addCard.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
-        addCard.setAlignment(Pos.BASELINE_LEFT);
-        addCard.setMinWidth(120);
-        addCard.setOnMouseClicked(controller::makeNewCard);
+        addCardIcon.setId("AddButton");
 
         JFXButton deleteColumn = new JFXButton("Delete");
         FontIcon deleteColumnIcon = new FontIcon();
-        deleteColumnIcon.setIconColor(MaterialColors.colorPrimary);
-        deleteColumnIcon.setIconLiteral("gmi-delete");
-        deleteColumnIcon.setIconSize(17);
         deleteColumn.setGraphic(deleteColumnIcon);
-        deleteColumn.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
-        deleteColumn.setAlignment(Pos.BASELINE_LEFT);
-        deleteColumn.setMinWidth(120);
-        deleteColumn.setOnMouseClicked(controller::deleteColumn);
+        deleteColumnIcon.setId("DeleteButton");
 
         VBox container = new VBox(addCard, deleteColumn);
+        container.getStylesheets().add("/styling/column_menu_styling.css");
 
         JFXPopup menu = new JFXPopup();
         menu.setPopupContent(container);
@@ -87,27 +54,16 @@ public class GUIMaker {
     {
         JFXButton importJSON = new JFXButton("Import from JSON");
         FontIcon importIcon = new FontIcon();
-        importIcon.setIconColor(MaterialColors.colorPrimary);
-        importIcon.setIconLiteral("gmi-file-download");
-        importIcon.setIconSize(17);
         importJSON.setGraphic(importIcon);
-        importJSON.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
-        importJSON.setAlignment(Pos.BASELINE_LEFT);
-        importJSON.setMinWidth(165);
-        importJSON.setOnMouseClicked(KanbanModel.instance()::loadJSON);
+        importIcon.setId("Import");
 
         JFXButton exportJSON = new JFXButton("Export to JSON");
         FontIcon exportIcon = new FontIcon();
-        exportIcon.setIconColor(MaterialColors.colorPrimary);
-        exportIcon.setIconLiteral("gmi-file-upload");
-        exportIcon.setIconSize(17);
         exportJSON.setGraphic(exportIcon);
-        exportJSON.setFont(Font.loadFont(GUIMaker.class.getResource("/fonts/Roboto-Regular.ttf").toExternalForm(), 15));
-        exportJSON.setAlignment(Pos.BASELINE_LEFT);
-        exportJSON.setMinWidth(165);
-        exportJSON.setOnMouseClicked(KanbanModel.instance()::saveJSON);
+        exportIcon.setId("Export");
 
         VBox container = new VBox(importJSON, exportJSON);
+        container.getStylesheets().add("/styling/saving_styling.css");
 
         JFXPopup menu = new JFXPopup();
         menu.setPopupContent(container);
@@ -115,23 +71,29 @@ public class GUIMaker {
         return menu;
     }
 
-    public static JFXButton makeStatisticsButton(){
-        JFXButton jfxButton = new JFXButton();
-        jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
-        //jfxButton.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(100), Insets.EMPTY)));
-        jfxButton.setStyle("-fx-padding: 5");
+    private static JFXButton makeColumnRoleOption(Constants.ColumnRole role){
+        JFXButton roleButton = new JFXButton(role.roleString);
+        roleButton.getStylesheets().add("/styling/column_role_option.css");
+        return roleButton;
+    }
 
-        FontIcon fontIcon = new FontIcon();
-        fontIcon.setIconColor(Color.WHITE);
-        fontIcon.setIconLiteral("gmi-insert-chart");
-        fontIcon.setIconSize(30);
+    public static JFXPopup makeColumnRoleDropDown(){
+        VBox options = new VBox();
+        options.getChildren().addAll(
+                makeColumnRoleOption(Constants.ColumnRole.BACKLOG),  makeColumnRoleOption(Constants.ColumnRole.WORK_IN_PROGRESS),
+                makeColumnRoleOption(Constants.ColumnRole.ON_HOLD), makeColumnRoleOption(Constants.ColumnRole.COMPLETED_WORK),
+                makeColumnRoleOption(Constants.ColumnRole.INFO_ONLY)
+                );
 
-        jfxButton.setGraphic(fontIcon);
-        jfxButton.setMaxHeight(50);
-        jfxButton.setMaxWidth(50);
-        jfxButton.setMinHeight(50);
-        jfxButton.setMinWidth(50);
+        JFXPopup dropDown = new JFXPopup();
+        dropDown.setPopupContent(options);
+        return dropDown;
+    }
 
-        return jfxButton;
+    public static void makeWipLimitSnackbar(Pane snackbarContainer){
+        JFXSnackbar snackbar = new JFXSnackbar(snackbarContainer);
+        JFXSnackbarLayout snackbarLayout = new JFXSnackbarLayout("WIP Limit exceeded");
+        snackbarLayout.getStylesheets().add("/styling/wip_limit_snackbar_styling.css");
+        snackbar.enqueue(new JFXSnackbar.SnackbarEvent(snackbarLayout));
     }
 }

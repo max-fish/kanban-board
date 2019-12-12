@@ -1,0 +1,23 @@
+@font-face {
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+.jfx-rippler{
+    -jfx-rippler-fill: rgba(176, 133, 245, 0.26);
+}
+
+#BoardCard{
+    -fx-pref-width: 185;
+    -fx-pref-height: 85;
+    -fx-max-width: 185;
+    -fx-max-height: 85;
+    -fx-background-color: #7e57c2;
+    -fx-background-radius: 5;
+
+}
+.label{
+    -fx-font-family: "Roboto";
+    -fx-font-size: 19;
+    -fx-text-fill: white;
+
+}

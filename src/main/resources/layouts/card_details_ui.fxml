@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXButton?>
+
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXDialogLayout?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.Integer?>
+<JFXDialogLayout xmlns="http://javafx.com/javafx"
+                 xmlns:fx="http://javafx.com/fxml"
+                 fx:controller="controllers.CardDetailController"
+                 prefHeight="400.0" prefWidth="600.0" stylesheets="@../styling/card_detail_styling.css">
+    <heading>
+        <Label text="Details"/>
+    </heading>
+    <body>
+        <VBox spacing="20">
+            <VBox.margin>
+                <Insets>
+                    <bottom>10</bottom>
+                </Insets>
+            </VBox.margin>
+            <HBox spacing="15.0">
+                <Label minWidth="50.0" text="Title:"/>
+                <JFXTextField fx:id="titleTextField" maxWidth="600" HBox.hgrow="ALWAYS"/>
+            </HBox>
+            <Label minWidth="50.0" text="Task description:"/>
+            <JFXTextArea fx:id="descriptionTextArea" VBox.vgrow="ALWAYS"/>
+            <Label minWidth="50.0" text="Story Point:"/>
+            <JFXComboBox fx:id="storyPointCombo" VBox.vgrow="ALWAYS" promptText="choose" prefWidth="123.0">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <Integer fx:value="1"/>
+                        <Integer fx:value="2"/>
+                        <Integer fx:value="3"/>
+                    </FXCollections>
+                </items>
+            </JFXComboBox>
+        </VBox>
+    </body>
+    <actions>
+        <JFXButton id="save_button" mnemonicParsing="false" text="Save" onMouseClicked="#saveDetails"/>
+        <JFXButton id="cancel_button" text="Cancel" onMouseClicked="#cancel"/>
+    </actions>
+</JFXDialogLayout>

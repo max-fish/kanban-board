@@ -3,19 +3,16 @@ package controllers;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXButton;
 import callbacks.BoardNamePopupCallBack;
-import com.jfoenix.controls.JFXToolbar;
-import com.jfoenix.controls.JFXButton;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.*;
 import ui.BoardNamePopup;
 import ui.KanbanBoard;
-import model.KanbanModel;
-import model.BoardModel;
-import model.ColumnModel;
+import data.db.KanbanModel;
+import data.model.BoardModel;
+import data.model.ColumnModel;
 import utils.GUIMaker;
 import java.util.List;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,11 +33,11 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //KanbanModel.instance(); // create the model for the application
-        boardGrid.maxWidthProperty().bind(rootPane.widthProperty().multiply(4).divide(5));
-        boardGrid.maxHeightProperty().bind(rootPane.heightProperty().multiply(4).divide(5));
-
         fileMenu = GUIMaker.makeFileMenu();
+        JFXButton importButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(0);
+        importButton.setOnAction(event -> KanbanModel.instance().loadJSON());
+        JFXButton exportButton = (JFXButton) ((VBox) fileMenu.getPopupContent()).getChildren().get(1);
+        exportButton.setOnAction(event -> KanbanModel.instance().saveJSON());
     }
 
     @FXML
@@ -59,7 +56,7 @@ public class HomePageController implements Initializable {
 
             @Override
             public void onValidName(String boardTitle) {
-                makeNewBoard(new BoardModel(boardTitle), new Label(boardTitle));
+                makeNewBoard(new BoardModel(boardTitle), boardTitle);
                 rootPane.setCenter(boardGrid);
             }
 
@@ -71,7 +68,7 @@ public class HomePageController implements Initializable {
         dialog.show();
     }
 
-    public void makeNewBoard(BoardModel boardModel, Label boardLabel)
+    public void makeNewBoard(BoardModel boardModel, String boardTitle)
     {
         try {
             KanbanBoard board = new KanbanBoard();
@@ -81,14 +78,11 @@ public class HomePageController implements Initializable {
                 colCounter = 0;
             }
 
-            StackPane newBoardCard = GUIMaker.makeBoardCard(boardLabel);
+            StackPane newBoardCard = GUIMaker.makeBoardCard(boardTitle);
 
             KanbanModel.instance().addBoard(boardModel);
 
-            board.getController().setBoard(boardModel);
-            board.getController().changeTitle(boardLabel.getText());
-            board.getController().setHomePageLabel(boardLabel);
-            board.getController().setTitleChangeListener();
+            board.getController().fillWithData(boardModel);
 
             if(boardModel.hasColumns())
                 createColumns(boardModel, board);

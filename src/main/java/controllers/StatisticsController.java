@@ -3,13 +3,10 @@ package controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import model.StatisticsModel;
+import data.model.StatisticsModel;
 
 import java.net.URL;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.ResourceBundle;
 
 public class StatisticsController implements Initializable {
@@ -19,7 +16,7 @@ public class StatisticsController implements Initializable {
     @FXML
     private Label leadTime;
     @FXML
-    private Label avgWIP;
+    private Label averageWIP;
 
     private StatisticsModel statisticsModel;
 
@@ -32,20 +29,28 @@ public class StatisticsController implements Initializable {
         this.statisticsModel = columnModel;
     }
 
-    public void displayStats(int cardsPerWeek){
-        overallVelocity.setText(getOverallVelocity() + " cards per week");
-    }
-
-
-    public int getOverallVelocity(){
-        // Number of weeks the board has been created
-        int activeWeeks = (int) ChronoUnit.WEEKS.between(statisticsModel.getBoard().getCreationDate(), LocalDate.now()) + 1;
-        // Array in which each position represents the number of week and the value the num of cards added that week
-        int cardsPerWeek[] = new int[activeWeeks];
-        for(LocalDate date : statisticsModel.getCardDates()){
-            int week = (int) ChronoUnit.WEEKS.between(statisticsModel.getBoard().getCreationDate(), date);
-            cardsPerWeek[week]++;
+    public void displayStats(){
+        if(!statisticsModel.getBoard().hasCompleteColumn()){
+            overallVelocity.setText("To view the overall velocity you need to assign a role to your columns.");
+            leadTime.setText("To view the overall velocity you need to assign a role to your columns.");
+            averageWIP.setText("To view the overall velocity you need to assign a role to your columns.");
         }
-        return Arrays.stream(cardsPerWeek).sum() / activeWeeks;
+        else {
+            int overallVelocityVal = statisticsModel.getOverallVelocity();
+            int leadTimeVal = statisticsModel.getLeadTime();
+            int averageWIPVal = statisticsModel.getAverageWIP();
+
+            if(overallVelocityVal == -1) overallVelocity.setText("There's no story points on the Completed Work column yet");
+            else overallVelocity.setText(overallVelocityVal + " story points per week");
+
+            if(leadTimeVal == -1) leadTime.setText("There's no story points on the Completed Work column yet");
+            else leadTime.setText(leadTimeVal + " weeks per task");
+
+            if(averageWIPVal == -1) averageWIP.setText("There's no story points on the Work In Progress columns yet");
+            else averageWIP.setText(averageWIPVal + " story points in WIP");
+        }
     }
+
+
+
 }

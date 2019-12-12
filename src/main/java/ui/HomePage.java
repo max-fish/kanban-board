@@ -3,7 +3,7 @@ package ui;
 import com.jfoenix.controls.JFXDecorator;
 import controllers.HomePageController;
 import utils.FileIO;
-import model.KanbanModel;
+import data.db.KanbanModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -30,7 +30,7 @@ public class HomePage extends Application {
         HomePageController homePageController = fxmlLoader.getController();
         //homePageController.initConfig();
 
-        KanbanModel.instance(); // create the model for the application
+        KanbanModel.instance(); // create the data.model for the application
         KanbanModel.instance().setHomePageController(homePageController);
         KanbanModel.instance().loadSession();
 
@@ -41,9 +41,7 @@ public class HomePage extends Application {
         scene.getStylesheets().add(getClass().getResource("/styling/scene_styling.css").toExternalForm());
         primaryStage.setScene(scene);
 
-        primaryStage.setOnCloseRequest(event -> {
-            KanbanModel.instance().saveSession();
-        });
+        primaryStage.setOnCloseRequest(event -> KanbanModel.instance().saveSession());
 
         primaryStage.show();
     }

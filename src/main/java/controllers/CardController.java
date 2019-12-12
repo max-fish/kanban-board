@@ -1,75 +1,109 @@
 package controllers;
 
+import callbacks.CardDetailPopupCallback;
+import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
-import javafx.scene.layout.VBox;
-import model.CardModel;
+import data.model.CardModel;
 
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.StackPane;
+import ui.CardDetailPopup;
+import ui.DeleteConfirmationPopup;
+import ui.KanbanBoard;
 import ui.KanbanCard;
+import utils.DragAndDropForCards;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class CardController {
+public class CardController implements Initializable {
     @FXML
     private JFXTextField cardTitle;
-
-//    @FXML
-//    private DatePicker dueDatePicker;
-
-    @FXML
-    private JFXTextField descTextArea;
-
     @FXML
     private BorderPane rootPane;
 
-    @FXML
-    private BorderPane infoPage;
-
-//    @FXML
-//    private Button add;
-
-    private CardModel card;
+    private CardModel cardModel;
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        DragAndDropForCards dragAnimation = new DragAndDropForCards();
+        KanbanCard card = (KanbanCard) rootPane;
+        dragAnimation.setDragAnimation(card);
 
+        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setTitle(newValue));
+    }
 
-    public void setCard(CardModel card)
-    {
-        this.card = card;
+    public void fillWithData(CardModel cardModel) {
+            this.cardModel = cardModel;
+            cardTitle.setText(cardModel.getTitle());
     }
 
     @FXML
-    public void editDetails(MouseEvent event){
-        //TODO: open a new page to edit the details
+    public void editDetails() {
+        KanbanCard card = (KanbanCard) rootPane;
+        KanbanBoard board = card.getColumn().getBoard();
+        BorderPane homePage = board.getHomePage();
+        cardModel.setTitle(cardTitle.getText());
+        CardDetailPopup cardDetailPopup = new CardDetailPopup(new CardDetailPopupCallback() {
+            @Override
+            public CardModel onStart(StackPane dialogContainer) {
+                homePage.setCenter(dialogContainer);
+                return cardModel;
+            }
+
+            @Override
+            public void onSave(CardModel cardModel) {
+                CardController.this.cardModel = cardModel;
+                cardTitle.setText(cardModel.getTitle());
+                homePage.setCenter(board);
+            }
+
+            @Override
+            public void onCancel() {
+                homePage.setCenter(board);
+            }
+        }, homePage.getCenter());
+
+        cardDetailPopup.show();
     }
 
     @FXML
-    public void deleteCard(MouseEvent event){
+    public void deleteCard() {
         KanbanCard kanbanCardToDelete = (KanbanCard) rootPane;
-        kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
+        KanbanBoard board = kanbanCardToDelete.getColumn().getBoard();
+        BorderPane homePage = board.getHomePage();
+        DeleteConfirmationPopup deleteCardConfirmation = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+            @Override
+            public void onStart(StackPane stackPane) {
+                homePage.setCenter(stackPane);
+            }
 
-        card.getColumn().deleteCard(card);
-        card = null;
+            @Override
+            public void onDelete() {
+                kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
+                cardModel = null;
+                homePage.setCenter(board);
+            }
+
+            @Override
+            public void onCancel() {
+                homePage.setCenter(board);
+            }
+        }, homePage.getCenter());
+
+        deleteCardConfirmation.show();
     }
 
-    public void setTitleChangeListener()
-    {
-        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
-            card.setTitle(newValue);
-        });
+    public void deleteCardDirectly(KanbanCard cardToDelete){
+        cardToDelete.getColumn().getController().deleteCard(cardToDelete);
     }
 
-    public void setDescChangeListener()
-    {
-        descTextArea.textProperty().addListener((observable, oldValue, newValue) -> {
-            card.setDescription(newValue);
-        });
-    }
-
-    public void setTitle(String title)
-    {
-        cardTitle.setText(title);
+    public CardModel getData() {
+        return cardModel;
     }
 }

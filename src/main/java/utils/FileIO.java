@@ -20,7 +20,8 @@ import java.io.IOException;
 import javafx.stage.Stage;
 import java.util.List;
 import java.util.ArrayList;
-import model.BoardModel;
+import data.model.BoardModel;
+import data.db.JSONParser;
 
 public class FileIO{
     private static FileIO instance = null;

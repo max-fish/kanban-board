@@ -1,34 +1,34 @@
 package ui;
 
-import callbacks.BoardNamePopupCallBack;
+import callbacks.CardDetailPopupCallback;
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
-import controllers.BoardNamePopupController;
+import controllers.CardDetailController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
-import java.util.Objects;
 
-public class BoardNamePopup extends JFXDialog {
-
-    private BoardNamePopupCallBack boardNamePopupCallBack;
+public class CardDetailPopup extends JFXDialog {
+    private CardDetailController cardDetailController;
+    private CardDetailPopupCallback callback;
     private StackPane dialogContainer;
 
-    public BoardNamePopup(BoardNamePopupCallBack boardNamePopupCallBack, Node currentUi) {
-        this.boardNamePopupCallBack = boardNamePopupCallBack;
+    public CardDetailPopup(CardDetailPopupCallback callback, Node currentUi){
+        this.callback = callback;
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/card_details_ui.fxml"));
         JFXDialogLayout jfxDialogLayout = null;
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/board_name_popup_layout.fxml"));
         try {
             jfxDialogLayout = fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        BoardNamePopupController boardNamePopupController = fxmlLoader.getController();
-        boardNamePopupController.setBoardNamePopupCallBack(boardNamePopupCallBack);
-        boardNamePopupController.setUi(this);
 
+        cardDetailController = fxmlLoader.getController();
+
+        cardDetailController.setBoardNamePopupCallBack(callback);
+        cardDetailController.setUi(this);
 
         StackPane stackPane = new StackPane();
         stackPane.getChildren().add(currentUi);
@@ -40,9 +40,13 @@ public class BoardNamePopup extends JFXDialog {
         setOverlayClose(false);
     }
 
+    public CardDetailController getController(){
+        return cardDetailController;
+    }
+
     @Override
     public void show() {
-        boardNamePopupCallBack.onStart(dialogContainer);
+        cardDetailController.fillWithData(callback.onStart(dialogContainer));
         super.show();
     }
 }

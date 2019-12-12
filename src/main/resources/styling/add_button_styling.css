@@ -1,0 +1,14 @@
+.jfx-button{
+    -fx-button-type: RAISED;
+    -fx-background-color: white;
+    -fx-background-radius: 100;
+    -fx-padding: 5;
+    -fx-max-height: 20;
+    -fx-max-width: 20;
+}
+
+.ikonli-font-icon{
+    -fx-icon-color: #7e57c2;
+    -fx-icon-code: "gmi-add";
+    -fx-icon-size: 25px;
+}

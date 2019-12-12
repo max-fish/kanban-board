@@ -1,18 +1,15 @@
-package model;
+package data.db;
 
 import utils.FileIO;
 import controllers.HomePageController;
+import data.model.BoardModel;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.IOException;
-import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 
 /**
  * Class KanbanModel - the class stores the current state
- * of the model of the application. It holds a List of all boards
+ * of the data.model of the application. It holds a List of all boards
  * that currently exist in the application.
  *
  * The class is a Singleton.
@@ -47,16 +44,14 @@ public class KanbanModel{
         boards.add(board);
     }
 
-    public void loadJSON(MouseEvent e)
+    public void loadJSON()
     {
         List<BoardModel> newBoardModels = FileIO.instance().loadFromJson();
         if(newBoardModels == null)
             return;
 
         for(BoardModel board : newBoardModels)
-            homePageController.makeNewBoard(board, new Label(board.getName()));
-
-        //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method
+            homePageController.makeNewBoard(board, board.getName());
     }
 
     public void loadSession()
@@ -66,14 +61,14 @@ public class KanbanModel{
             return;
 
         for(BoardModel board : newBoardModels)
-            homePageController.makeNewBoard(board, new Label(board.getName()));
+            homePageController.makeNewBoard(board, board.getName());
 
         System.out.println(boards.size());
 
-        //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method
+        //boards.addAll(newBoardModels);  <- not needed as the boards are added to the model in makeNewBoard method, left as a reminder in case of refactoring
     }
 
-    public void saveJSON(MouseEvent e)
+    public void saveJSON()
     {
         FileIO.instance().saveToJson(boards);
     }

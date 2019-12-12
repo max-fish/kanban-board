@@ -1,4 +1,4 @@
-package utils;
+package data.db;
 
 // import error classes
 import com.google.gson.JsonSyntaxException;
@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 import java.util.List;
 import java.util.ArrayList;
-import model.BoardModel;
+import data.model.BoardModel;
 
 public class JSONParser{
 
