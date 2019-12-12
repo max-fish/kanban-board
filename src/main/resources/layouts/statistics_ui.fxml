@@ -3,10 +3,12 @@
 <?import javafx.scene.layout.*?>
 
 
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <VBox styleClass="root" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.StatisticsController"
-            prefHeight="200" prefWidth="400.0" stylesheets="@../styling/statistics_styling.css" alignment="TOP_CENTER" spacing="10">
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controllers.StatisticsController"
+      prefHeight="400" prefWidth="400.0" stylesheets="@../styling/statistics_styling.css" alignment="TOP_CENTER" spacing="10">
 
     <Label id="statistics_title"  text="Statistics" />
 
@@ -22,4 +24,10 @@
            text="Average Work In Progress"/>
     <Label styleClass="stats" fx:id="averageWIP" id="avgWIP" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
            text="Average Work In Progress"/>
+    <AnchorPane xmlns:fx="http://javafx.com/fxml">
+        <LineChart fx:id="linechart">
+            <xAxis><NumberAxis /></xAxis>
+            <yAxis><NumberAxis /></yAxis>
+        </LineChart>
+    </AnchorPane>
 </VBox>
