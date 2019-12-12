@@ -24,7 +24,7 @@ public class CardModel {
 
         id = nextId;
         nextId++;
-        creationDate = LocalDate.now();
+        setCreationDate(LocalDate.now());
           System.out.println("The card was created: " + id);
     }
 
@@ -71,4 +71,6 @@ public class CardModel {
     public void setCompletedDate(LocalDate date) { completedDate = date; }
 
     public LocalDate getCompletedDate() { return completedDate; }
+
+    public void setCreationDate(LocalDate date){ creationDate = date; }
 }

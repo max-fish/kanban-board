@@ -18,7 +18,7 @@ public class BoardModel {
     {
         this.name = name;
         columnModels = new ArrayList<>();
-        creationDate = LocalDate.now();
+        setCreationDate(LocalDate.now());
     }
 
     public void addColumn(ColumnModel columnModel)
@@ -73,4 +73,6 @@ public class BoardModel {
     public LocalDate getCreationDate() { return creationDate; }
 
     public boolean hasCompleteColumn() { return !getCompletedColumns().isEmpty(); }
+
+    public void setCreationDate(LocalDate date){ creationDate = date; }
 }

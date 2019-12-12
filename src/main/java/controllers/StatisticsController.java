@@ -36,9 +36,9 @@ public class StatisticsController implements Initializable {
             averageWIP.setText("To view the overall velocity you need to assign a role to your columns.");
         }
         else {
-            int overallVelocityVal = statisticsModel.getOverallVelocity();
-            int leadTimeVal = statisticsModel.getLeadTime();
-            int averageWIPVal = statisticsModel.getAverageWIP();
+            double overallVelocityVal = statisticsModel.getOverallVelocity();
+            double leadTimeVal = statisticsModel.getLeadTime();
+            double averageWIPVal = statisticsModel.getAverageWIP();
 
             if(overallVelocityVal == -1) overallVelocity.setText("There's no story points on the Completed Work column yet");
             else overallVelocity.setText(overallVelocityVal + " story points per week");
