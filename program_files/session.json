@@ -5,7 +5,7 @@
       {
         "name": "TODO",
         "role": "BACKLOG",
-        "currentWip": 8,
+        "currentWip": 18,
         "wipLimit": 0,
         "cardModels": [
           {
@@ -35,7 +35,7 @@
       {
         "name": "Developing",
         "role": "WORK_IN_PROGRESS",
-        "currentWip": 10,
+        "currentWip": 25,
         "wipLimit": 0,
         "cardModels": [
           {
@@ -76,7 +76,7 @@
       {
         "name": "Done",
         "role": "COMPLETED_WORK",
-        "currentWip": 3,
+        "currentWip": 8,
         "wipLimit": 0,
         "cardModels": [
           {

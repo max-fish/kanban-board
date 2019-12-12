@@ -99,6 +99,9 @@ public class ColumnController implements Initializable {
 
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
+        else
+            System.out.println("The card was created: " + newCardModel.getTitle() + newCardModel.getID());
+
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
         System.out.println(columnModel.getCurrentWip());
         System.out.println(columnModel.getWipLimit());

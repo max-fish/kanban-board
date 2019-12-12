@@ -25,7 +25,7 @@ public class CardModel {
         id = nextId;
         nextId++;
         creationDate = LocalDate.now();
-          System.out.println("The card was created: " + id);
+          System.out.println("The card was created: " + title + id);
     }
 
     public CardModel(String title)
@@ -36,6 +36,11 @@ public class CardModel {
     public CardModel()
     {
         this("");
+    }
+
+    public int getID()
+    {
+        return id;
     }
 
     public void setTitle(String title)
