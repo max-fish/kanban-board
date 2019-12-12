@@ -26,21 +26,21 @@ public class StatisticsModel
     }
 
 
-    public int getOverallVelocity() {
-        int activeWeeks = (int) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
+    public double getOverallVelocity() {
+        double activeWeeks = (double) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
         int storyPointsCount = countCompletedStoryPoints();
         if(storyPointsCount == 0) return -1;
         return storyPointsCount / activeWeeks;
     }
 
-    public int getActiveWeek(){
-        int activeWeeks = (int) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
+    public double getActiveWeek(){
+        double activeWeeks = (double) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
         return activeWeeks;
     }
 
-    public int getLeadTime() {
-        int leadTimes = 0;
-        int cardCount = 0;
+    public double getLeadTime() {
+        double leadTimes = 0;
+        double cardCount = 0;
 
         for(ColumnModel col : board.getCompletedColumns()){
             for (CardModel card : col.getCards()) {
@@ -52,9 +52,9 @@ public class StatisticsModel
         return leadTimes / cardCount;
     }
 
-    public int getAverageWIP(int activeWeeks) {
+    public double getAverageWIP(double activeWeeks) {
 //        int activeWeeks = (int) ChronoUnit.WEEKS.between(board.getCreationDate(), LocalDate.now()) + 1;
-        int storyPoints = countCompletedStoryPoints();
+        double storyPoints = countCompletedStoryPoints();
         //Add story points currently in WIP
         for(ColumnModel col : board.getWIPColumns()){
             for (CardModel card : col.getCards()) {
