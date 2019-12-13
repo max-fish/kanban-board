@@ -18,6 +18,8 @@ public class StatisticsModelTest
     private BoardModel boardModel;
     private StatisticsModel statisticsModel;
 
+    private double activeWeeks;
+
 
     @Before
     public void init(){
@@ -26,12 +28,14 @@ public class StatisticsModelTest
 
         boardModel = new BoardModel("Test populated board");
         statisticsModel = new StatisticsModel(boardModel);
+
         setUpTestBoard();
     }
 
     public void setUpTestBoard() {
         LocalDate boardCreationDate = LocalDate.of(2019, 11, 24);
         boardModel.setCreationDate(boardCreationDate);
+        activeWeeks = boardModel.getActiveWeeks();
 
         //0
         ColumnModel backlogColumnTest = new ColumnModel();
@@ -55,6 +59,7 @@ public class StatisticsModelTest
     public CardModel createTestCompleteCard( LocalDate completedDate, int storyPoints){
         CardModel card = new CardModel();
         card.setCreationDate(LocalDate.of(2019,11, 25));
+        card.setEnterWIPDate(LocalDate.of(2019,11, 25));
         boardModel.getColumns().get(2).addCard(card);
         card.setCompletedDate(completedDate);
         card.setStoryPoint(storyPoints);
@@ -77,27 +82,32 @@ public class StatisticsModelTest
 
     @Test
     public void TestEmptyBoardOverallVelocity(){
-        assertEquals(emptyBoardStats.getOverallVelocity(),  null);
+        assertNull(emptyBoardStats.getOverallVelocity());
     }
 
     @Test
     public void TestEmptyBoardLeadTime(){
-        assertEquals(emptyBoardStats.getLeadTime(),  -1, 0.001);
+        assertNull(emptyBoardStats.getLeadTime());
     }
 
     @Test
     public void TestEmptyBoardAvgWIP(){
-        assertEquals(emptyBoardStats.getAverageWIP(emptyBoardModel.getActiveWeeks()),  -1, 0.001);
+        assertNull(emptyBoardStats.getAverageWIP());
     }
 
     @Test
-    public void TestOverallVelocity() { assertEquals(statisticsModel.getOverallVelocity()[0]/boardModel.getActiveWeeks(), 11.0/boardModel.getActiveWeeks(), 0.01); }
+    public void TestOverallVelocity() { assertEquals(statisticsModel.getOverallVelocity()[0]/activeWeeks, 11.0/activeWeeks, 0.01); }
 
     @Test
-    public void TestLeadTime(){ assertEquals(statisticsModel.getLeadTime(), 0.8, 0.01); }
+    public void TestLeadTime(){
+        int[] leadTimeWeekArray= statisticsModel.getLeadTime();
+        int daySum = 0;
+        for(int j = 1; j<leadTimeWeekArray.length; j++){ daySum += leadTimeWeekArray[j]; }
+        System.out.println("Day sum: "+ daySum);
+        assertEquals(daySum / activeWeeks, 9 / activeWeeks, 0.01);
+    }
 
     @Test
-    public void TestAverageWIP() { assertEquals(statisticsModel.getAverageWIP(boardModel.getActiveWeeks()), 14.0/boardModel.getActiveWeeks(), 0.01); }
-
-
+    public void TestAverageWIP() {
+        assertEquals(statisticsModel.getAverageWIP()[0] / activeWeeks, 5/activeWeeks, 0.01); }
 }

@@ -46,10 +46,14 @@ public class StatisticsModel
                 int week = (int)ChronoUnit.WEEKS.between(card.getCreationDate(), card.getCompletedDate());
                 leadTimes[week+1] += ChronoUnit.DAYS.between(card.getEnterWIPDate(), card.getCompletedDate());
                 leadTimes[0] += card.getStoryPoint();
+
+                System.out.println("Card completed: "+card.getCompletedDate()+", week: "+week+", value: "+leadTimes[week+1]);
             }
         }
         for(int week = 1; week<leadTimes.length; week++){
+            System.out.print("Dividing: " + leadTimes[week]+" / "+getOverallVelocity()[week]+" = ");
             leadTimes[week] = leadTimes[week] / getOverallVelocity()[week];
+            System.out.println(leadTimes[week]);
         }
         if(leadTimes[0] == 0) return null;
         return leadTimes;
