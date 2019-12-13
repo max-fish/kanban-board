@@ -4,8 +4,6 @@ import data.model.CardModel;
 
 import utils.Constants.ColumnRole;
 
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
@@ -20,14 +18,16 @@ public class ColumnIntegrationTest extends ApplicationTest
 {
     private KanbanColumn kanbanColumn;
     private KanbanBoard board;
+    private ColumnModel columnModel;
 
     @Before
     public void init(){
         board = new KanbanBoard();
         board.getController().fillWithData(new BoardModel("test"));
         kanbanColumn = new KanbanColumn(board);
-        kanbanColumn.getController().fillWithData(new ColumnModel("column"));
-        board.getController().makeNewColumn(kanbanColumn.getController().getColumnModel());
+        columnModel = new ColumnModel("column");
+        kanbanColumn.getController().fillWithData(columnModel);
+        board.getController().makeNewColumn(columnModel);
     }
 
     @Test
@@ -60,4 +60,9 @@ public class ColumnIntegrationTest extends ApplicationTest
         assertEquals(card, kanbanColumn.getController().getColumnModel().getCards().get(1));
     }
 
+    @Test
+    public void deleteColumn() {
+        kanbanColumn.getController().deleteColumn();
+        assertEquals(0, board.getController().getBoardModel().getColumns().size());
+    }
 }
