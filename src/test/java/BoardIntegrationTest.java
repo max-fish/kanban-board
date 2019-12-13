@@ -61,7 +61,7 @@ public class BoardIntegrationTest extends ApplicationTest {
 
         ColumnModel columnModel =  new ColumnModel("test");
 
-        kanbanBoard.getController().makeNewColumn(new ColumnModel("test"));
+        kanbanBoard.getController().makeNewColumn(columnModel);
 
         //check if properly added
         assertEquals(2, kanbanBoardContents.getChildren().size());
