@@ -14,6 +14,9 @@ public class StatisticsModel
     public BoardModel getBoard(){ return board; }
 
 
+    /**Return array where each position from 1 represents a week and its value the completed story points that week.
+     * Position 0 contains the total story points over all weeks.
+    */
     public int[] getOverallVelocity() {
         //Position 0 containing total sum of story points, other positions represent weeks of activity
         int[] storyPoints = new int[(int)board.getActiveWeeks()+1];
@@ -23,8 +26,6 @@ public class StatisticsModel
             for (CardModel card : col.getCards()) {
 
                 int week = (int)ChronoUnit.WEEKS.between(card.getCreationDate(), card.getCompletedDate());
-                int weeknum = week+1;
-                System.out.println("Completion date: "+card.getCompletedDate() +" , inserted into week: "+ weeknum);
                 storyPoints[week+1] += card.getStoryPoint();
                 storyPoints[0] += card.getStoryPoint();
             }
@@ -33,33 +34,41 @@ public class StatisticsModel
         return storyPoints;
     }
 
+    /**Return array where each position from 1 represents a week and its value the lead time per story point that week.
+     * Position 0 contains the total count of completed storypoints in active weeks.
+     */
+    public int[] getLeadTime() {
 
-    public double getLeadTime() {
-        double leadTimes = 0;
-        double cardCount = 0;
+        int[] leadTimes = new int[(int)board.getActiveWeeks()+1];
 
         for(ColumnModel col : board.getCompletedColumns()){
             for (CardModel card : col.getCards()) {
-                leadTimes += ChronoUnit.WEEKS.between(card.getCreationDate(), card.getCompletedDate());
-                cardCount++;
+                int week = (int)ChronoUnit.WEEKS.between(card.getCreationDate(), card.getCompletedDate());
+                leadTimes[week+1] += ChronoUnit.DAYS.between(card.getEnterWIPDate(), card.getCompletedDate());
+                leadTimes[0] += card.getStoryPoint();
             }
         }
-        if(cardCount == 0) return -1;
-        return leadTimes / cardCount;
-    }
-
-    //Get average WIP in the active week given.
-    public double getAverageWIP(double activeWeeks) {
-        double storyPoints = 0;
-                //countCompletedStoryPoints();
-        //Add story points currently in WIP
-        for(ColumnModel col : board.getWIPColumns()){
-            for (CardModel card : col.getCards()) {
-                storyPoints += card.getStoryPoint();
-            }
+        for(int week = 1; week<leadTimes.length; week++){
+            leadTimes[week] = leadTimes[week] / getOverallVelocity()[week];
         }
-        if(storyPoints == 0) return -1;
-        return storyPoints / activeWeeks;
-
+        if(leadTimes[0] == 0) return null;
+        return leadTimes;
     }
+
+    /**Return array where each position from 1 represents a week and its value the avg story points in WIP that week.
+     * Position 0 contains the total sum of the averages.
+     */
+    public double[] getAverageWIP() {
+        int[] overallVelocities = getOverallVelocity();
+        int[] averageLeadTimes = getLeadTime();
+        double[] WIP = new double[(int)board.getActiveWeeks()+1];
+
+        for(int i = 1; i<overallVelocities.length; i++){
+            WIP[i] += overallVelocities[i] * averageLeadTimes[i]/7.0;
+            WIP[0] += overallVelocities[i] * averageLeadTimes[i]/7.0;
+        }
+        if(WIP[0] == 0) return null;
+        return WIP;
+    }
+
 }

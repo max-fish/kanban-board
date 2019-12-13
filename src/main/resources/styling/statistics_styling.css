@@ -14,20 +14,54 @@
     -fx-background-color: #7e57c2;
 }
 
-#statistics_title {
-    -fx-font-family: "Roboto Light";
-    -fx-font-size: 25;
-    -fx-spacing: -0.3;
-    -fx-text-fill: #b085f5;
-}
-
 .stats {
-    -fx-font-family: "Roboto Medium";
-    -fx-font-size: 12;
-    -fx-spacing: 0.2;
-    -fx-opacity: 0.6;
+    -fx-font-family: "Roboto Light";
+        -fx-font-size: 18;
+        -fx-spacing: -0.3;
+        -fx-text-fill: #7e57c2;
 }
 
-.root {
+.tab-pane {
     -fx-background-radius: 10;
+    -fx-background-color: whitesmoke;
+    -fx-tab-min-width:130px;
+    -fx-text-fill: white;
+}
+
+.tab {
+  -fx-background-insets: 0 1 0 1,0,0;
+  -fx-background-color: #7e57c2 ;
+}
+
+.tab:selected {
+    -fx-background-color:#b085f5 ;
+}
+
+.tabs .indicator {
+    -fx-background-color: #4d2c91;
+}
+
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+    -fx-padding: 0.416667em 0.166667em 0.0em 0.0em;
+}
+
+.tab-label {
+    -fx-font-family: "Roboto Medium";
+    -fx-font-size: 14;
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+}
+
+.chart {
+    -fx-font-family: "Roboto Medium";
+    -fx-background: whitesmoke ;
+}
+
+.chart-series-line{
+    -fx-stroke: #7e57c2;
+}
+
+.axis-label {
+  -fx-text-fill: #b085f5;
 }
