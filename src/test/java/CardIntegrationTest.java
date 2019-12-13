@@ -2,10 +2,6 @@ import data.model.BoardModel;
 import data.model.ColumnModel;
 import data.model.CardModel;
 
-import utils.Constants.ColumnRole;
-
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import org.junit.Before;
 import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
