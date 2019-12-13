@@ -77,7 +77,7 @@ public class StatisticsModelTest
 
     @Test
     public void TestEmptyBoardOverallVelocity(){
-        assertEquals(emptyBoardStats.getOverallVelocity(),  -1, 0.001);
+        assertEquals(emptyBoardStats.getOverallVelocity(),  null);
     }
 
     @Test
@@ -91,7 +91,7 @@ public class StatisticsModelTest
     }
 
     @Test
-    public void TestOverallVelocity() { assertEquals(statisticsModel.getOverallVelocity(), 11.0/boardModel.getActiveWeeks(), 0.01); }
+    public void TestOverallVelocity() { assertEquals(statisticsModel.getOverallVelocity()[0]/boardModel.getActiveWeeks(), 11.0/boardModel.getActiveWeeks(), 0.01); }
 
     @Test
     public void TestLeadTime(){ assertEquals(statisticsModel.getLeadTime(), 0.8, 0.01); }

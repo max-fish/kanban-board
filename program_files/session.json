@@ -5,7 +5,7 @@
       {
         "name": "TODO",
         "role": "BACKLOG",
-        "currentWip": 10,
+        "currentWip": 22,
         "wipLimit": 0,
         "cardModels": [
           {
@@ -35,7 +35,7 @@
       {
         "name": "Developing",
         "role": "WORK_IN_PROGRESS",
-        "currentWip": 13,
+        "currentWip": 31,
         "wipLimit": 0,
         "cardModels": [
           {
@@ -76,7 +76,7 @@
       {
         "name": "Done",
         "role": "COMPLETED_WORK",
-        "currentWip": 4,
+        "currentWip": 10,
         "wipLimit": 0,
         "cardModels": [
           {
@@ -102,6 +102,159 @@
       "year": 2019,
       "month": 12,
       "day": 12
+    }
+  },
+  {
+    "name": "Kanban Project",
+    "columnModels": [
+      {
+        "name": "TODO",
+        "role": "BACKLOG",
+        "currentWip": 14,
+        "wipLimit": 0,
+        "cardModels": [
+          {
+            "id": 5,
+            "title": "Create column GUI",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            }
+          },
+          {
+            "id": 6,
+            "title": "Create column model",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            }
+          }
+        ]
+      },
+      {
+        "name": "Developing",
+        "role": "WORK_IN_PROGRESS",
+        "currentWip": 19,
+        "wipLimit": 0,
+        "cardModels": [
+          {
+            "id": 1,
+            "title": "Create home page",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            }
+          },
+          {
+            "id": 3,
+            "title": "Create board GUI",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            }
+          },
+          {
+            "id": 4,
+            "title": "Create board model",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            }
+          }
+        ]
+      },
+      {
+        "name": "Done",
+        "role": "COMPLETED_WORK",
+        "currentWip": 9,
+        "wipLimit": 0,
+        "cardModels": [
+          {
+            "id": 2,
+            "title": "Create a stand-alone application",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            },
+            "completedDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 26
+            }
+          },
+          {
+            "id": 7,
+            "title": "Create a stand-alone application",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            },
+            "completedDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 28
+            }
+          },
+          {
+            "id": 8,
+            "title": "Create a stand-alone application",
+            "description": "",
+            "storyPoints": 2,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            },
+            "completedDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 4
+            }
+          },
+          {
+            "id": 9,
+            "title": "Create a stand-alone application",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 11,
+              "day": 25
+            },
+            "completedDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 9
+            }
+          }
+        ]
+      }
+    ],
+    "creationDate": {
+      "year": 2019,
+      "month": 11,
+      "day": 24
     }
   }
 ]

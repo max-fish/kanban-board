@@ -13,22 +13,24 @@ public class StatisticsModel
 
     public BoardModel getBoard(){ return board; }
 
-    public double countCompletedStoryPoints() {
-        double storyPointsCount = 0.0;
-        //Go thorugh all the completed columns of the board
+
+    public int[] getOverallVelocity() {
+        //Position 0 containing total sum of story points, other positions represent weeks of activity
+        int[] storyPoints = new int[(int)board.getActiveWeeks()+1];
+        //Go through all the completed columns of the board
         for (ColumnModel col : board.getCompletedColumns()) {
             //Go through all the cards in the "completed" columns
             for (CardModel card : col.getCards()) {
-                storyPointsCount += card.getStoryPoint();
+
+                int week = (int)ChronoUnit.WEEKS.between(card.getCreationDate(), card.getCompletedDate());
+                int weeknum = week+1;
+                System.out.println("Completion date: "+card.getCompletedDate() +" , inserted into week: "+ weeknum);
+                storyPoints[week+1] += card.getStoryPoint();
+                storyPoints[0] += card.getStoryPoint();
             }
         }
-        return storyPointsCount;
-    }
-
-    public double getOverallVelocity() {
-        double storyPointsCount = countCompletedStoryPoints();
-        if(storyPointsCount == 0) return -1;
-        return storyPointsCount / board.getActiveWeeks();
+        if(storyPoints[0] == 0) return null;
+        return storyPoints;
     }
 
 
@@ -48,7 +50,8 @@ public class StatisticsModel
 
     //Get average WIP in the active week given.
     public double getAverageWIP(double activeWeeks) {
-        double storyPoints = countCompletedStoryPoints();
+        double storyPoints = 0;
+                //countCompletedStoryPoints();
         //Add story points currently in WIP
         for(ColumnModel col : board.getWIPColumns()){
             for (CardModel card : col.getCards()) {
