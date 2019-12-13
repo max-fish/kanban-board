@@ -10,7 +10,6 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import ui.KanbanBoard;
 import ui.KanbanColumn;
-import ui.KanbanCard;
 
 import static org.junit.Assert.*;
 
