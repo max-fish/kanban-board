@@ -57,33 +57,41 @@ public class StatisticsController implements Initializable {
         }
         else {
             double overallVelocityVal = -1;
-            if(overallVelocityWeekArray != null){
+            if (overallVelocityWeekArray != null) {
                 overallVelocityVal = overallVelocityWeekArray[0] / statisticsModel.getBoard().getActiveWeeks();
             }
             double leadTimeVal = -1;
-            if(leadTimeWeekArray != null){
+            if (leadTimeWeekArray != null) {
                 int daySum = 0;
-                for(int j = 1; j<leadTimeWeekArray.length; j++){ daySum += leadTimeWeekArray[j]; }
+                for (int j = 1; j < leadTimeWeekArray.length; j++) {
+                    daySum += leadTimeWeekArray[j];
+                }
                 leadTimeVal = daySum / statisticsModel.getBoard().getActiveWeeks();
             }
             double averageWIPVal = -1;
-            if(averageWIPWeekArray != null){
+            if (averageWIPWeekArray != null) {
                 averageWIPVal = averageWIPWeekArray[0] / statisticsModel.getBoard().getActiveWeeks();
             }
 
 
-            if(overallVelocityVal == -1) overallVelocity.setText("There's no story points on the Completed Work column yet");
-            else overallVelocity.setText(new DecimalFormat("#.0").format(overallVelocityVal) + " story points per week");
+            if (overallVelocityVal == -1)
+                overallVelocity.setText("There's no story points on the Completed Work column yet");
+            else {
+                overallVelocity.setText(new DecimalFormat("#.0").format(overallVelocityVal) + " story points per week");
+                displayLineChartOverallVelocity();
+            }
 
-            if(leadTimeVal == -1) leadTime.setText("There's no story points on the Completed Work column yet");
-            else leadTime.setText(new DecimalFormat("#.0").format(leadTimeVal) + " days per story point");
+            if (leadTimeVal == -1) leadTime.setText("There's no story points on the Completed Work column yet");
+            else {
+                leadTime.setText(new DecimalFormat("#.0").format(leadTimeVal) + " days per story point");
+                displayLineChartLeadTime();
+            }
 
-            if(averageWIPVal == -1) averageWIP.setText("There's no story points on the Work In Progress columns yet");
-            else averageWIP.setText(new DecimalFormat("#.0").format(averageWIPVal) + " story points in WIP per week");
-
-            displayLineChartOverallVelocity();
-            displayLineChartLeadTime();
-            displayLineChartAverageWIP();
+            if (averageWIPVal == -1) averageWIP.setText("There's no story points on the Work In Progress columns yet");
+            else {
+                averageWIP.setText(new DecimalFormat("#.0").format(averageWIPVal) + " story points in WIP per week");
+                displayLineChartAverageWIP();
+            }
         }
     }
 
