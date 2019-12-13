@@ -5,15 +5,50 @@
       {
         "name": "TODO",
         "role": "BACKLOG",
-        "currentWip": 8,
+        "currentWip": 32,
         "wipLimit": 0,
         "cardModels": [
           {
-            "id": 5,
-            "title": "Create column GUI",
+            "id": 4,
+            "title": "Create board model",
             "description": "",
             "storyPoints": 1,
             "creationDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 12
+            }
+          },
+          {
+            "id": 1,
+            "title": "Create home page",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 12
+            }
+          }
+        ]
+      },
+      {
+        "name": "Developing",
+        "role": "WORK_IN_PROGRESS",
+        "currentWip": 50,
+        "wipLimit": 0,
+        "cardModels": [
+          {
+            "id": 3,
+            "title": "Create board GUI",
+            "description": "",
+            "storyPoints": 1,
+            "creationDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 12
+            },
+            "completedDate": {
               "year": 2019,
               "month": 12,
               "day": 12
@@ -29,43 +64,18 @@
               "month": 12,
               "day": 12
             }
-          }
-        ]
-      },
-      {
-        "name": "Developing",
-        "role": "WORK_IN_PROGRESS",
-        "currentWip": 10,
-        "wipLimit": 0,
-        "cardModels": [
+          },
           {
-            "id": 1,
-            "title": "Create home page",
+            "id": 5,
+            "title": "Create column GUI",
             "description": "",
-            "storyPoints": 1,
+            "storyPoints": 3,
             "creationDate": {
               "year": 2019,
               "month": 12,
               "day": 12
-            }
-          },
-          {
-            "id": 3,
-            "title": "Create board GUI",
-            "description": "",
-            "storyPoints": 1,
-            "creationDate": {
-              "year": 2019,
-              "month": 12,
-              "day": 12
-            }
-          },
-          {
-            "id": 4,
-            "title": "Create board model",
-            "description": "",
-            "storyPoints": 1,
-            "creationDate": {
+            },
+            "completedDate": {
               "year": 2019,
               "month": 12,
               "day": 12
@@ -76,7 +86,7 @@
       {
         "name": "Done",
         "role": "COMPLETED_WORK",
-        "currentWip": 3,
+        "currentWip": 13,
         "wipLimit": 0,
         "cardModels": [
           {
