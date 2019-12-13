@@ -10,6 +10,10 @@ import ui.KanbanColumn;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the communication between the {@link KanbanBoard} and the {@link BoardModel}
+ * through the controller methods
+ */
 public class BoardIntegrationTest extends ApplicationTest {
 
     private KanbanBoard kanbanBoard;
