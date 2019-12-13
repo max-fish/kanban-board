@@ -3,7 +3,7 @@ import javafx.scene.input.MouseButton;
 import org.testfx.util.WaitForAsyncUtils;
 
 public class TestCards extends BaseTest
-{
+{/*
     @Test
     public void TestAddCard() {
         sleep(500);
@@ -112,5 +112,5 @@ public class TestCards extends BaseTest
         moveBy(250,0);
         release(MouseButton.PRIMARY);
         sleep(500);
-    }
+    }*/
 }
