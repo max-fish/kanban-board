@@ -20,6 +20,9 @@ public class BoardIntegrationTest extends ApplicationTest {
         kanbanBoard.getController().fillWithData(new BoardModel("test"));
     }
 
+    /**
+     * Check whether fillWithData properly updates the {@link BoardModel}
+     */
     @Test
     public void TestFillWithData(){
         BoardModel boardModel = new BoardModel("test1");
@@ -27,10 +30,15 @@ public class BoardIntegrationTest extends ApplicationTest {
         assertEquals(boardModel, kanbanBoard.getController().getBoardModel());
     }
 
+    /**
+     * Check whether makeNewColumn with no parameters properly updates the {@link KanbanBoard}
+     * and the {@link BoardModel}
+     */
     @Test
     public void TestAddDefaultColumn(){
         HBox kanbanBoardContents = ((HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent());
 
+        //check initial state of KanbanBoard and BoardModel
         assertEquals(1, kanbanBoardContents.getChildren().size());
         assertEquals(0, kanbanBoard.getController().getBoardModel().getColumns().size());
 
@@ -40,33 +48,45 @@ public class BoardIntegrationTest extends ApplicationTest {
         assertEquals(1, kanbanBoard.getController().getBoardModel().getColumns().size());
     }
 
+    /**
+     * Check whether makeNewColumn with a specific {@link ColumnModel} properly updates the {@link KanbanBoard} and {@link BoardModel}
+     */
     @Test
     public void TestAddColumn(){
         HBox kanbanBoardContents = ((HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent());
 
-        assertEquals(1, kanbanBoardContents.getChildren().size());
-        assertEquals(0, kanbanBoard.getController().getBoardModel().getColumns().size());
+        ColumnModel columnModel =  new ColumnModel("test");
 
         kanbanBoard.getController().makeNewColumn(new ColumnModel("test"));
 
+        //check if properly added
         assertEquals(2, kanbanBoardContents.getChildren().size());
         assertEquals(1, kanbanBoard.getController().getBoardModel().getColumns().size());
-        assertEquals("test", ((KanbanColumn) kanbanBoardContents.getChildren().get(0)).getController().getColumnModel().getName());
-        assertEquals("test", kanbanBoard.getController().getBoardModel().getColumns().get(0).getName());
+
+        //check if properly reflected in KanbanBoard and BoardModel
+        assertEquals(columnModel, ((KanbanColumn) kanbanBoardContents.getChildren().get(0)).getController().getColumnModel());
+        assertEquals(columnModel, kanbanBoard.getController().getBoardModel().getColumns().get(0));
     }
 
+    /**
+     * Check whether swapping columns is properly reflected in the {@link KanbanBoard} and {@link BoardModel}
+     */
     @Test
     public void TestSwapColumns(){
-        kanbanBoard.getController().makeNewColumn(new ColumnModel("test1"));
-        kanbanBoard.getController().makeNewColumn(new ColumnModel("test2"));
+        ColumnModel columnModel1 = new ColumnModel("test1");
+        ColumnModel columnModel2 = new ColumnModel("test2");
+        kanbanBoard.getController().makeNewColumn(columnModel1);
+        kanbanBoard.getController().makeNewColumn(columnModel2);
         kanbanBoard.getController().swapColumns(0,1);
 
+        //board model check
         assertEquals("test2", kanbanBoard.getController().getBoardModel().getColumns().get(0).getName());
         assertEquals("test1", kanbanBoard.getController().getBoardModel().getColumns().get(1).getName());
 
         HBox kanbanBoardContents = ((HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent());
 
-        assertEquals("test2", ((KanbanColumn) kanbanBoardContents.getChildren().get(0)).getController().getColumnModel().getName());
-        assertEquals("test1", ((KanbanColumn) kanbanBoardContents.getChildren().get(1)).getController().getColumnModel().getName());
+        //ui check
+        assertEquals(columnModel2, ((KanbanColumn) kanbanBoardContents.getChildren().get(0)).getController().getColumnModel());
+        assertEquals(columnModel1, ((KanbanColumn) kanbanBoardContents.getChildren().get(1)).getController().getColumnModel());
     }
 }
