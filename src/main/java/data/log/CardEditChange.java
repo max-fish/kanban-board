@@ -22,4 +22,9 @@ public class CardEditChange extends CardChange{
         this.prevStoryPoint = prevStoryPoint;
         this.newStoryPoint = newStoryPoint;
     }
+
+    public String toString()
+    {
+        return "Card " + cardModel.getTitle() + " edited";
+    }
 }

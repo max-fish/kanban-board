@@ -14,24 +14,37 @@ public class ColumnModel {
     private int currentWip;
     private int wipLimit;
     private List<CardModel> cardModels;
+    private BoardModel parentBoard;
 
-    public ColumnModel(String name, Constants.ColumnRole role) {
+    public ColumnModel(BoardModel parentBoard, String name, Constants.ColumnRole role) {
         this.name = name;
         this.role = role;
         cardModels = new ArrayList<>();
+        this.parentBoard = parentBoard;
     }
 
-    public ColumnModel(String name) {
-        this(name, Constants.ColumnRole.BACKLOG);
+    public ColumnModel(BoardModel parentBoard, String name) {
+        this(parentBoard, name, Constants.ColumnRole.BACKLOG);
     }
 
-    public ColumnModel() {
-        this("", Constants.ColumnRole.BACKLOG);
+    public ColumnModel(BoardModel parentBoard) {
+        this(parentBoard, "", Constants.ColumnRole.BACKLOG);
+    }
+
+    public BoardModel getParent()
+    {
+        return parentBoard;
     }
 
     public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
         if (role == COMPLETED_WORK) cardModel.setCompletedDate(LocalDate.now());
+    }
+
+    public void insertCard(CardModel cardModel, int index) {
+        cardModels.add(index, cardModel);
+        if (role == COMPLETED_WORK) cardModel.setCompletedDate(LocalDate.now());
+          System.out.println("Card inserted in " + name + " at " + index);
     }
 
     public void deleteCard(CardModel cardModel) {

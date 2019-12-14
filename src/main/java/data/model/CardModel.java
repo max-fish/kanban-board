@@ -12,11 +12,12 @@ public class CardModel {
     private Integer storyPoints;
     private LocalDate creationDate;
     private LocalDate completedDate = null;
+    private ColumnModel parentColumn;
 
     /**
      *
      */
-    public CardModel(String title, String description, Integer storyPoints)
+    public CardModel(ColumnModel parentColumn, String title, String description, Integer storyPoints)
     {
         this.title = title;
         this.description = description;
@@ -25,17 +26,25 @@ public class CardModel {
         id = nextId;
         nextId++;
         creationDate = LocalDate.now();
+
+        this.parentColumn = parentColumn;
+
           System.out.println("The card was created: " + title + id);
     }
 
-    public CardModel(String title)
+    public CardModel(ColumnModel parentColumn, String title)
     {
-        this(title, "", 1);
+        this(parentColumn, title, "", 1);
     }
 
-    public CardModel()
+    public CardModel(ColumnModel parentColumn)
     {
-        this("");
+        this(parentColumn, "");
+    }
+
+    public ColumnModel getParent()
+    {
+        return parentColumn;
     }
 
     public int getID()

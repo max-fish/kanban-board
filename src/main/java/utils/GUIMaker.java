@@ -96,4 +96,9 @@ public class GUIMaker {
         snackbarLayout.getStylesheets().add("/styling/wip_limit_snackbar_styling.css");
         snackbar.enqueue(new JFXSnackbar.SnackbarEvent(snackbarLayout));
     }
+
+    public static Label makeChangeLabel(String labelText)
+    {
+        return new Label(labelText);
+    }
 }

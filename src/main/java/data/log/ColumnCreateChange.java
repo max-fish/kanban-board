@@ -8,4 +8,9 @@ public class ColumnCreateChange extends ColumnChange{
     {
         super(columnModel);
     }
+
+    public String toString()
+    {
+        return "Column " + columnModel.getName() + " created";
+    }
 }

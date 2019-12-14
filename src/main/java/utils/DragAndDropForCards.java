@@ -16,6 +16,8 @@ import javafx.scene.transform.Rotate;
 import ui.KanbanBoard;
 import ui.KanbanCard;
 import ui.KanbanColumn;
+import data.model.CardModel;
+import data.log.CardMoveChange;
 
 import java.util.Collections;
 
@@ -50,6 +52,7 @@ public class DragAndDropForCards {
                 @Override
                 public void handle(MouseEvent event) {
                     itemBeingDragged = (BorderPane) event.getSource();
+
                     orgSceneY = event.getSceneY();
                     orgTranslateY = itemBeingDragged.getTranslateY();
                     orgSceneX = event.getSceneX();
@@ -93,7 +96,7 @@ public class DragAndDropForCards {
                     if (offsetY < -100 || offsetY > 100) {
                         if (offsetY < 100) {
                             if (itemBeingDraggedIndex - 1 >= 0) {
-                                columnContainer.getController().swapCards(itemBeingDraggedIndex - 1, itemBeingDraggedIndex);
+                                columnContainer.getController().swapCards(itemBeingDraggedIndex, itemBeingDraggedIndex - 1);
                                 orgSceneY = event.getSceneY();
                                 newTranslateY = 0;
                             }
@@ -112,8 +115,19 @@ public class DragAndDropForCards {
                                 KanbanColumn nextColumnContainer = (KanbanColumn) board.getChildren().get(columnIndex + 1);
                                 VBox nextColumn = (VBox) nextColumnContainer.getCenter();
                                 onDragOver();
+
+                                CardModel cardModel = ((KanbanCard) itemBeingDragged).getController().getData();
+                                int prevIndex = columnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
+
                                 ((KanbanCard) itemBeingDragged).getController().deleteCardDirectly((KanbanCard) itemBeingDragged);
-                                nextColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getData());
+                                nextColumnContainer.getController().makeNewCard(cardModel);
+
+                                int nextIndex = nextColumnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
+                                cardModel.getParent().getParent().getActivityLogModel().addChange(
+                                    new CardMoveChange(cardModel, prevIndex, columnContainer.getController().getColumnModel(),
+                                                        nextIndex, nextColumnContainer.getController().getColumnModel())
+                                );
+
                                 columnContainer = nextColumnContainer;
                                 column = nextColumn;
                                 orgSceneX = event.getSceneX();
@@ -124,8 +138,19 @@ public class DragAndDropForCards {
                                 KanbanColumn previousColumnContainer = (KanbanColumn) board.getChildren().get(columnIndex - 1);
                                 VBox previousColumn = (VBox) previousColumnContainer.getCenter();
                                 onDragOver();
+
+                                CardModel cardModel = ((KanbanCard) itemBeingDragged).getController().getData();
+                                int prevIndex = columnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
+
                                 ((KanbanCard) itemBeingDragged).getController().deleteCardDirectly((KanbanCard) itemBeingDragged);
                                 previousColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getData());
+
+                                int nextIndex = previousColumnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
+                                cardModel.getParent().getParent().getActivityLogModel().addChange(
+                                    new CardMoveChange(cardModel, prevIndex, columnContainer.getController().getColumnModel(),
+                                                        nextIndex, previousColumnContainer.getController().getColumnModel())
+                                );
+
                                 columnContainer = previousColumnContainer;
                                 column = previousColumn;
                                 orgSceneX = event.getSceneX();
@@ -158,6 +183,8 @@ public class DragAndDropForCards {
                 itemBeingDragged.setTranslateX(0);
                 itemBeingDragged.setEffect(null);
                 itemBeingDragged.getTransforms().clear();
+
+
             };
 
     private void onDragOver() {

@@ -10,4 +10,9 @@ public class CardDeleteChange extends CardChange{
         super(cardModel);
         this.lastPosition = lastPosition;
     }
+
+    public String toString()
+    {
+        return "Card " + cardModel.getTitle() + "deleted";
+    }
 }

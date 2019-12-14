@@ -9,4 +9,9 @@ public abstract class ColumnChange implements Change{
     {
         this.columnModel = columnModel;
     }
+
+    public void revert()
+    {
+
+    }
 }

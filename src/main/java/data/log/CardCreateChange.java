@@ -8,4 +8,9 @@ public class CardCreateChange extends CardChange{
     {
         super(cardModel);
     }
+
+    public String toString()
+    {
+        return "Card created";
+    }
 }

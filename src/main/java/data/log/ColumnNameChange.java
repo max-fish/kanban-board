@@ -12,4 +12,9 @@ public class ColumnNameChange extends ColumnChange{
         this.prevName = prevName;
         this.newName = newName;
     }
+
+    public String toString()
+    {
+        return prevName + " renamed to " + newName;
+    }
 }

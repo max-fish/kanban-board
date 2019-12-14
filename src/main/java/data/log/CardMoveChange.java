@@ -18,4 +18,9 @@ public class CardMoveChange extends CardChange{
         this.newPosition = newPosition;
         this.newColumn = newColumn;
     }
+
+    public String toString()
+    {
+        return cardModel.getTitle() + " moved to " + newColumn.getName();
+    }
 }

@@ -13,6 +13,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import data.model.CardModel;
 import data.model.ColumnModel;
+import data.model.CardModel;
+import data.log.CardCreateChange;
+import data.log.CardDeleteChange;
+import data.log.CardMoveChange;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 import utils.GUIMaker;
@@ -89,7 +93,7 @@ public class ColumnController implements Initializable {
     private void makeNewCard() {
         if (columnModel.getCurrentWip() >= columnModel.getWipLimit() && columnModel.getWipLimit() != 0) {
             GUIMaker.makeWipLimitSnackbar(((KanbanColumn) rootPane).getBoard());
-        } else makeNewCard(new CardModel());
+        } else makeNewCard(new CardModel(columnModel));
     }
 
     public void makeNewCard(CardModel newCardModel) {
@@ -105,6 +109,8 @@ public class ColumnController implements Initializable {
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
         System.out.println(columnModel.getCurrentWip());
         System.out.println(columnModel.getWipLimit());
+
+        columnModel.getParent().getActivityLogModel().addChange(new CardCreateChange(newCardModel));
     }
 
     public void deleteColumn() {
@@ -138,7 +144,12 @@ public class ColumnController implements Initializable {
 
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
-        columnModel.deleteCard(kanbanCard.getController().getData());
+
+        CardModel cardModelToDelete = kanbanCard.getController().getData();
+        int position = columnModel.getCards().indexOf(cardModelToDelete);
+        columnModel.deleteCard(cardModelToDelete);
+
+        columnModel.getParent().getActivityLogModel().addChange(new CardDeleteChange(cardModelToDelete, position));
     }
 
     @FXML
@@ -156,6 +167,10 @@ public class ColumnController implements Initializable {
         Collections.swap(workingCollection, idx1, idx2);
         cards.getChildren().setAll(workingCollection);
         Collections.swap(columnModel.getCards(), idx1, idx2);
+
+        columnModel.getParent().getActivityLogModel().addChange(
+            new CardMoveChange(columnModel.getCards().get(idx2), idx1, columnModel, idx2, columnModel)
+        );
     }
 
 }

@@ -12,4 +12,9 @@ public class ColumnMoveChange extends ColumnChange{
         this.prevPosition = prevPosition;
         this.newPosition = newPosition;
     }
+
+    public String toString()
+    {
+        return "Column " + columnModel.getName() + " moved";
+    }
 }

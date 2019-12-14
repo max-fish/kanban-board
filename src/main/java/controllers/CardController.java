@@ -60,6 +60,11 @@ public class CardController implements Initializable {
             public void onSave(CardModel cardModel) {
                 CardController.this.cardModel = cardModel;
                 cardTitle.setText(cardModel.getTitle());
+
+                //CardEditChange change = new CardEditChange(CardController.this.cardModel, );
+
+                //CardController.this.cardModel.getParent().getParent().getActivityLogModel.addChange(chage);
+
                 homePage.setCenter(board);
             }
 

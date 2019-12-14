@@ -10,4 +10,9 @@ public class ColumnDeleteChange extends ColumnChange{
         super(columnModel);
         this.lastPosition = lastPosition;
     }
+
+    public String toString()
+    {
+        return "Column " + columnModel.getName() + " deleted";
+    }
 }

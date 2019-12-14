@@ -51,7 +51,10 @@ public class KanbanModel{
             return;
 
         for(BoardModel board : newBoardModels)
+        {
+            board.init();
             homePageController.makeNewBoard(board, board.getName());
+        }
     }
 
     public void loadSession()
@@ -61,7 +64,10 @@ public class KanbanModel{
             return;
 
         for(BoardModel board : newBoardModels)
+        {
+            board.init();
             homePageController.makeNewBoard(board, board.getName());
+        }
 
         System.out.println(boards.size());
 

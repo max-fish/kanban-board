@@ -20,9 +20,11 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
 import data.model.StatisticsModel;
+import data.log.BoardNameChange;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import ui.Statistics;
+import ui.ActivityLog;
 import utils.AnimationMaker;
 import utils.GUIMaker;
 
@@ -45,11 +47,18 @@ public class KanbanBoardController implements Initializable {
     private JFXButton addButton;
     @FXML
     private JFXButton statisticsButton;
+    @FXML
+    private JFXButton activityLogButton;
+
+    private ActivityLog activityLogPopup;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> boardModel.setName(newValue));
+        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+            boardModel.setName(newValue);
+            boardModel.getActivityLogModel().addChange(new BoardNameChange((KanbanBoard)rootPane, oldValue, newValue));
+          });
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
@@ -58,11 +67,15 @@ public class KanbanBoardController implements Initializable {
         addButton.setId("addColumn");
 
         columns.getChildren().add(addButton);
+
+        activityLogPopup = new ActivityLog();
+        //activityLogPopup.getController().setActivityLogModel(boardModel.getActivityLogModel());
+        activityLogButton.setOnMouseClicked(event -> displayActivityLog());
     }
 
     @FXML
     public void makeNewColumn() {
-        makeNewColumn(new ColumnModel());
+        makeNewColumn(new ColumnModel(boardModel));
     }
 
     public void makeNewColumn(ColumnModel newColumnModel) {
@@ -138,6 +151,7 @@ public class KanbanBoardController implements Initializable {
     public void fillWithData(BoardModel boardModel) {
         this.boardModel = boardModel;
         boardTitle.setText(boardModel.getName());
+        activityLogPopup.getController().setActivityLogModel(boardModel.getActivityLogModel());
     }
 
 
@@ -153,4 +167,15 @@ public class KanbanBoardController implements Initializable {
         Collections.swap(boardModel.getColumns(), idx1, idx2);
     }
 
+    @FXML
+    public void displayActivityLog()
+    {
+        activityLogPopup.getController().fillWithContent();
+        activityLogPopup.show(activityLogButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
+    }
+
+    public JFXTextField getTitle()
+    {
+        return boardTitle;
+    }
 }

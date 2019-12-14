@@ -1,6 +1,7 @@
 package data.model;
 
 import utils.Constants;
+import data.log.ActivityLogModel;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,6 +11,7 @@ public class BoardModel {
     private String name;
     private List<ColumnModel> columnModels;
     private LocalDate creationDate;
+    private ActivityLogModel activityLogModel;
 
     /**
      *
@@ -19,6 +21,13 @@ public class BoardModel {
         this.name = name;
         columnModels = new ArrayList<>();
         creationDate = LocalDate.now();
+        activityLogModel = new ActivityLogModel();
+    }
+
+    public void init()
+    {
+        if(activityLogModel == null)
+            activityLogModel = new ActivityLogModel();
     }
 
     public void addColumn(ColumnModel columnModel)
@@ -73,4 +82,9 @@ public class BoardModel {
     public LocalDate getCreationDate() { return creationDate; }
 
     public boolean hasCompleteColumn() { return !getCompletedColumns().isEmpty(); }
+
+    public ActivityLogModel getActivityLogModel()
+    {
+        return activityLogModel;
+    }
 }
