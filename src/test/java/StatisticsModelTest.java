@@ -91,9 +91,7 @@ public class StatisticsModelTest
     }
 
     @Test
-    public void TestEmptyBoardAvgWIP(){
-        assertNull(emptyBoardStats.getAverageWIP());
-    }
+    public void TestEmptyBoardAvgWIP(){ assertNull(emptyBoardStats.getAverageWIP()); }
 
     @Test
     public void TestOverallVelocity() { assertEquals(statisticsModel.getOverallVelocity()[0]/activeWeeks, 11.0/activeWeeks, 0.01); }
