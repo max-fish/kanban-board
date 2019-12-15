@@ -7,10 +7,11 @@ import controllers.BoardNamePopupController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
-
 import java.io.IOException;
-import java.util.Objects;
 
+/**
+ *  This class inflates a {@link JFXDialog} with a custom fxml layout, making it a BoardNamePopup.
+ */
 public class BoardNamePopup extends JFXDialog {
 
     private BoardNamePopupCallBack boardNamePopupCallBack;

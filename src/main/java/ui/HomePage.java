@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * This class is the starting point of the application. It sets up the initial state of the program.
+ */
 public class HomePage extends Application {
 
     public static void main(String[] args) {
@@ -34,7 +37,7 @@ public class HomePage extends Application {
         KanbanModel.instance().setHomePageController(homePageController);
         KanbanModel.instance().loadSession();
 
-	      JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
+        JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
         jfxDecorator.setTitle("Kanban Board");
         Scene scene = new Scene(jfxDecorator, 1200, 600);

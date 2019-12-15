@@ -5,7 +5,6 @@ import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.scene.control.behavior.*;
 import data.model.BoardModel;
 import data.model.CardModel;
 import data.model.ColumnModel;
@@ -23,7 +22,7 @@ import ui.DeleteConfirmationPopup;
 import data.model.StatisticsModel;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
-import ui.Statistics;
+import ui.StatisticsPopup;
 import utils.AnimationMaker;
 import utils.GUIMaker;
 
@@ -128,7 +127,7 @@ public class KanbanBoardController implements Initializable {
 
     private void getStatistics() {
         //add info ofr creating sttistics as parameters and keep record on fields
-        Statistics statPopup = new Statistics();
+        StatisticsPopup statPopup = new StatisticsPopup();
         StatisticsModel model = new StatisticsModel(boardModel);
         statPopup.getController().setStatisticsModel(model);
         statPopup.getController().displayStats();
