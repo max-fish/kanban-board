@@ -121,7 +121,6 @@ public class CardController implements Initializable {
 
     /**
      * Return the data associated with this ui component
-     *
      * @return cardModel
      */
     public CardModel getCardModel() {
