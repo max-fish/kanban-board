@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
 
 import data.model.CardModel;
+import data.log.CardEditChange;
 
 import javafx.scene.layout.StackPane;
 import ui.CardDetailPopup;
@@ -35,7 +36,10 @@ public class CardController implements Initializable {
         KanbanCard card = (KanbanCard) rootPane;
         dragAnimation.setDragAnimation(card);
 
-        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setTitle(newValue));
+        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+            cardModel.setTitle(newValue);
+            cardModel.getParent().getParent().getActivityLogModel().addChange(new CardEditChange(cardModel, oldValue, newValue));
+          });
     }
 
     public void fillWithData(CardModel cardModel) {
@@ -60,10 +64,6 @@ public class CardController implements Initializable {
             public void onSave(CardModel cardModel) {
                 CardController.this.cardModel = cardModel;
                 cardTitle.setText(cardModel.getTitle());
-
-                //CardEditChange change = new CardEditChange(CardController.this.cardModel, );
-
-                //CardController.this.cardModel.getParent().getParent().getActivityLogModel.addChange(chage);
 
                 homePage.setCenter(board);
             }

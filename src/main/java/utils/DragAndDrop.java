@@ -77,7 +77,7 @@ public class DragAndDrop {
                     if (offsetX < -100 || offsetX > 100) {
                         if (offsetX < -100) {
                             if (itemBeingDraggedIndex - 1 >= 0) {
-                                kanbanBoard.getController().swapColumns(itemBeingDraggedIndex - 1, itemBeingDraggedIndex);
+                                kanbanBoard.getController().swapColumns(itemBeingDraggedIndex, itemBeingDraggedIndex - 1);
                                 orgSceneX = event.getSceneX();
                                 newTranslateX = 0;
                             }

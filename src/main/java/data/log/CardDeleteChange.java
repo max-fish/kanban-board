@@ -11,6 +11,11 @@ public class CardDeleteChange extends CardChange{
         this.lastPosition = lastPosition;
     }
 
+    public void revert()
+    {
+
+    }
+
     public String toString()
     {
         return "Card " + cardModel.getTitle() + "deleted";

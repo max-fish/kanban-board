@@ -21,6 +21,8 @@ import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
 import data.model.StatisticsModel;
 import data.log.BoardNameChange;
+import data.log.ColumnMoveChange;
+import data.log.ColumnCreateChange;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import ui.Statistics;
@@ -57,7 +59,7 @@ public class KanbanBoardController implements Initializable {
 
         boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             boardModel.setName(newValue);
-            boardModel.getActivityLogModel().addChange(new BoardNameChange((KanbanBoard)rootPane, oldValue, newValue));
+            boardModel.getActivityLogModel().addChange(new BoardNameChange(boardModel, oldValue, newValue));
           });
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
@@ -69,7 +71,6 @@ public class KanbanBoardController implements Initializable {
         columns.getChildren().add(addButton);
 
         activityLogPopup = new ActivityLog();
-        //activityLogPopup.getController().setActivityLogModel(boardModel.getActivityLogModel());
         activityLogButton.setOnMouseClicked(event -> displayActivityLog());
     }
 
@@ -97,6 +98,9 @@ public class KanbanBoardController implements Initializable {
 
         if (newColumnModel.hasCards())
             createCards(newColumnModel, toInsert);
+
+        newColumnModel.setGUI(toInsert);
+        boardModel.getActivityLogModel().addChange(new ColumnCreateChange(newColumnModel));
     }
 
     private void createCards(ColumnModel columnModel, KanbanColumn column) {
@@ -165,6 +169,8 @@ public class KanbanBoardController implements Initializable {
         Collections.swap(workingCollection, idx1, idx2);
         columns.getChildren().setAll(workingCollection);
         Collections.swap(boardModel.getColumns(), idx1, idx2);
+
+        boardModel.getActivityLogModel().addChange(new ColumnMoveChange(boardModel.getColumns().get(idx2), idx1, idx2));
     }
 
     @FXML

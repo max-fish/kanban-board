@@ -87,6 +87,8 @@ public class HomePageController implements Initializable {
             if(boardModel.hasColumns())
                 createColumns(boardModel, board);
 
+            boardModel.setGUI(board);
+
             newBoardCard.setOnMouseClicked(event -> rootPane.setCenter(board));
 
             boardGrid.add(newBoardCard, colCounter, rowCounter);

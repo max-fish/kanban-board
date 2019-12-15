@@ -1,12 +1,12 @@
 package data.log;
 
-import ui.KanbanBoard;
+import data.model.BoardModel;
 
 public abstract class BoardChange implements Change{
-    protected transient KanbanBoard board;
+    protected transient BoardModel boardModel;
 
-    public BoardChange(KanbanBoard board)
+    public BoardChange(BoardModel boardModel)
     {
-        this.board = board;
+        this.boardModel = boardModel;
     }
 }

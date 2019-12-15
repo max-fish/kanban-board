@@ -4,6 +4,7 @@ import utils.Constants;
 
 import static utils.Constants.ColumnRole.*;
 
+import ui.KanbanColumn;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class ColumnModel {
     private int wipLimit;
     private List<CardModel> cardModels;
     private BoardModel parentBoard;
+    private KanbanColumn columnGUI;
 
     public ColumnModel(BoardModel parentBoard, String name, Constants.ColumnRole role) {
         this.name = name;
@@ -93,5 +95,15 @@ public class ColumnModel {
 
     public void setCurrentWip(int currentWip) {
         this.currentWip = currentWip;
+    }
+
+    public void setGUI(KanbanColumn columnGUI)
+    {
+        this.columnGUI = columnGUI;
+    }
+
+    public KanbanColumn getGUI()
+    {
+        return columnGUI;
     }
 }

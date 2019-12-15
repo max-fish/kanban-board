@@ -19,6 +19,11 @@ public class CardMoveChange extends CardChange{
         this.newColumn = newColumn;
     }
 
+    public void revert()
+    {
+
+    }
+
     public String toString()
     {
         return cardModel.getTitle() + " moved to " + newColumn.getName();

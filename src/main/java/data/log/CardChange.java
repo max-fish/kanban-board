@@ -9,9 +9,4 @@ public abstract class CardChange implements Change{
     {
         this.cardModel = cardModel;
     }
-
-    public void revert()
-    {
-
-    }
 }

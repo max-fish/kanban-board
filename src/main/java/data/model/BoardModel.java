@@ -2,6 +2,7 @@ package data.model;
 
 import utils.Constants;
 import data.log.ActivityLogModel;
+import ui.KanbanBoard;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,6 +13,7 @@ public class BoardModel {
     private List<ColumnModel> columnModels;
     private LocalDate creationDate;
     private ActivityLogModel activityLogModel;
+    private KanbanBoard boardGUI;
 
     /**
      *
@@ -38,6 +40,7 @@ public class BoardModel {
     public void deleteColumn(ColumnModel columnModel)
     {
         columnModels.remove(columnModel);
+          System.out.println("Column deleted");
     }
 
     public boolean hasColumns()
@@ -86,5 +89,15 @@ public class BoardModel {
     public ActivityLogModel getActivityLogModel()
     {
         return activityLogModel;
+    }
+
+    public void setGUI(KanbanBoard boardGUI)
+    {
+        this.boardGUI = boardGUI;
+    }
+
+    public KanbanBoard getGUI()
+    {
+        return boardGUI;
     }
 }

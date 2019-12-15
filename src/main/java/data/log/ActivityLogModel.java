@@ -35,10 +35,14 @@ public class ActivityLogModel{
 
     public void undo()
     {
-        if(pointer > 0)
+        if(pointer != null)
         {
             changes.get(pointer).revert();
-            pointer--;
+
+            if(pointer > 0)
+                pointer--;
+            else
+                pointer = null;
         }
     }
 }

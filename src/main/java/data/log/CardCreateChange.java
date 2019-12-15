@@ -9,6 +9,11 @@ public class CardCreateChange extends CardChange{
         super(cardModel);
     }
 
+    public void revert()
+    {
+
+    }
+
     public String toString()
     {
         return "Card created";

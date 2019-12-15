@@ -14,6 +14,9 @@ import javafx.scene.layout.VBox;
 import data.model.CardModel;
 import data.model.ColumnModel;
 import data.model.CardModel;
+import data.log.ColumnDeleteChange;
+import data.log.ColumnNameChange;
+import data.log.ColumnRoleChange;
 import data.log.CardCreateChange;
 import data.log.CardDeleteChange;
 import data.log.CardMoveChange;
@@ -75,7 +78,10 @@ public class ColumnController implements Initializable {
             });
         }
 
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
+        columnName.textProperty().addListener((observable, oldValue, newValue) -> {
+            columnModel.setName(newValue);
+            columnModel.getParent().getActivityLogModel().addChange(new ColumnNameChange(columnModel, oldValue, newValue));
+          });
 
         wipLimitDropDown.setOnAction(event -> {
             try {
@@ -119,6 +125,9 @@ public class ColumnController implements Initializable {
             if (columnMenu.isShowing())
                 columnMenu.hide();
 
+            int lastPosition = columnModel.getParent().getColumns().indexOf(columnModel);
+            columnModel.getParent().getActivityLogModel().addChange(new ColumnDeleteChange(columnModel, lastPosition));
+
             columnToDelete.getBoard().getController().getBoardModel().deleteColumn(columnModel);
             columnModel = null;
         });
@@ -136,10 +145,13 @@ public class ColumnController implements Initializable {
         columnRole.setText(columnModel.getRole().roleString);
     }
 
-    public void setRole(Constants.ColumnRole role) {
+    public void setRole(Constants.ColumnRole newRole) {
 
-        columnRole.setText(role.roleString);
-        columnModel.setRole(role);
+        Constants.ColumnRole prevRole = columnModel.getRole();
+        columnRole.setText(newRole.roleString);
+        columnModel.setRole(newRole);
+
+        columnModel.getParent().getActivityLogModel().addChange(new ColumnRoleChange(columnModel, prevRole, newRole));
     }
 
     public void deleteCard(KanbanCard kanbanCard) {
