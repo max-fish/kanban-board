@@ -5,6 +5,9 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.scene.input.KeyCode;
+
+import data.model.BoardModel;
 
 public class GUIMaker {
 
@@ -100,5 +103,34 @@ public class GUIMaker {
     public static Label makeChangeLabel(String labelText)
     {
         return new Label(labelText);
+    }
+
+    public static JFXTextField makeBoardEditField(Pane titleContainer, Label boardTitle, BoardModel boardModel)
+    {
+        JFXTextField boardEdit = new JFXTextField(boardTitle.getText());
+        boardEdit.setId("BoardEdit");
+        boardEdit.getStylesheets().add("/styling/board_name_edit_styling.css");
+        boardEdit.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER)
+            {
+                String newName = boardEdit.getText();
+                  System.out.println("New name: " + newName);
+
+
+                if(!newName.isEmpty())
+                {
+                    if(!newName.equals(boardModel.getName()))
+                    {
+                        boardTitle.setText(newName);
+                        boardModel.setName(newName);
+                    }
+                }
+
+                titleContainer.getChildren().remove(boardEdit);
+                titleContainer.getChildren().add(boardTitle);
+            }
+        });
+
+        return boardEdit;
     }
 }

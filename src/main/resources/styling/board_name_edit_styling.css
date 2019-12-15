@@ -1,24 +1,17 @@
-
 @font-face {
     src: url("../fonts/Roboto-Light.ttf");
 }
 
-#BoardName{
+#BoardEdit{
     -fx-font-family: "Roboto Light";
     -fx-font-size: 34;
     -fx-text-fill: white;
+    -fx-padding: 1;
+    -fx-prompt-text-fill: white;
+    -jfx-focus-color: transparent;
+    -jfx-unfocus-color: transparent;
 }
 
-#root{
-    -fx-background-color: #7e57c2;
-}
-
-#AddColumnButton{
+#BoardEdit .input-line{
     -fx-background-color: white;
-    -fx-background-radius: 100;
-    -fx-padding: 5;
-}
-
-#Button{
-    -fx-padding: 5;
 }

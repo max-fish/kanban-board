@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
@@ -39,7 +40,9 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
-    private JFXTextField boardTitle;
+    private StackPane titleContainer;
+    @FXML
+    private Label boardTitle;
     @FXML
     private HBox columns;
 
@@ -56,7 +59,7 @@ public class KanbanBoardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> boardModel.setName(newValue));
+        //boardTitle.textProperty().addListener((observable, oldValue, newValue) -> boardModel.setName(newValue));
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
@@ -176,8 +179,18 @@ public class KanbanBoardController implements Initializable {
         activityLogPopup.show(activityLogButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
     }
 
-    public JFXTextField getTitle()
+    public Label getTitle()
     {
         return boardTitle;
+    }
+
+    @FXML
+    public void editTitle()
+    {
+        titleContainer.getChildren().remove(boardTitle);
+        JFXTextField boardEdit = GUIMaker.makeBoardEditField(titleContainer, boardTitle, boardModel);
+        titleContainer.getChildren().add(boardEdit);
+        boardEdit.requestFocus();
+        boardEdit.selectAll();
     }
 }
