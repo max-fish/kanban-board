@@ -7,9 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import data.model.CardModel;
 import data.model.ColumnModel;
@@ -23,6 +21,9 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
+/**
+ * This class handles user input for a {@link KanbanColumn}
+ */
 public class ColumnController implements Initializable {
     @FXML
     private VBox cards;
@@ -63,6 +64,7 @@ public class ColumnController implements Initializable {
 
         columnRoleOptions = GUIMaker.makeColumnRoleDropDown();
 
+        //sets onAction listener for every column role button in the popup
         for (Node option : ((VBox) columnRoleOptions.getPopupContent()).getChildren()) {
             JFXButton optionButton = (JFXButton) option;
             optionButton.setOnAction(event -> {
@@ -92,6 +94,10 @@ public class ColumnController implements Initializable {
         } else makeNewCard(new CardModel());
     }
 
+    /**
+     * Creates a new {@link KanbanCard} component and inflates with a {@link CardModel}
+     * @param newCardModel - {@link CardModel}
+     */
     public void makeNewCard(CardModel newCardModel) {
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         newCard.getController().fillWithData(newCardModel);
@@ -104,9 +110,13 @@ public class ColumnController implements Initializable {
         System.out.println(columnModel.getWipLimit());
     }
 
+    /**
+     * Asks a user to confirm deletion of this column
+     */
     public void deleteColumn() {
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
         columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete, () -> {
+            //if confirmed, delete column
             if (columnMenu.isShowing())
                 columnMenu.hide();
 
@@ -116,38 +126,58 @@ public class ColumnController implements Initializable {
     }
 
     @FXML
-    public void openColumnMenu() {
+    private void openColumnMenu() {
         columnMenu.show(columnMenuButton, JFXPopup.PopupVPosition.TOP,
                 JFXPopup.PopupHPosition.LEFT, 0, columnMenuButton.getHeight());
     }
 
+    /**
+     * Inflate this {@link KanbanColumn} component with a {@link ColumnModel}
+     * @param columnModel - {@link ColumnModel}
+     */
     public void fillWithData(ColumnModel columnModel) {
         this.columnModel = columnModel;
         columnName.setText(columnModel.getName());
         columnRole.setText(columnModel.getRole().roleString);
     }
 
+    /**
+     * Sets the role of a column
+     * @param role - {@link utils.Constants.ColumnRole}
+     */
     public void setRole(Constants.ColumnRole role) {
-
         columnRole.setText(role.roleString);
         columnModel.setRole(role);
     }
 
+    /**
+     * Delete a specific {@link KanbanCard} from this {@link KanbanColumn}
+     * @param kanbanCard - {@link KanbanCard}
+     */
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
         columnModel.deleteCard(kanbanCard.getController().getData());
     }
 
     @FXML
-    public void setColumnRoleDropDown() {
+    private void setColumnRoleDropDown() {
         columnRoleOptions.show(columnRole, JFXPopup.PopupVPosition.TOP,
                 JFXPopup.PopupHPosition.LEFT, 0, columnRole.getHeight());
     }
 
+    /**
+     * Return the data associated with this ui component
+     * @return columnModel
+     */
     public ColumnModel getColumnModel() {
         return columnModel;
     }
 
+    /**
+     * swaps the cards while they are being dragged across a column
+     * @param idx1 - index of the dragged card or the swapping card
+     * @param idx2 - index of the dragged card or the swapping
+     */
     public void swapCards(int idx1, int idx2) {
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(cards.getChildren());
         Collections.swap(workingCollection, idx1, idx2);

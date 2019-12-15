@@ -10,6 +10,9 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class handles user input when the user is setting the board name for the first time
+ */
 public class BoardNamePopupController implements Initializable {
     @FXML
     private JFXButton okButton;
@@ -24,12 +27,14 @@ public class BoardNamePopupController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //if user submits text
         okButton.setOnAction(event -> {
             if (!boardNameTextField.getText().isEmpty()) {
                 dialog.close();
                 callBack.onValidName(boardNameTextField.getText());
             }
         });
+        //if user cancels
         cancelButton.setOnAction(event -> {
             dialog.close();
             callBack.onCancel();

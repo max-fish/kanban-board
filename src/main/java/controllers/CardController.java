@@ -19,7 +19,9 @@ import utils.DragAndDropForCards;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-
+/**
+ * This class handles user input for a {@link KanbanCard}
+ */
 public class CardController implements Initializable {
     @FXML
     private JFXTextField cardTitle;
@@ -27,7 +29,6 @@ public class CardController implements Initializable {
     private BorderPane rootPane;
 
     private CardModel cardModel;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,13 +39,21 @@ public class CardController implements Initializable {
         cardTitle.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setTitle(newValue));
     }
 
+    /**
+     * inflate the {@link KanbanCard} with data from a {@link CardModel}
+     * @param cardModel - {@link CardModel}
+     */
     public void fillWithData(CardModel cardModel) {
             this.cardModel = cardModel;
             cardTitle.setText(cardModel.getTitle());
     }
 
+    /**
+     * Brings up the {@link CardDetailPopup} to edit data associated
+     * with the {@link CardModel}
+     */
     @FXML
-    public void editDetails() {
+    private void editDetails() {
         KanbanCard card = (KanbanCard) rootPane;
         KanbanBoard board = card.getColumn().getBoard();
         BorderPane homePage = board.getHomePage();
@@ -78,18 +87,19 @@ public class CardController implements Initializable {
         KanbanBoard board = kanbanCardToDelete.getColumn().getBoard();
         BorderPane homePage = board.getHomePage();
         DeleteConfirmationPopup deleteCardConfirmation = new DeleteConfirmationPopup(new DeleteColumnPopupCallback() {
+            //init set up method
             @Override
             public void onStart(StackPane stackPane) {
                 homePage.setCenter(stackPane);
             }
-
+            //if user selects delete
             @Override
             public void onDelete() {
                 kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
                 cardModel = null;
                 homePage.setCenter(board);
             }
-
+            //if user cancels
             @Override
             public void onCancel() {
                 homePage.setCenter(board);
@@ -99,10 +109,19 @@ public class CardController implements Initializable {
         deleteCardConfirmation.show();
     }
 
+    /**
+     * Deletes a specific card without asking for user confirmation
+     * This method is only used in {@link utils.DragAndDropForCards}
+     * @param cardToDelete - the specific card that the user wants to delete
+     */
     public void deleteCardDirectly(KanbanCard cardToDelete){
         cardToDelete.getColumn().getController().deleteCard(cardToDelete);
     }
 
+    /**
+     * Return the data associated with this ui component
+     * @return cardModel
+     */
     public CardModel getData() {
         return cardModel;
     }

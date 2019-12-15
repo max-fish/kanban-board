@@ -8,8 +8,10 @@ import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import ui.KanbanColumn;
 
+/**
+ * Factory for animations
+ */
 public class AnimationMaker {
-
     public static void playAnimations(Animation... animations) {
         ParallelTransition parallelTransition = new ParallelTransition(animations);
         parallelTransition.play();

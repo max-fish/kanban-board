@@ -18,11 +18,8 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
-import ui.DeleteConfirmationPopup;
+import ui.*;
 import data.model.StatisticsModel;
-import ui.KanbanBoard;
-import ui.KanbanColumn;
-import ui.StatisticsPopup;
 import utils.AnimationMaker;
 import utils.GUIMaker;
 
@@ -65,6 +62,10 @@ public class KanbanBoardController implements Initializable {
         makeNewColumn(new ColumnModel());
     }
 
+    /**
+     * Makes a new column with a specific {@link ColumnModel}
+     * @param newColumnModel - a data model for Columns
+     */
     public void makeNewColumn(ColumnModel newColumnModel) {
         KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
         toInsert.getController().fillWithData(newColumnModel);
@@ -92,6 +93,11 @@ public class KanbanBoardController implements Initializable {
             column.getController().makeNewCard(card);
     }
 
+    /**
+     * Asks for user confirmation to delete a column
+     * @param kanbanColumn - the {@link KanbanColumn} that needs to be deleted
+     * @param callback - describes what do depending on what the user selects (delete/cancel)
+     */
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
         KanbanBoard board = (KanbanBoard) rootPane;
         BorderPane homePane = board.getHomePage();
@@ -135,16 +141,29 @@ public class KanbanBoardController implements Initializable {
     }
 
 
+    /**
+     * inflate the {@link KanbanCard} with data from a {@link CardModel}
+     * @param boardModel - {@link BoardModel}
+     */
     public void fillWithData(BoardModel boardModel) {
         this.boardModel = boardModel;
         boardTitle.setText(boardModel.getName());
     }
 
 
+    /**
+     * Return the data associated with this ui component
+     * @return boardModel
+     */
     public BoardModel getBoardModel() {
         return boardModel;
     }
 
+    /**
+     * Swaps columns while they are being dragged across the board
+     * @param idx1 - the index of the {@link KanbanColumn} being dragged/swapped
+     * @param idx2 - the index of the {@link KanbanColumn} being dragged/swapped
+     */
     public void swapColumns(int idx1, int idx2){
         System.out.println(columns.getChildren().size());
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(columns.getChildren());

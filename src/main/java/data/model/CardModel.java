@@ -17,9 +17,6 @@ public class CardModel {
     private LocalDate enterWIPDate = null;
     private LocalDate completedDate = null;
 
-    /**
-     *
-     */
     public CardModel(String title, String description, Integer storyPoints)
     {
         this.title = title;
