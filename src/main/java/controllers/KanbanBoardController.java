@@ -90,7 +90,7 @@ public class KanbanBoardController implements Initializable {
     private void createCards(ColumnModel columnModel, KanbanColumn column) {
         List<CardModel> cards = columnModel.getCards();
         for (CardModel card : cards)
-            column.getController().makeNewCard(card);
+            column.getController().makeNewCardFromMemory(card);
     }
 
     /**

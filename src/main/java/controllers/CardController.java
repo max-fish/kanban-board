@@ -96,6 +96,7 @@ public class CardController implements Initializable {
             @Override
             public void onDelete() {
                 kanbanCardToDelete.getColumn().getController().deleteCard(kanbanCardToDelete);
+                kanbanCardToDelete.getColumn().getController().decrementCurrentWip();
                 cardModel = null;
                 homePage.setCenter(board);
             }

@@ -16,7 +16,6 @@ import ui.KanbanColumn;
 import utils.GUIMaker;
 import utils.Constants;
 import utils.DragAndDrop;
-
 import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -39,6 +38,9 @@ public class ColumnController implements Initializable {
     private JFXButton dragButton;
     @FXML
     private JFXComboBox<Label> wipLimitDropDown;
+
+    @FXML
+    private Label currentWip;
 
     private JFXPopup columnMenu;
 
@@ -99,6 +101,7 @@ public class ColumnController implements Initializable {
      * @param newCardModel - {@link CardModel}
      */
     public void makeNewCard(CardModel newCardModel) {
+
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         newCard.getController().fillWithData(newCardModel);
         cards.getChildren().add(newCard);
@@ -106,6 +109,8 @@ public class ColumnController implements Initializable {
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     public void makeNewCard(int index, CardModel newCardModel) {
@@ -115,8 +120,22 @@ public class ColumnController implements Initializable {
 
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
-        columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
 
+        columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
+    }
+
+    public void makeNewCardFromMemory(CardModel newCardModel){
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
+        cards.getChildren().add(newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     /**
@@ -192,6 +211,11 @@ public class ColumnController implements Initializable {
         Collections.swap(workingCollection, idx1, idx2);
         cards.getChildren().setAll(workingCollection);
         Collections.swap(columnModel.getCards(), idx1, idx2);
+    }
+
+    public void decrementCurrentWip(){
+        columnModel.setCurrentWip(columnModel.getCurrentWip() - 1);
+        currentWip.setText(columnModel.getCurrentWip() + "");
     }
 
 }

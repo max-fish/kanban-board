@@ -23,6 +23,14 @@
                     </graphic>
                 </JFXButton>
                 <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="currentWip" text="0">
+                    <padding>
+                        <Insets>
+                            <right>10</right>
+                        </Insets>
+                    </padding>
+                </Label>
+                <Label text="/"/>
                 <JFXComboBox fx:id="wipLimitDropDown" promptText="WIP" minWidth="65" maxWidth="65" maxHeight="NaN"
                              visibleRowCount="3">
                     <items>
@@ -41,12 +49,12 @@
                         </FXCollections>
                     </items>
                 </JFXComboBox>
-                <Region HBox.hgrow="ALWAYS"/>
-                <JFXButton fx:id="dragButton" AnchorPane.rightAnchor="0.0">
-                    <graphic>
-                        <FontIcon iconLiteral="gmi-drag-handle" iconColor="white" iconSize="20"/>
-                    </graphic>
-                </JFXButton>
+            <Region HBox.hgrow="ALWAYS"/>
+            <JFXButton fx:id="dragButton" AnchorPane.rightAnchor="0.0">
+                <graphic>
+                    <FontIcon iconLiteral="gmi-drag-handle" iconColor="white" iconSize="20"/>
+                </graphic>
+            </JFXButton>
             </HBox>
             <AnchorPane>
                 <JFXTextField styleClass="column-header" fx:id="columnName" id="ColumnName" maxWidth="210"

@@ -48,9 +48,9 @@ public class StatisticsController implements Initializable {
 
     public void displayStats(){
         if(!statisticsModel.getBoard().hasCompleteColumn()){
-            overallVelocity.setText("To view the overall velocity you need to assign a role to your columns.");
-            leadTime.setText("To view the overall velocity you need to assign a role to your columns.");
-            averageWIP.setText("To view the overall velocity you need to assign a role to your columns.");
+            overallVelocity.setText("To view the overall velocity you need to assign a completed role.");
+            leadTime.setText("To view the overall velocity you need to assign a completed role.");
+            averageWIP.setText("To view the overall velocity you need to assign a completed role.");
         }
         else {
             double overallVelocityVal = -1;
