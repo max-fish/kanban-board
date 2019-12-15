@@ -41,7 +41,7 @@ public class CardModel {
 
     public CardModel(ColumnModel parentColumn)
     {
-        this(parentColumn, "");
+        this(parentColumn, "New Card");
     }
 
     public ColumnModel getParent()

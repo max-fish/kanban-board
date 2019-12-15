@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.*?>
 
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
 
 <?import javafx.geometry.Insets?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
@@ -13,7 +14,7 @@
          fx:controller="controllers.CardController">
     <center>
         <VBox id="Card_body" prefHeight="20" prefWidth="Infinity" spacing="2" alignment="CENTER">
-            <JFXTextField fx:id ="cardTitle" id="CardTitle" maxWidth="100" prefHeight="20" promptText="Add Card Title"/>
+            <Label fx:id ="cardTitle" id="CardTitle" maxWidth="150" prefHeight="20" text="New Card" textAlignment="CENTER"/>
             <BorderPane.margin>
                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
             </BorderPane.margin>

@@ -5,6 +5,7 @@ import utils.Constants;
 import static utils.Constants.ColumnRole.*;
 
 import ui.KanbanColumn;
+import data.log.ColumnNameChange;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class ColumnModel {
     }
 
     public ColumnModel(BoardModel parentBoard) {
-        this(parentBoard, "", Constants.ColumnRole.BACKLOG);
+        this(parentBoard, "New Column", Constants.ColumnRole.BACKLOG);
     }
 
     public BoardModel getParent()
@@ -53,8 +54,9 @@ public class ColumnModel {
         cardModels.remove(cardModel);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String newName) {
+        parentBoard.getActivityLogModel().addChange(new ColumnNameChange(this, name, newName));
+        this.name = newName;
     }
 
     public void setRole(Constants.ColumnRole role) {

@@ -11,6 +11,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import data.model.CardModel;
 import data.model.ColumnModel;
 import data.model.CardModel;
@@ -38,7 +39,9 @@ public class ColumnController implements Initializable {
     @FXML
     private JFXButton columnMenuButton;
     @FXML
-    private JFXTextField columnName;
+    private StackPane nameContainer;
+    @FXML
+    private Label columnName;
     @FXML
     private JFXButton columnRole;
     @FXML
@@ -78,10 +81,10 @@ public class ColumnController implements Initializable {
             });
         }
 
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> {
+        /*columnName.textProperty().addListener((observable, oldValue, newValue) -> {
             columnModel.setName(newValue);
             columnModel.getParent().getActivityLogModel().addChange(new ColumnNameChange(columnModel, oldValue, newValue));
-          });
+          });*/
 
         wipLimitDropDown.setOnAction(event -> {
             try {
@@ -187,4 +190,13 @@ public class ColumnController implements Initializable {
         );
     }
 
+    @FXML
+    public void editName()
+    {
+        nameContainer.getChildren().remove(columnName);
+        JFXTextField columnEdit = GUIMaker.makeColumnEditField(nameContainer, columnName, columnModel);
+        nameContainer.getChildren().add(columnEdit);
+        columnEdit.requestFocus();
+        columnEdit.selectAll();
+    }
 }

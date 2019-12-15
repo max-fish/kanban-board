@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Label;
 
 import data.model.CardModel;
 import data.log.CardEditChange;
@@ -23,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class CardController implements Initializable {
     @FXML
-    private JFXTextField cardTitle;
+    private Label cardTitle;
     @FXML
     private BorderPane rootPane;
 
@@ -36,15 +37,15 @@ public class CardController implements Initializable {
         KanbanCard card = (KanbanCard) rootPane;
         dragAnimation.setDragAnimation(card);
 
-        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+        /*cardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
             cardModel.setTitle(newValue);
             cardModel.getParent().getParent().getActivityLogModel().addChange(new CardEditChange(cardModel, oldValue, newValue));
-          });
+          });*/
     }
 
     public void fillWithData(CardModel cardModel) {
-            this.cardModel = cardModel;
-            cardTitle.setText(cardModel.getTitle());
+        this.cardModel = cardModel;
+        cardTitle.setText(cardModel.getTitle());
     }
 
     @FXML
@@ -64,6 +65,7 @@ public class CardController implements Initializable {
             public void onSave(CardModel cardModel) {
                 CardController.this.cardModel = cardModel;
                 cardTitle.setText(cardModel.getTitle());
+                  System.out.println(cardTitle.getText());
 
                 homePage.setCenter(board);
             }
