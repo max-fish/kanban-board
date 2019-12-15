@@ -1,6 +1,5 @@
 import org.junit.Test;
 import javafx.scene.input.MouseButton;
-import org.testfx.util.WaitForAsyncUtils;
 
 public class TestColumns extends BaseTest
 {

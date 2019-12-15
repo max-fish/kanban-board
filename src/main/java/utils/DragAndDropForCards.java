@@ -1,6 +1,9 @@
 package utils;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -10,6 +13,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
+import ui.KanbanBoard;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 
@@ -111,7 +115,7 @@ public class DragAndDropForCards {
                                 VBox nextColumn = (VBox) nextColumnContainer.getCenter();
                                 onDragOver();
                                 ((KanbanCard) itemBeingDragged).getController().deleteCardDirectly((KanbanCard) itemBeingDragged);
-                                nextColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getData());
+                                nextColumnContainer.getController().makeNewCard(itemBeingDraggedIndex, ((KanbanCard) itemBeingDragged).getController().getCardModel());
                                 columnContainer = nextColumnContainer;
                                 column = nextColumn;
                                 orgSceneX = event.getSceneX();
@@ -123,7 +127,7 @@ public class DragAndDropForCards {
                                 VBox previousColumn = (VBox) previousColumnContainer.getCenter();
                                 onDragOver();
                                 ((KanbanCard) itemBeingDragged).getController().deleteCardDirectly((KanbanCard) itemBeingDragged);
-                                previousColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getData());
+                                previousColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getCardModel());
                                 columnContainer = previousColumnContainer;
                                 column = previousColumn;
                                 orgSceneX = event.getSceneX();

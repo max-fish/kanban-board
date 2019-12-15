@@ -44,8 +44,8 @@ public class CardController implements Initializable {
      * @param cardModel - {@link CardModel}
      */
     public void fillWithData(CardModel cardModel) {
-            this.cardModel = cardModel;
-            cardTitle.setText(cardModel.getTitle());
+        this.cardModel = cardModel;
+        cardTitle.setText(cardModel.getTitle());
     }
 
     /**
@@ -114,15 +114,17 @@ public class CardController implements Initializable {
      * This method is only used in {@link utils.DragAndDropForCards}
      * @param cardToDelete - the specific card that the user wants to delete
      */
-    public void deleteCardDirectly(KanbanCard cardToDelete){
+    public void deleteCardDirectly(KanbanCard cardToDelete) {
         cardToDelete.getColumn().getController().deleteCard(cardToDelete);
+        cardModel = null;
     }
 
     /**
      * Return the data associated with this ui component
+     *
      * @return cardModel
      */
-    public CardModel getData() {
+    public CardModel getCardModel() {
         return cardModel;
     }
 }

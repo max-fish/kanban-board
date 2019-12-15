@@ -13,10 +13,14 @@ import java.io.IOException;
 public class KanbanBoard extends BorderPane {
     private KanbanBoardController kanbanBoardController;
 
-    public KanbanBoard() throws IOException {
+    public KanbanBoard() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/layouts/kanban_board_ui.fxml"));
         fxmlLoader.setRoot(this);
-        fxmlLoader.load();
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         kanbanBoardController = fxmlLoader.getController();
     }
 

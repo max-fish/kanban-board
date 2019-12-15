@@ -165,7 +165,6 @@ public class KanbanBoardController implements Initializable {
      * @param idx2 - the index of the {@link KanbanColumn} being dragged/swapped
      */
     public void swapColumns(int idx1, int idx2){
-        System.out.println(columns.getChildren().size());
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(columns.getChildren());
         Collections.swap(workingCollection, idx1, idx2);
         columns.getChildren().setAll(workingCollection);

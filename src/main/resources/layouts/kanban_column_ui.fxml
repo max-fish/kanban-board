@@ -6,6 +6,7 @@
 
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
 <fx:root id="Column_root" fx:id="rootPane" minWidth="240" prefHeight="NaN" prefWidth="260"
          stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
@@ -62,6 +63,12 @@
         </VBox>
     </top>
     <center>
-        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="TOP_CENTER" spacing="10"/>
+        <VBox fx:id="cards" id="card_list" prefHeight="NaN" prefWidth="100" alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets>
+                    <bottom>10</bottom>
+                </Insets>
+            </padding>
+        </VBox>
     </center>
 </fx:root>
