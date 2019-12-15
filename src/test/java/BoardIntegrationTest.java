@@ -17,11 +17,13 @@ import static org.junit.Assert.*;
 public class BoardIntegrationTest extends ApplicationTest {
 
     private KanbanBoard kanbanBoard;
+    private HBox kanbanBoardContents;
 
     @Before
     public void init(){
         kanbanBoard = new KanbanBoard();
         kanbanBoard.getController().fillWithData(new BoardModel("test"));
+        kanbanBoardContents = ((HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent());
     }
 
     /**
@@ -40,8 +42,6 @@ public class BoardIntegrationTest extends ApplicationTest {
      */
     @Test
     public void TestAddDefaultColumn(){
-        HBox kanbanBoardContents = ((HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent());
-
         //check initial state of KanbanBoard and BoardModel
         assertEquals(1, kanbanBoardContents.getChildren().size());
         assertEquals(0, kanbanBoard.getController().getBoardModel().getColumns().size());
@@ -57,17 +57,15 @@ public class BoardIntegrationTest extends ApplicationTest {
      */
     @Test
     public void TestAddColumn(){
-        HBox kanbanBoardContents = ((HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent());
-
         ColumnModel columnModel =  new ColumnModel("test");
 
         kanbanBoard.getController().makeNewColumn(columnModel);
 
-        //check if properly added
+        //check if added for ui and model
         assertEquals(2, kanbanBoardContents.getChildren().size());
         assertEquals(1, kanbanBoard.getController().getBoardModel().getColumns().size());
 
-        //check if properly reflected in KanbanBoard and BoardModel
+        //check if correct data was added
         assertEquals(columnModel, ((KanbanColumn) kanbanBoardContents.getChildren().get(0)).getController().getColumnModel());
         assertEquals(columnModel, kanbanBoard.getController().getBoardModel().getColumns().get(0));
     }
@@ -86,8 +84,6 @@ public class BoardIntegrationTest extends ApplicationTest {
         //board model check
         assertEquals("test2", kanbanBoard.getController().getBoardModel().getColumns().get(0).getName());
         assertEquals("test1", kanbanBoard.getController().getBoardModel().getColumns().get(1).getName());
-
-        HBox kanbanBoardContents = ((HBox) ((ScrollPane) kanbanBoard.getCenter()).getContent());
 
         //ui check
         assertEquals(columnModel2, ((KanbanColumn) kanbanBoardContents.getChildren().get(0)).getController().getColumnModel());

@@ -101,9 +101,10 @@ public class CardController implements Initializable {
 
     public void deleteCardDirectly(KanbanCard cardToDelete){
         cardToDelete.getColumn().getController().deleteCard(cardToDelete);
+        cardModel = null;
     }
 
-    public CardModel getData() {
+    public CardModel getCardModel() {
         return cardModel;
     }
 }

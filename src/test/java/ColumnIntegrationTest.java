@@ -1,8 +1,8 @@
-import data.model.BoardModel;
 import data.model.ColumnModel;
 import data.model.CardModel;
 
-import utils.Constants.ColumnRole;
+import javafx.scene.layout.VBox;
+import ui.KanbanCard;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,38 +13,45 @@ import ui.KanbanColumn;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class tests the communication between the {@link KanbanColumn} and the {@link ColumnModel}
+ * through the controller methods
+ */
 public class ColumnIntegrationTest extends ApplicationTest
 {
     private KanbanColumn kanbanColumn;
-    private KanbanBoard board;
-    private ColumnModel columnModel;
+    private VBox kanbanColumnContents;
 
     @Before
     public void init(){
-        board = new KanbanBoard();
-        board.getController().fillWithData(new BoardModel("test"));
-        kanbanColumn = new KanbanColumn(board);
-        columnModel = new ColumnModel("column");
-        kanbanColumn.getController().fillWithData(columnModel);
-        board.getController().makeNewColumn(columnModel);
+        KanbanBoard kanbanBoard = new KanbanBoard();
+        kanbanColumn = new KanbanColumn(kanbanBoard);
+        kanbanColumn.getController().fillWithData(new ColumnModel("column"));
+        kanbanColumnContents = (VBox) kanbanColumn.getCenter();
     }
 
+    /**
+     * Check whether adding a card updates the {@link KanbanColumn} and the {@link ColumnModel}
+     */
     @Test
     public void testAddCard() {
         CardModel card = new CardModel();
         kanbanColumn.getController().makeNewCard(card);
 
-        //Check if card is added
+
+        //check if card is added to ui and model
+        assertEquals(1, kanbanColumnContents.getChildren().size());
+        assertEquals(1, kanbanColumn.getController().getColumnModel().getCards().size());
+
+        //Check if correct data is added
         assertEquals(1, kanbanColumn.getController().getColumnModel().getCards().size());
         assertEquals(card, kanbanColumn.getController().getColumnModel().getCards().get(0));
     }
 
-    @Test
-    public void testSetRole() {
-        kanbanColumn.getController().setRole(ColumnRole.INFO_ONLY);
-        assertEquals(ColumnRole.INFO_ONLY, kanbanColumn.getController().getColumnModel().getRole());
-    }
 
+    /**
+     * Check whether swapping cards updates the {@link KanbanColumn} and {@link ColumnModel}
+     */
     @Test
     public void testCardSwap() {
         CardModel card = new CardModel();
@@ -55,13 +62,12 @@ public class ColumnIntegrationTest extends ApplicationTest
 
         kanbanColumn.getController().swapCards(0, 1);
 
+        //check if ui updates
+        assertEquals(card2, ((KanbanCard) kanbanColumnContents.getChildren().get(0)).getController().getCardModel());
+        assertEquals(card, ((KanbanCard) kanbanColumnContents.getChildren().get(1)).getController().getCardModel());
+
+        //check if data updates
         assertEquals(card2, kanbanColumn.getController().getColumnModel().getCards().get(0));
         assertEquals(card, kanbanColumn.getController().getColumnModel().getCards().get(1));
-    }
-
-    @Test
-    public void deleteColumn() {
-        kanbanColumn.getController().deleteColumn();
-        assertEquals(0, board.getController().getBoardModel().getColumns().size());
     }
 }

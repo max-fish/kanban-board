@@ -7,9 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import data.model.CardModel;
 import data.model.ColumnModel;
@@ -102,7 +100,7 @@ public class ColumnController implements Initializable {
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
     }
 
-    public void makeNewCard(int index, CardModel newCardModel){
+    public void makeNewCard(int index, CardModel newCardModel) {
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         newCard.getController().fillWithData(newCardModel);
         cards.getChildren().add(index, newCard);
@@ -125,7 +123,7 @@ public class ColumnController implements Initializable {
     }
 
     @FXML
-    public void openColumnMenu() {
+    private void openColumnMenu() {
         columnMenu.show(columnMenuButton, JFXPopup.PopupVPosition.TOP,
                 JFXPopup.PopupHPosition.LEFT, 0, columnMenuButton.getHeight());
     }
@@ -144,11 +142,11 @@ public class ColumnController implements Initializable {
 
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
-        columnModel.deleteCard(kanbanCard.getController().getData());
+        columnModel.deleteCard(kanbanCard.getController().getCardModel());
     }
 
     @FXML
-    public void setColumnRoleDropDown() {
+    private void setColumnRoleDropDown() {
         columnRoleOptions.show(columnRole, JFXPopup.PopupVPosition.TOP,
                 JFXPopup.PopupHPosition.LEFT, 0, columnRole.getHeight());
     }
