@@ -1,7 +1,9 @@
 package data.model;
 
+import jdk.vm.ci.meta.Local;
 import ui.StatisticsPopup;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -48,12 +50,23 @@ public class StatisticsModel
         for(ColumnModel col : board.getCompletedColumns()){
             for (CardModel card : col.getCards()) {
                 int week = (int)ChronoUnit.WEEKS.between(card.getCreationDate(), card.getCompletedDate());
-                leadTimes[week+1] += ChronoUnit.DAYS.between(card.getEnterWIPDate(), card.getCompletedDate());
+                LocalDate enterWIPDate = card.getEnterWIPDate();
+                //If there's no date, the card was directly added to 'Completed', so 0 days in WIP
+                if(enterWIPDate != null) {
+                    leadTimes[week+1] += ChronoUnit.DAYS.between(enterWIPDate, card.getCompletedDate());
+                }
                 leadTimes[0] += card.getStoryPoint();
             }
         }
         if(leadTimes[0] == 0) return null;
-        for(int week = 1; week<leadTimes.length; week++){ leadTimes[week] = leadTimes[week] / getOverallVelocity()[week]; }
+        for(int week = 1; week<leadTimes.length; week++){
+            int velocity = getOverallVelocity()[week];
+            if(velocity == 0) {
+                leadTimes[week] = 0;
+            } else{
+                leadTimes[week] = leadTimes[week] / getOverallVelocity()[week];
+            }
+        }
         return leadTimes;
     }
 
