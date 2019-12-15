@@ -2,6 +2,7 @@ package data.model;
 
 import utils.Constants;
 import data.log.ActivityLogModel;
+import data.log.BoardNameChange;
 import ui.KanbanBoard;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ public class BoardModel {
     private List<ColumnModel> columnModels;
     private LocalDate creationDate;
     private ActivityLogModel activityLogModel;
-    private KanbanBoard boardGUI;
+    private transient KanbanBoard boardGUI;
 
     /**
      *
@@ -72,9 +73,10 @@ public class BoardModel {
 
     public boolean contains(ColumnModel columnModel) { return columnModels.contains(columnModel); }
 
-    public void setName(String name)
+    public void setName(String newName)
     {
-        this.name = name;
+        activityLogModel.addChange(new BoardNameChange(this, name, newName));
+        this.name = newName;
     }
 
     public String getName()

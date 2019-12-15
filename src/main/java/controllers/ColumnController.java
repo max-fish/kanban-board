@@ -116,6 +116,8 @@ public class ColumnController implements Initializable {
         System.out.println(columnModel.getCurrentWip());
         System.out.println(columnModel.getWipLimit());
 
+        newCardModel.setGUI(newCard);
+
         columnModel.getParent().getActivityLogModel().addChange(new CardCreateChange(newCardModel));
     }
 

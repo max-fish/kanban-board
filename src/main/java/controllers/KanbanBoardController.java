@@ -20,7 +20,6 @@ import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
 import data.model.StatisticsModel;
-import data.log.BoardNameChange;
 import data.log.ColumnMoveChange;
 import data.log.ColumnCreateChange;
 import ui.KanbanBoard;
@@ -57,10 +56,7 @@ public class KanbanBoardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
-            boardModel.setName(newValue);
-            boardModel.getActivityLogModel().addChange(new BoardNameChange(boardModel, oldValue, newValue));
-          });
+        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> boardModel.setName(newValue));
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 

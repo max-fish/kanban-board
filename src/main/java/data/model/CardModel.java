@@ -1,6 +1,7 @@
 package data.model;
 
 import java.time.LocalDate;
+import ui.KanbanCard;
 
 public class CardModel {
     // the id of the next card, ids increase chronologically
@@ -13,6 +14,7 @@ public class CardModel {
     private LocalDate creationDate;
     private LocalDate completedDate = null;
     private ColumnModel parentColumn;
+    private transient KanbanCard cardGUI;
 
     /**
      *
@@ -85,4 +87,14 @@ public class CardModel {
     public void setCompletedDate(LocalDate date) { completedDate = date; }
 
     public LocalDate getCompletedDate() { return completedDate; }
+
+    public void setGUI(KanbanCard cardGUI)
+    {
+        this.cardGUI  = cardGUI;
+    }
+
+    public KanbanCard getGUI()
+    {
+        return cardGUI;
+    }
 }

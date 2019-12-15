@@ -16,7 +16,7 @@ public class ColumnModel {
     private int wipLimit;
     private List<CardModel> cardModels;
     private BoardModel parentBoard;
-    private KanbanColumn columnGUI;
+    private transient KanbanColumn columnGUI;
 
     public ColumnModel(BoardModel parentBoard, String name, Constants.ColumnRole role) {
         this.name = name;
