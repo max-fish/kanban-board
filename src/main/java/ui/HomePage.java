@@ -34,7 +34,7 @@ public class HomePage extends Application {
         KanbanModel.instance().setHomePageController(homePageController);
         KanbanModel.instance().loadSession();
 
-	      JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
+        JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
         jfxDecorator.setTitle("Kanban Board");
         Scene scene = new Scene(jfxDecorator, 1200, 600);

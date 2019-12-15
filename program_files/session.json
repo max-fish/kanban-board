@@ -9,8 +9,8 @@
         "wipLimit": 0,
         "cardModels": [
           {
-            "id": 5,
-            "title": "Create column GUI",
+            "id": 4,
+            "title": "Create board model",
             "description": "",
             "storyPoints": 1,
             "creationDate": {
@@ -20,8 +20,8 @@
             }
           },
           {
-            "id": 6,
-            "title": "Create column model",
+            "id": 1,
+            "title": "Create home page",
             "description": "",
             "storyPoints": 1,
             "creationDate": {
@@ -297,17 +297,6 @@
         "wipLimit": 0,
         "cardModels": [
           {
-            "id": 1,
-            "title": "Create home page",
-            "description": "",
-            "storyPoints": 1,
-            "creationDate": {
-              "year": 2019,
-              "month": 12,
-              "day": 12
-            }
-          },
-          {
             "id": 3,
             "title": "Create board GUI",
             "description": "",
@@ -316,14 +305,35 @@
               "year": 2019,
               "month": 12,
               "day": 12
+            },
+            "completedDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 12
             }
           },
           {
-            "id": 4,
-            "title": "Create board model",
+            "id": 6,
+            "title": "Create column model",
             "description": "",
             "storyPoints": 1,
             "creationDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 12
+            }
+          },
+          {
+            "id": 5,
+            "title": "Create column GUI",
+            "description": "",
+            "storyPoints": 3,
+            "creationDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 12
+            },
+            "completedDate": {
               "year": 2019,
               "month": 12,
               "day": 12
