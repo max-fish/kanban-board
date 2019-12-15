@@ -7,6 +7,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Data abstraction class for {@link ui.KanbanBoard}s
+ */
 public class BoardModel {
     private String name;
     private List<ColumnModel> columnModels;

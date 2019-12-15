@@ -6,6 +6,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+/**
+ * This class is designed to make light-weight gui components that have short life cycles
+ * and only are only created at runtime.
+ */
 public class GUIMaker {
 
     public static StackPane makeBoardCard(String title) {

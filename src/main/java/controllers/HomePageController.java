@@ -41,12 +41,15 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    public void goToHomeScreen() {
+    private void goToHomeScreen() {
         if (rootPane.getCenter() instanceof BorderPane) {
             rootPane.setCenter(boardGrid);
         }
     }
 
+    /**
+     * Queries the user to come up with a board name
+     */
     public void askToNameBoard() {
         BoardNamePopup dialog = new BoardNamePopup(new BoardNamePopupCallBack() {
             @Override
@@ -68,6 +71,11 @@ public class HomePageController implements Initializable {
         dialog.show();
     }
 
+    /**
+     * Makes a new board with a specific {@link BoardModel} data and title
+     * @param boardModel - the data of the board {@link BoardModel}
+     * @param boardTitle - the name of the board
+     */
     public void makeNewBoard(BoardModel boardModel, String boardTitle)
     {
         KanbanBoard board = new KanbanBoard();
@@ -100,7 +108,7 @@ public class HomePageController implements Initializable {
     }
 
     @FXML
-    public void openFileMenu()
+    private void openFileMenu()
     {
         fileMenu.show(fileMenuButton, JFXPopup.PopupVPosition.TOP,
                       JFXPopup.PopupHPosition.LEFT, 0, fileMenuButton.getHeight());

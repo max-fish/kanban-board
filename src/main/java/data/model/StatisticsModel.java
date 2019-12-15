@@ -1,8 +1,12 @@
 package data.model;
 
-import java.time.LocalDate;
+import ui.StatisticsPopup;
+
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Data abstraction class for {@link StatisticsPopup}
+ */
 public class StatisticsModel
 {
     private BoardModel board;

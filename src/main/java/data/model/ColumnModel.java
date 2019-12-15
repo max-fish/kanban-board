@@ -8,6 +8,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Data abstraction class for {@link ui.KanbanColumn}s
+ */
 public class ColumnModel {
     private String name;
     private Constants.ColumnRole role;

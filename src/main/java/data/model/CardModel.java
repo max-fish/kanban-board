@@ -1,8 +1,10 @@
 package data.model;
 
-import java.nio.file.LinkOption;
 import java.time.LocalDate;
 
+/**
+ * Data abstraction class for {@link ui.KanbanCard}s
+ */
 public class CardModel {
     // the id of the next card, ids increase chronologically
     public static int nextId = 1;
@@ -15,9 +17,6 @@ public class CardModel {
     private LocalDate enterWIPDate = null;
     private LocalDate completedDate = null;
 
-    /**
-     *
-     */
     public CardModel(String title, String description, Integer storyPoints)
     {
         this.title = title;

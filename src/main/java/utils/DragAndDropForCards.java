@@ -13,6 +13,10 @@ import javafx.scene.transform.Rotate;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 
+/**
+ * Sets up onMousePressed, onMouseDragged, and onMouseReleased listeners for columns and cards
+ * in two dimensions
+ */
 public class DragAndDropForCards {
     private double orgSceneY;
     private double orgTranslateY;

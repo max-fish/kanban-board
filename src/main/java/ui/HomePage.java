@@ -12,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * This class is the starting point of the application. It sets up the initial state of the program.
+ */
 public class HomePage extends Application {
 
     public static void main(String[] args) {

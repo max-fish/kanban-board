@@ -16,6 +16,9 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
+/**
+ * This class holds the logic of calculating the statistics and displaying them in a {@link com.jfoenix.controls.JFXPopup}
+ */
 public class StatisticsController implements Initializable {
 
     @FXML
