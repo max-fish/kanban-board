@@ -1,3 +1,5 @@
+package integration;
+
 import data.model.ColumnModel;
 import data.model.CardModel;
 

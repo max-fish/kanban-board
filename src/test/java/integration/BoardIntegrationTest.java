@@ -1,3 +1,5 @@
+package integration;
+
 import data.model.BoardModel;
 import data.model.ColumnModel;
 import javafx.scene.control.ScrollPane;

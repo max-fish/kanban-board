@@ -1,3 +1,5 @@
+package back_end;
+
 import data.model.BoardModel;
 import data.model.ColumnModel;
 import org.junit.Before;

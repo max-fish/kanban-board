@@ -1,3 +1,5 @@
+package integration;
+
 import data.model.BoardModel;
 import data.model.ColumnModel;
 import data.model.CardModel;
@@ -48,6 +50,5 @@ public class CardIntegrationTest extends ApplicationTest
         assertEquals(0, kanbanColumnContents.getChildren().size());
         //check data
         assertEquals(0, kanbanColumn.getController().getColumnModel().getCards().size());
-        assertNull(kanbanCard.getController().getCardModel());
     }
 }
