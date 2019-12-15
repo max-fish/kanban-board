@@ -32,15 +32,14 @@ public class ColumnModel {
     public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
         if (role == COMPLETED_WORK) cardModel.setCompletedDate(LocalDate.now());
+        else if( role == WORK_IN_PROGRESS && cardModel.getEnterWIPDate() == null) cardModel.setEnterWIPDate(LocalDate.now());
     }
 
     public void deleteCard(CardModel cardModel) {
         cardModels.remove(cardModel);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     public void setRole(Constants.ColumnRole role) {
         this.role = role;

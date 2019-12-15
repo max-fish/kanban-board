@@ -1,5 +1,6 @@
 package data.model;
 
+import java.nio.file.LinkOption;
 import java.time.LocalDate;
 
 public class CardModel {
@@ -11,6 +12,7 @@ public class CardModel {
     private String description;
     private Integer storyPoints;
     private LocalDate creationDate;
+    private LocalDate enterWIPDate = null;
     private LocalDate completedDate = null;
 
     /**
@@ -70,4 +72,10 @@ public class CardModel {
     public void setCompletedDate(LocalDate date) { completedDate = date; }
 
     public LocalDate getCompletedDate() { return completedDate; }
+
+    public void setCreationDate(LocalDate date){ creationDate = date; }
+
+    public void setEnterWIPDate(LocalDate date){ enterWIPDate = date; }
+
+    public LocalDate getEnterWIPDate(){ return enterWIPDate; }
 }

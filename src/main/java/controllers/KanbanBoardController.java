@@ -5,6 +5,7 @@ import callbacks.DeleteColumnPopupCallback;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.scene.control.behavior.*;
 import data.model.BoardModel;
 import data.model.CardModel;
 import data.model.ColumnModel;

@@ -1,8 +1,10 @@
 package ui;
 
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXTabPane;
 import controllers.StatisticsController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
@@ -15,7 +17,7 @@ public class Statistics extends JFXPopup {
     public Statistics() {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/layouts/statistics_ui.fxml"));
-        VBox root = null;
+        TabPane root = null;
         try {
             root = fxmlLoader.load();
         } catch (IOException e) {
