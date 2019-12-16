@@ -84,7 +84,7 @@ public class StatisticsController implements Initializable {
                 displayLineChartLeadTime();
             }
 
-            if (averageWIPVal == -1) averageWIP.setText("There's no story points on the Work In Progress columns yet");
+            if (averageWIPVal == -1) averageWIP.setText("Average WIP is calculated when cards are completed");
             else {
                 averageWIP.setText(new DecimalFormat("#.0").format(averageWIPVal) + " story points in WIP per week");
                 displayLineChartAverageWIP();

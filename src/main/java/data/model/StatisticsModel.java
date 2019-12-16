@@ -73,14 +73,13 @@ public class StatisticsModel
     public double[] getAverageWIP() {
         int[] overallVelocities = getOverallVelocity();
         int[] averageLeadTimes = getLeadTime();
-        if(overallVelocities == null && averageLeadTimes == null) return null;
+        if(overallVelocities == null || averageLeadTimes == null) return null;
 
         double[] WIP = new double[(int)board.getActiveWeeks()+1];
         for(int i = 1; i<overallVelocities.length; i++){
             WIP[i] += overallVelocities[i] * averageLeadTimes[i]/7.0;
             WIP[0] += overallVelocities[i] * averageLeadTimes[i]/7.0;
         }
-        if(WIP[0] == 0) return null;
         return WIP;
     }
 

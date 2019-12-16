@@ -16,7 +16,7 @@
 
 .stats {
     -fx-font-family: "Roboto Light";
-        -fx-font-size: 18;
+        -fx-font-size: 16;
         -fx-spacing: -0.3;
         -fx-text-fill: #7e57c2;
 }
