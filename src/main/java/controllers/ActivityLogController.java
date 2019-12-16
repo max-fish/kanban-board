@@ -1,6 +1,5 @@
 package controllers;
 
-import data.model.BoardModel;
 import data.log.ActivityLogModel;
 import data.log.Change;
 import utils.GUIMaker;
@@ -8,7 +7,6 @@ import utils.GUIMaker;
 import com.google.common.collect.Lists;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
-import com.jfoenix.controls.JFXPopup;
 
 public class ActivityLogController{
     @FXML
