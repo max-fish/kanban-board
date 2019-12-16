@@ -9,9 +9,9 @@
 Implements Google Material Design using java components
 
 
-### Ikonli Material Design Pack
+### Ikonli Material Pack
 
-`org.kordamp.ikonli:ikonli-materialdesign-pack:11.3.4`
+`org.kordamp.ikonli:ikonli-material-pack:11.3.4`
 
 A collection of Google Material Design icons
 
@@ -26,3 +26,16 @@ Transforms Google Material Design icons into graphics for buttons
 `com.google.code.gson:gson:2.8.6`
 
 Implements JSON file handling
+
+### TestFX
+
+`testCompile(group: "org.testfx", name: "testfx-core", version: "4.0.16-alpha")
+ testCompile(group: "org.testfx", name: "testfx-junit", version: "4.0.13-alpha")`
+
+Uses a robot mouse to test the user interface
+
+### JUnit
+
+`testCompile(group: 'junit', name: 'junit', version: '4.12')`
+
+Unit testing library that is mainly used for the back end

@@ -2,6 +2,8 @@ package ui;
 
 import com.jfoenix.controls.JFXDecorator;
 import controllers.HomePageController;
+import javafx.scene.paint.Color;
+import org.kordamp.ikonli.javafx.FontIcon;
 import utils.FileIO;
 import data.db.KanbanModel;
 import javafx.application.Application;
@@ -39,7 +41,15 @@ public class HomePage extends Application {
 
         JFXDecorator jfxDecorator = new JFXDecorator(primaryStage, root);
         jfxDecorator.setCustomMaximize(true);
-        jfxDecorator.setTitle("Kanban Board");
+        jfxDecorator.setTitle("Kanban");
+
+        FontIcon fontIcon = new FontIcon();
+        fontIcon.setIconLiteral("gmi-dashboard");
+        fontIcon.setIconColor(Color.WHITE);
+        fontIcon.setIconSize(25);
+
+        jfxDecorator.setGraphic(fontIcon);
+
         Scene scene = new Scene(jfxDecorator, 1200, 600);
         scene.getStylesheets().add(getClass().getResource("/styling/scene_styling.css").toExternalForm());
         primaryStage.setScene(scene);
