@@ -120,6 +120,21 @@ public class ColumnController implements Initializable {
         newCardModel.init(newCard, columnModel);
     }
 
+    public void insertCard(CardModel newCardModel, int position) {
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
+        cards.getChildren().add(position, newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+
+        columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+        System.out.println(columnModel.getCurrentWip());
+        System.out.println(columnModel.getWipLimit());
+
+        newCardModel.init(newCard, columnModel);
+    }
+
     public void deleteColumn() {
         KanbanColumn columnToDelete = (KanbanColumn) rootPane;
         columnToDelete.getBoard().getController().askToDeleteColumn(columnToDelete, () -> {
@@ -201,5 +216,15 @@ public class ColumnController implements Initializable {
         nameContainer.getChildren().add(columnEdit);
         columnEdit.requestFocus();
         columnEdit.selectAll();
+    }
+
+    public Label getName()
+    {
+        return columnName;
+    }
+
+    public JFXButton getRoleButton()
+    {
+        return columnRole;
     }
 }

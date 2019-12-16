@@ -94,6 +94,11 @@ public class ColumnModel {
         this.name = newName;
     }
 
+    public void setNameWithoutTracking(String name)
+    {
+        this.name = name;
+    }
+
     public void setRole(Constants.ColumnRole role) {
         this.role = role;
     }

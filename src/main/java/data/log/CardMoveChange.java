@@ -25,9 +25,24 @@ public class CardMoveChange extends CardChange{
         this.newColumnId = newColumn.getId();
     }
 
+    public void apply()
+    {
+        if(applied)
+            return;
+
+        prevColumn.getGUI().getController().removeCard(cardModel.getGUI());
+        newColumn.getGUI().getController().insertCard(cardModel, newPosition);
+        applied = true;
+    }
+
     public void revert()
     {
+        if(!applied)
+            return;
 
+        newColumn.getGUI().getController().removeCard(cardModel.getGUI());
+        prevColumn.getGUI().getController().insertCard(cardModel, prevPosition);
+        applied = false;
     }
 
     @Override

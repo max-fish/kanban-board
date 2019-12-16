@@ -14,12 +14,19 @@
     <VBox>
         <JFXToolbar>
             <leftItems>
-              <JFXButton onMouseClicked="#undo" buttonType="RAISED" prefHeight="20" prefWidth="20">
-                  <graphic>
-                      <FontIcon iconLiteral="mdi-undo" iconColor="black" iconSize="15"/>
-                  </graphic>
-              </JFXButton>
+                <JFXButton onMouseClicked="#undo" buttonType="RAISED" prefHeight="20" prefWidth="20">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi-undo" iconColor="black" iconSize="15"/>
+                    </graphic>
+                </JFXButton>
             </leftItems>
+            <rightItems>
+                <JFXButton onMouseClicked="#redo" buttonType="RAISED" prefHeight="20" prefWidth="20">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi-redo" iconColor="black" iconSize="15"/>
+                    </graphic>
+                </JFXButton>
+            </rightItems>
         </JFXToolbar>
         <ScrollPane fitToWidth="true" prefHeight="300" maxHeight="300" prefWidth="200" maxWidth="200">
             <VBox fx:id="logContainer" spacing="2" />

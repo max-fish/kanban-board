@@ -1,10 +1,17 @@
 package data.log;
 
-public interface Change{
-//    public void apply();
-    public void revert();
-    public void init();
+public abstract class Change{
+    protected boolean applied;
+
+    public Change()
+    {
+        applied = true;
+    }
+
+    public abstract void apply();
+    public abstract void revert();
+    public abstract void init();
 
     @Override
-    public String toString();
+    public abstract String toString();
 }

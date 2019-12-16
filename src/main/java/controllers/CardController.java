@@ -113,4 +113,9 @@ public class CardController implements Initializable {
     public CardModel getData() {
         return cardModel;
     }
+
+    public Label getTitle()
+    {
+        return cardTitle;
+    }
 }

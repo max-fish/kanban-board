@@ -100,6 +100,28 @@ public class KanbanBoardController implements Initializable {
         newColumnModel.init(toInsert, boardModel);
     }
 
+    public void insertColumn(ColumnModel newColumnModel, int position) {
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
+        toInsert.getController().fillWithData(newColumnModel);
+
+        TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
+        TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
+
+        columns.getChildren().add(position, toInsert);
+
+        AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
+
+        HBox.setMargin(toInsert, new Insets(10));
+
+        if (!boardModel.contains(newColumnModel))
+            boardModel.addColumn(newColumnModel);
+
+        if (newColumnModel.hasCards())
+            createCards(newColumnModel, toInsert);
+
+        newColumnModel.init(toInsert, boardModel);
+    }
+
     private void createCards(ColumnModel columnModel, KanbanColumn column) {
         List<CardModel> cards = columnModel.getCards();
         for (CardModel card : cards)
@@ -131,7 +153,7 @@ public class KanbanBoardController implements Initializable {
         deleteConfirmationPopup.show();
     }
 
-    private void deleteColumn(KanbanColumn column) {
+    public void deleteColumn(KanbanColumn column) {
         ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
         if (parallelTransition != null) {
             parallelTransition.play();
@@ -161,13 +183,17 @@ public class KanbanBoardController implements Initializable {
     }
 
     public void swapColumns(int idx1, int idx2){
+        swapColumnsWithoutTracking(idx1, idx2);
+
+        boardModel.getActivityLogModel().addChange(new ColumnMoveChange(boardModel.getColumns().get(idx2), idx1, idx2));
+    }
+
+    public void swapColumnsWithoutTracking(int idx1, int idx2){
         System.out.println(columns.getChildren().size());
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(columns.getChildren());
         Collections.swap(workingCollection, idx1, idx2);
         columns.getChildren().setAll(workingCollection);
         Collections.swap(boardModel.getColumns(), idx1, idx2);
-
-        boardModel.getActivityLogModel().addChange(new ColumnMoveChange(boardModel.getColumns().get(idx2), idx1, idx2));
     }
 
     @FXML

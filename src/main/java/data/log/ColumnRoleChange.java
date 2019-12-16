@@ -15,9 +15,24 @@ public class ColumnRoleChange extends ColumnChange{
         this.newRole = newRole;
     }
 
+    public void apply()
+    {
+        if(applied)
+            return;
+
+        columnModel.setRole(newRole);
+        columnModel.getGUI().getController().getRoleButton().setText(newRole.roleString);
+        applied = true;
+    }
+
     public void revert()
     {
+        if(!applied)
+            return;
 
+        columnModel.setRole(prevRole);
+        columnModel.getGUI().getController().getRoleButton().setText(prevRole.roleString);
+        applied = false;
     }
 
     public String toString()

@@ -23,20 +23,30 @@ public class CardEditChange extends CardChange{
         this.newStoryPoint = newStoryPoint;
     }
 
-    public CardEditChange(CardModel cardModel, String prevName, String newName)
+    public void apply()
     {
-        super(cardModel);
-        this.prevName = prevName;
-        this.newName = newName;
-        this.prevDescription = cardModel.getTitle();
-        this.newDescription = cardModel.getTitle();
-        this.prevStoryPoint = cardModel.getStoryPoint();
-        this.newStoryPoint = cardModel.getStoryPoint();
+        if(applied)
+            return;
+
+        cardModel.setTitle(newName);
+        cardModel.setDescription(newDescription);
+        cardModel.setStoryPoint(newStoryPoint);
+
+        cardModel.getGUI().getController().getTitle().setText(newName);
+        applied = true;
     }
 
     public void revert()
     {
+        if(!applied)
+            return;
 
+        cardModel.setTitle(prevName);
+        cardModel.setDescription(prevDescription);
+        cardModel.setStoryPoint(prevStoryPoint);
+
+        cardModel.getGUI().getController().getTitle().setText(prevName);
+        applied = false;
     }
 
     public String toString()

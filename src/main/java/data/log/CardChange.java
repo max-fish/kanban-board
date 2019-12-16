@@ -2,7 +2,7 @@ package data.log;
 
 import data.model.CardModel;
 
-public abstract class CardChange implements Change{
+public abstract class CardChange extends Change{
     protected transient CardModel cardModel;
     protected int cardId;
 

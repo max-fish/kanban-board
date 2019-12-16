@@ -21,6 +21,13 @@ public class ActivityLogModel{
 
     public void addChange(Change change)
     {
+        if(pointer < changes.size() - 1)
+        {
+            int i = pointer + 1;
+            while(i < changes.size())
+                changes.remove(i);
+        }
+
         changes.add(change);
 
         if(pointer == null)
@@ -29,26 +36,31 @@ public class ActivityLogModel{
             pointer++;
     }
 
-    /*public void redo(int changesToRedo)
-    {
-        while(changesToRedo > 0 && pointer < changes.size())
-    }*/
-
     public List<Change> getChanges()
     {
         return changes;
     }
 
+    public void redo()
+    {
+        if(pointer != null && pointer < changes.size() - 1)
+        {
+            pointer++;
+
+            changes.get(pointer).apply();
+        }
+    }
+
     public void undo()
     {
-        if(pointer != null)
+        if(pointer != null && pointer >= 0)
         {
+            if(pointer == changes.size())
+                pointer--;
+
             changes.get(pointer).revert();
 
-            if(pointer > 0)
-                pointer--;
-            else
-                pointer = null;
+            pointer--;
         }
     }
 }

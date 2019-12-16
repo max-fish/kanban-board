@@ -34,4 +34,10 @@ public class ActivityLogController{
     {
         activityLogModel.undo();
     }
+
+    @FXML
+    public void redo()
+    {
+        activityLogModel.redo();
+    }
 }

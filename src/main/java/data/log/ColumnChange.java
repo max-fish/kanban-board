@@ -2,7 +2,7 @@ package data.log;
 
 import data.model.ColumnModel;
 
-public abstract class ColumnChange implements Change{
+public abstract class ColumnChange extends Change{
     protected transient ColumnModel columnModel;
     private int columnId;
 
@@ -10,11 +10,6 @@ public abstract class ColumnChange implements Change{
     {
         this.columnModel = columnModel;
         columnId = columnModel.getId();
-    }
-
-    public void revert()
-    {
-
     }
 
     public void init()

@@ -113,6 +113,11 @@ public class BoardModel {
         this.name = newName;
     }
 
+    public void setNameWithoutTracking(String name)
+    {
+        this.name = name;
+    }
+
     public String getName()
     {
         return name;
@@ -151,6 +156,11 @@ public class BoardModel {
     public List<CardModel> getDeletedCards()
     {
         return deletedCards;
+    }
+
+    public List<ColumnModel> getDeletedColumns()
+    {
+        return deletedColumns;
     }
 
     public static BoardModel getBoardModelById(int boardId)

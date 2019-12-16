@@ -13,9 +13,24 @@ public class BoardNameChange extends BoardChange{
         this.newName = newName;
     }
 
+    public void apply()
+    {
+        if(applied)
+            return;
+
+        boardModel.getGUI().getController().getTitle().setText(newName);
+        boardModel.setNameWithoutTracking(newName);
+        applied = true;
+    }
+
     public void revert()
     {
+        if(!applied)
+            return;
+
         boardModel.getGUI().getController().getTitle().setText(prevName);
+        boardModel.setNameWithoutTracking(prevName);
+        applied = false;
     }
 
     public String toString()
