@@ -43,9 +43,5 @@ public class TestVersionControl extends BaseTest
         moveBy(170, 0);
 
         clickOn(MouseButton.PRIMARY);
-
-        moveTo("New Card");
-
-        sleep(500);
     }
 }
