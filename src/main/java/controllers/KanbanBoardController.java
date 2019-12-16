@@ -19,12 +19,11 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
-import ui.DeleteConfirmationPopup;
+import ui.*;
 import data.model.StatisticsModel;
 import data.log.ColumnMoveChange;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
-import ui.Statistics;
 import ui.ActivityLog;
 import utils.AnimationMaker;
 import utils.GUIMaker;
@@ -77,6 +76,10 @@ public class KanbanBoardController implements Initializable {
         makeNewColumn(new ColumnModel(boardModel));
     }
 
+    /**
+     * Makes a new column with a specific {@link ColumnModel}
+     * @param newColumnModel - a data model for Columns
+     */
     public void makeNewColumn(ColumnModel newColumnModel) {
         KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
         toInsert.getController().fillWithData(newColumnModel);
@@ -128,6 +131,11 @@ public class KanbanBoardController implements Initializable {
             column.getController().makeNewCard(card);
     }
 
+    /**
+     * Asks for user confirmation to delete a column
+     * @param kanbanColumn - the {@link KanbanColumn} that needs to be deleted
+     * @param callback - describes what do depending on what the user selects (delete/cancel)
+     */
     void askToDeleteColumn(KanbanColumn kanbanColumn, DeleteColumnDataCallback callback) {
         KanbanBoard board = (KanbanBoard) rootPane;
         BorderPane homePane = board.getHomePage();
@@ -163,7 +171,7 @@ public class KanbanBoardController implements Initializable {
 
     private void getStatistics() {
         //add info ofr creating sttistics as parameters and keep record on fields
-        Statistics statPopup = new Statistics();
+        StatisticsPopup statPopup = new StatisticsPopup();
         StatisticsModel model = new StatisticsModel(boardModel);
         statPopup.getController().setStatisticsModel(model);
         statPopup.getController().displayStats();
@@ -171,6 +179,10 @@ public class KanbanBoardController implements Initializable {
     }
 
 
+    /**
+     * inflate the {@link KanbanCard} with data from a {@link CardModel}
+     * @param boardModel - {@link BoardModel}
+     */
     public void fillWithData(BoardModel boardModel) {
         this.boardModel = boardModel;
         boardTitle.setText(boardModel.getName());
@@ -178,10 +190,19 @@ public class KanbanBoardController implements Initializable {
     }
 
 
+    /**
+     * Return the data associated with this ui component
+     * @return boardModel
+     */
     public BoardModel getBoardModel() {
         return boardModel;
     }
 
+    /**
+     * Swaps columns while they are being dragged across the board
+     * @param idx1 - the index of the {@link KanbanColumn} being dragged/swapped
+     * @param idx2 - the index of the {@link KanbanColumn} being dragged/swapped
+     */
     public void swapColumns(int idx1, int idx2){
         swapColumnsWithoutTracking(idx1, idx2);
 

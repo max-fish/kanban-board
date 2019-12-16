@@ -1,14 +1,6 @@
 package utils;
 
 public class Constants {
-//    public class ColumnRoles {
-//        public static final String BACKLOG = "Backlog";
-//        public static final String WORK_IN_PROGRESS = "Work in Progress";
-//        public static final String ON_HOLD = "On Hold";
-//        public static final String COMPLETED_WORK = "Completed Work";
-//        public static final String INFO_ONLY = "Info Only";
-//    }
-
     public enum ColumnRole {
         BACKLOG("Backlog"),
         WORK_IN_PROGRESS("Work in Progress"),

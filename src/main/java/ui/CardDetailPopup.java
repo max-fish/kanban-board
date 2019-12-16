@@ -10,6 +10,9 @@ import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 
+/**
+ * This class inflates a {@link JFXDialog} with a custom fxml layout, making it a CardDetailPopup.
+ */
 public class CardDetailPopup extends JFXDialog {
     private CardDetailController cardDetailController;
     private CardDetailPopupCallback callback;

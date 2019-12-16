@@ -3,7 +3,6 @@ package data.db;
 // import error classes
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.JsonParseException;
-import java.lang.RuntimeException;
 
 // classes for JSON parsing
 import com.google.gson.Gson;
@@ -17,6 +16,9 @@ import data.model.BoardModel;
 import data.log.Change;
 import utils.ChangeInterfaceAdapter;
 
+/**
+ * Class for transforming java objects to and from JSON strings
+ */
 public class JSONParser{
 
     public static List<BoardModel> fromJson(String json)
@@ -28,9 +30,8 @@ public class JSONParser{
             builder.registerTypeAdapter(Change.class, new ChangeInterfaceAdapter());
             Gson gson = builder.create();
             Type collectionType = new TypeToken<ArrayList<BoardModel>>(){}.getType();
-            ArrayList<BoardModel> newBoards = gson.fromJson(json, collectionType);
 
-            return newBoards;
+            return gson.<ArrayList<BoardModel>>fromJson(json, collectionType);
         }
         catch(JsonSyntaxException exception)  // could also be handled by catching RuntimeException
         {
@@ -39,7 +40,7 @@ public class JSONParser{
 
             // return an empty list so that nothing gets created and the calling
             // method doesn't produce errors
-            return new ArrayList<BoardModel>();
+            return new ArrayList<>();
         }
         catch(JsonParseException exception)   // could also be handled by catching RuntimeException
         {
@@ -48,7 +49,7 @@ public class JSONParser{
 
             // return an empty list so that nothing gets created and the calling
             // method doesn't produce errors
-            return new ArrayList<BoardModel>();
+            return new ArrayList<>();
         }
         /*
         // alternative way of catching all exceptions

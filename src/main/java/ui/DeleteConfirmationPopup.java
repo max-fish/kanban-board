@@ -11,6 +11,9 @@ import javafx.scene.layout.StackPane;
 import java.io.IOException;
 import java.util.Objects;
 
+/**
+ * This class inflates a {@link JFXDialog} with a custom fxml layout, making it a DeleteConfrimationPopup.
+ */
 public class DeleteConfirmationPopup extends JFXDialog {
     private DeleteColumnPopupCallback deleteColumnPopupCallback;
     private StackPane dialogContainer;

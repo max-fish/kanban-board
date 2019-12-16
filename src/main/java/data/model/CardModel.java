@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import ui.KanbanCard;
 import data.log.CardCreateChange;
 
+/**
+ * Data abstraction class for {@link ui.KanbanCard}s
+ */
 public class CardModel {
     private static HashMap<Integer, CardModel> cards = new HashMap<>();
     // the id of the next card, ids increase chronologically
@@ -15,13 +18,11 @@ public class CardModel {
     private String description;
     private Integer storyPoints;
     private LocalDate creationDate;
+    private LocalDate enterWIPDate = null;
     private LocalDate completedDate = null;
     private transient ColumnModel parentColumn;
     private transient KanbanCard cardGUI;
 
-    /**
-     *
-     */
     public CardModel(ColumnModel parentColumn, String title, String description, Integer storyPoints)
     {
         this.title = title;
@@ -106,6 +107,12 @@ public class CardModel {
     public void setCompletedDate(LocalDate date) { completedDate = date; }
 
     public LocalDate getCompletedDate() { return completedDate; }
+
+    public void setCreationDate(LocalDate date){ creationDate = date; }
+
+    public void setEnterWIPDate(LocalDate date){ enterWIPDate = date; }
+
+    public LocalDate getEnterWIPDate(){ return enterWIPDate; }
 
     public void setGUI(KanbanCard cardGUI)
     {

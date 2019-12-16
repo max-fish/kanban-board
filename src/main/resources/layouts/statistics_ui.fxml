@@ -2,23 +2,70 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox styleClass="root" xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controllers.StatisticsController"
-            prefHeight="200" prefWidth="400.0" stylesheets="@../styling/statistics_styling.css" alignment="TOP_CENTER" spacing="10">
 
-    <Label id="statistics_title"  text="Statistics" />
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.geometry.Insets?>
+<TabPane styleClass="root" xmlns="http://javafx.com/javafx"
+         xmlns:fx="http://javafx.com/fxml"
+         fx:controller="controllers.StatisticsController"
+         prefHeight="400" prefWidth="450.0" stylesheets="@../styling/statistics_styling.css">
+    <Tab text="Overall velocity">
+        <VBox  alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets top="10" bottom="10" right="10" left="10" />
+            </padding>
+            <Label styleClass="stats" fx:id="overallVelocity" id="OverallVelocity" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
+                   text="Overall velocity "/>
 
-    <Label styleClass="stats" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
-    text="Overall velocity: "/>
-    <Label styleClass="stats" fx:id="overallVelocity" id="OverallVelocity" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
-           text="Overall velocity "/>
-    <Label styleClass="stats" id="leadTime" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
-           text="Lead time:"/>
-    <Label styleClass="stats" fx:id="leadTime" id="leadTimeCalc" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
-           text="Overall velocity "/>
-    <Label styleClass="stats"  id="avgWIP" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
-           text="Average Work In Progress"/>
-    <Label styleClass="stats" fx:id="averageWIP" id="avgWIP" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
-           text="Average Work In Progress"/>
-</VBox>
+            <AnchorPane xmlns:fx="http://javafx.com/fxml">
+                <LineChart fx:id="linechartOverallVelocity" createSymbols="false" prefHeight="300" prefWidth="400" legendVisible="false">
+                    <xAxis>
+                        <NumberAxis minorTickVisible="false" tickUnit="0.5" label="Weeks"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis minorTickVisible="false" tickUnit="1" label="Avg completed story points"/>
+                    </yAxis>
+                </LineChart>
+            </AnchorPane>
+        </VBox>
+    </Tab>
+    <Tab text="Lead time">
+        <VBox  alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets top="10" bottom="10" right="10" left="10" />
+            </padding>
+            <Label styleClass="stats" fx:id="leadTime" id="leadTimeCalc" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
+                   text="Overall velocity "/>
+            <AnchorPane xmlns:fx="http://javafx.com/fxml">
+                <LineChart fx:id="linechartLeadTime" createSymbols="false"  prefHeight="300" prefWidth="400" legendVisible="false">
+                    <xAxis>
+                        <NumberAxis minorTickVisible="false" tickUnit="0.5" label="Weeks"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis minorTickVisible="false" tickUnit="1" label="Avg story points per day"/>
+                    </yAxis>
+                </LineChart>
+            </AnchorPane>
+        </VBox>
+    </Tab>
+    <Tab text="Average WIP">
+        <VBox  alignment="TOP_CENTER" spacing="10">
+            <padding>
+                <Insets top="10" bottom="10" right="10" left="10" />
+            </padding>
+            <Label styleClass="stats" fx:id="averageWIP" id="avgWIP" maxHeight="Infinity" maxWidth="Infinity" prefHeight="NaN" prefWidth="200"
+                   text="Average Work In Progress"/>
+            <AnchorPane xmlns:fx="http://javafx.com/fxml">
+                <LineChart fx:id="linechartAverageWIP" createSymbols="false"  prefHeight="300" prefWidth="400" legendVisible="false">
+                    <xAxis>
+                        <NumberAxis minorTickVisible="false" tickUnit="0.5" label="Weeks"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis minorTickVisible="false" tickUnit="1" label="Avg story points in WIP"/>
+                    </yAxis>
+                </LineChart>
+            </AnchorPane>
+        </VBox>
+    </Tab>
+</TabPane>

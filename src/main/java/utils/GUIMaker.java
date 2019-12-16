@@ -11,6 +11,10 @@ import data.model.BoardModel;
 import data.model.ColumnModel;
 import data.log.Change;
 
+/**
+ * This class is designed to make light-weight gui components that have short life cycles
+ * and only are only created at runtime.
+ */
 public class GUIMaker {
 
     public static StackPane makeBoardCard(String title) {

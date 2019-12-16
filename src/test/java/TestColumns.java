@@ -1,6 +1,5 @@
 import org.junit.Test;
 import javafx.scene.input.MouseButton;
-import org.testfx.util.WaitForAsyncUtils;
 
 public class TestColumns extends BaseTest
 {
@@ -24,7 +23,7 @@ public class TestColumns extends BaseTest
         moveTo("Column1");
         sleep(500);
     }
-    
+
     @Test
     public void testIfColumnRoleCanBeSet() {
         sleep(500);
@@ -43,7 +42,7 @@ public class TestColumns extends BaseTest
         sleep(500);
     }
 
-    @Test 
+    @Test
     public void testIfwipLimitDropDown() {
         sleep(500);
         createColumn();

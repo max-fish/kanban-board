@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Data abstraction class for {@link ui.KanbanColumn}s
+ */
 public class ColumnModel {
     private static HashMap<Integer, ColumnModel> columns = new HashMap<>();
     // the id of the next column, ids increase chronologically
@@ -70,6 +73,7 @@ public class ColumnModel {
     public void addCard(CardModel cardModel) {
         cardModels.add(cardModel);
         if (role == COMPLETED_WORK) cardModel.setCompletedDate(LocalDate.now());
+        else if( role == WORK_IN_PROGRESS && cardModel.getEnterWIPDate() == null) cardModel.setEnterWIPDate(LocalDate.now());
     }
 
     public void insertCard(CardModel cardModel, int index) {

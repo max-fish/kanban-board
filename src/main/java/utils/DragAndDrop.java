@@ -1,10 +1,7 @@
 package utils;
 
 import com.jfoenix.controls.JFXButton;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
@@ -15,9 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.transform.Rotate;
 import ui.KanbanBoard;
 
-import javax.swing.*;
-import java.util.Collections;
-
+/**
+ * Sets up onMousePressed, onMouseDragged, and onMouseReleased listeners for columns
+ * in one dimension
+ */
 public class DragAndDrop {
     private double orgSceneX;
     private double orgTranslateX;
@@ -72,8 +70,6 @@ public class DragAndDrop {
                     double newTranslateX = orgTranslateX + offsetX;
 
                     int itemBeingDraggedIndex = board.getChildren().indexOf(itemBeingDragged);
-                    double columnBegin = itemBeingDraggedIndex * itemBeingDragged.getWidth();
-                    double columnEnd = columnBegin + itemBeingDragged.getWidth();
                     if (offsetX < -100 || offsetX > 100) {
                         if (offsetX < -100) {
                             if (itemBeingDraggedIndex - 1 >= 0) {

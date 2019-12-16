@@ -23,6 +23,9 @@ import java.util.ArrayList;
 import data.model.BoardModel;
 import data.db.JSONParser;
 
+/**
+ * This is a utilities class used for creating, loading, and saving files
+ */
 public class FileIO{
     private static FileIO instance = null;
 

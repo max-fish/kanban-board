@@ -5,14 +5,11 @@ import com.jfoenix.controls.*;
 import data.model.CardModel;
 import data.log.CardEditChange;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class CardDetailController implements Initializable {
-
-
+/**
+ * This class handles user input when the user is changing the details of the {@link ui.KanbanCard}
+ */
+public class CardDetailController {
     @FXML
     private JFXTextField titleTextField;
     @FXML
@@ -26,12 +23,6 @@ public class CardDetailController implements Initializable {
 
     private JFXDialog dialog;
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
     public void setBoardNamePopupCallBack(CardDetailPopupCallback cardDetailPopupCallback) {
         callback = cardDetailPopupCallback;
     }
@@ -40,6 +31,10 @@ public class CardDetailController implements Initializable {
         dialog = jfxDialog;
     }
 
+    /**
+     * inflate the {@link ui.CardDetailPopup} with data from a {@link CardModel}
+     * @param cardModel - {@link CardModel}
+     */
     public void fillWithData(CardModel cardModel) {
         this.cardModel = cardModel;
         titleTextField.setText(cardModel.getTitle());
@@ -48,7 +43,7 @@ public class CardDetailController implements Initializable {
     }
 
     @FXML
-    public void saveDetails(){
+    private void saveDetails(){
         String prevName = cardModel.getTitle();
         String prevDescription = cardModel.getDescription();
         int prevStoryPoint = cardModel.getStoryPoint();

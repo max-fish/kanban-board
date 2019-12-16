@@ -1,21 +1,27 @@
 package ui;
 
 import com.jfoenix.controls.JFXPopup;
+import com.jfoenix.controls.JFXTabPane;
 import controllers.StatisticsController;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class Statistics extends JFXPopup {
+/**
+ *  This class inflates a {@link JFXPopup} with a custom fxml layout, making it a StatisticsPopup.
+ */
+public class StatisticsPopup extends JFXPopup {
 
     private StatisticsController controller;
 
-    public Statistics() {
+    public StatisticsPopup() {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/layouts/statistics_ui.fxml"));
-        VBox root = null;
+        TabPane root = null;
         try {
             root = fxmlLoader.load();
         } catch (IOException e) {

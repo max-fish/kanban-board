@@ -6,10 +6,14 @@ import data.log.BoardNameChange;
 import ui.KanbanBoard;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Data abstraction class for {@link ui.KanbanBoard}s
+ */
 public class BoardModel {
     private static HashMap<Integer, BoardModel> boards = new HashMap<>();
     private static int nextId = 1;
@@ -30,7 +34,7 @@ public class BoardModel {
     {
         this.name = name;
         columnModels = new ArrayList<>();
-        creationDate = LocalDate.now();
+        setCreationDate(LocalDate.now());
         activityLogModel = new ActivityLogModel();
 
         while(boards.containsKey(nextId))
@@ -137,6 +141,10 @@ public class BoardModel {
     {
         return activityLogModel;
     }
+
+    public void setCreationDate(LocalDate date){ creationDate = date; }
+
+    public double getActiveWeeks() { return ChronoUnit.WEEKS.between(creationDate, LocalDate.now()) + 1;}
 
     public void setGUI(KanbanBoard boardGUI)
     {
