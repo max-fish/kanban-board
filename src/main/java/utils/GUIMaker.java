@@ -12,6 +12,11 @@ import org.kordamp.ikonli.javafx.FontIcon;
  */
 public class GUIMaker {
 
+    /**
+     * Makes a button that opens a board
+     * @param title - the name of the board/board card
+     * @return StackPane
+     */
     public static StackPane makeBoardCard(String title) {
         StackPane boardCard = new StackPane();
         boardCard.setId("BoardCard");
@@ -25,6 +30,10 @@ public class GUIMaker {
         return jfxRippler;
     }
 
+    /**
+     * Makes an addition button that is used to add {@link ui.KanbanColumn}s
+     * @return JFXButton
+     */
     public static JFXButton makeAddButton() {
         JFXButton jfxButton = new JFXButton();
         jfxButton.getStylesheets().add("/styling/add_button_styling.css");
@@ -33,6 +42,11 @@ public class GUIMaker {
         return jfxButton;
     }
 
+    /**
+     * Makes a popup which gives the a user an option to either make a new {@link ui.KanbanCard}
+     * or delete the current {@link ui.KanbanColumn}
+     * @return JFXPopup
+     */
     public static JFXPopup makeColumnMenu()
     {
         JFXButton addCard = new JFXButton("Add card");
@@ -54,6 +68,11 @@ public class GUIMaker {
         return menu;
     }
 
+    /**
+     * Creates a popup giving the user a choice between either importing or a exporting
+     * a JSON file
+     * @return JFXPopup
+     */
     public static JFXPopup makeFileMenu()
     {
         JFXButton importJSON = new JFXButton("Import from JSON");
@@ -75,12 +94,21 @@ public class GUIMaker {
         return menu;
     }
 
+    /**
+     * Makes a button that is used the column drop down to set a {@link ui.KanbanColumn} to a specific role
+     * @param role - the role that button should represent
+     * @return JFXButton
+     */
     private static JFXButton makeColumnRoleOption(Constants.ColumnRole role){
         JFXButton roleButton = new JFXButton(role.roleString);
         roleButton.getStylesheets().add("/styling/column_role_option.css");
         return roleButton;
     }
 
+    /**
+     * Makes a popup in which the user can select a role for the {@link ui.KanbanColumn}
+     * @return JFXPopup
+     */
     public static JFXPopup makeColumnRoleDropDown(){
         VBox options = new VBox();
         options.getChildren().addAll(
@@ -94,6 +122,11 @@ public class GUIMaker {
         return dropDown;
     }
 
+    /**
+     * Creates a notification that informs that they cannot add a new card because
+     * the WIP limit was reached
+     * @param snackbarContainer - the place where the notification should take place
+     */
     public static void makeWipLimitSnackbar(Pane snackbarContainer){
         JFXSnackbar snackbar = new JFXSnackbar(snackbarContainer);
         JFXSnackbarLayout snackbarLayout = new JFXSnackbarLayout("WIP Limit exceeded");
