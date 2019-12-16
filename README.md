@@ -39,3 +39,6 @@ Uses a robot mouse to test the user interface
 `testCompile(group: 'junit', name: 'junit', version: '4.12')`
 
 Unit testing library that is mainly used for the back end
+
+### Note:
+This project uses the latest version of JavaFX (13), and therefore requires Java 11 or higher to compile.
