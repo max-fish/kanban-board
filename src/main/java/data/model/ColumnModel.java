@@ -5,18 +5,26 @@ import utils.Constants;
 import static utils.Constants.ColumnRole.*;
 
 import ui.KanbanColumn;
+import data.log.ColumnCreateChange;
 import data.log.ColumnNameChange;
+import data.log.CardDeleteChange;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ColumnModel {
+    private static HashMap<Integer, ColumnModel> columns = new HashMap<>();
+    // the id of the next column, ids increase chronologically
+    private static int nextId = 1;
+
     private String name;
+    private int id;
     private Constants.ColumnRole role;
     private int currentWip;
     private int wipLimit;
     private List<CardModel> cardModels;
-    private BoardModel parentBoard;
+    private transient BoardModel parentBoard;
     private transient KanbanColumn columnGUI;
 
     public ColumnModel(BoardModel parentBoard, String name, Constants.ColumnRole role) {
@@ -24,6 +32,17 @@ public class ColumnModel {
         this.role = role;
         cardModels = new ArrayList<>();
         this.parentBoard = parentBoard;
+
+        while(columns.containsKey(nextId))
+        {
+            nextId++;
+        }
+        id = nextId;
+        nextId++;
+
+        columns.put(id, this);
+
+        parentBoard.getActivityLogModel().addChange(new ColumnCreateChange(this));
     }
 
     public ColumnModel(BoardModel parentBoard, String name) {
@@ -32,6 +51,15 @@ public class ColumnModel {
 
     public ColumnModel(BoardModel parentBoard) {
         this(parentBoard, "New Column", Constants.ColumnRole.BACKLOG);
+    }
+
+    public void init(KanbanColumn columnGUI, BoardModel parentBoard)
+    {
+        this.columnGUI = columnGUI;
+        this.parentBoard = parentBoard;
+
+        if(!columns.containsValue(this))
+            columns.put(id, this);
     }
 
     public BoardModel getParent()
@@ -51,6 +79,13 @@ public class ColumnModel {
     }
 
     public void deleteCard(CardModel cardModel) {
+        parentBoard.getActivityLogModel().addChange(new CardDeleteChange(cardModel, cardModels.indexOf(cardModel)));
+        cardModels.remove(cardModel);
+        parentBoard.getDeletedCards().add(cardModel);
+          System.out.println("Card deleted");
+    }
+
+    public void removeCard(CardModel cardModel) {
         cardModels.remove(cardModel);
     }
 
@@ -107,5 +142,23 @@ public class ColumnModel {
     public KanbanColumn getGUI()
     {
         return columnGUI;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public static ColumnModel getColumnModelById(int columnId)
+    {
+        return columns.get(columnId);
+    }
+
+    public static void addToColumns(ColumnModel columnToAdd)
+    {
+        if(!columns.containsValue(columnToAdd))
+            columns.put(columnToAdd.getId(), columnToAdd);
+
+          System.out.println("Deleted column added");
     }
 }

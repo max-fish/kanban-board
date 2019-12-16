@@ -119,7 +119,7 @@ public class DragAndDropForCards {
                                 CardModel cardModel = ((KanbanCard) itemBeingDragged).getController().getData();
                                 int prevIndex = columnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
 
-                                ((KanbanCard) itemBeingDragged).getController().deleteCardDirectly((KanbanCard) itemBeingDragged);
+                                ((KanbanCard) itemBeingDragged).getController().removeCard((KanbanCard) itemBeingDragged);
                                 nextColumnContainer.getController().makeNewCard(cardModel);
 
                                 int nextIndex = nextColumnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
@@ -142,8 +142,8 @@ public class DragAndDropForCards {
                                 CardModel cardModel = ((KanbanCard) itemBeingDragged).getController().getData();
                                 int prevIndex = columnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
 
-                                ((KanbanCard) itemBeingDragged).getController().deleteCardDirectly((KanbanCard) itemBeingDragged);
-                                previousColumnContainer.getController().makeNewCard(((KanbanCard) itemBeingDragged).getController().getData());
+                                ((KanbanCard) itemBeingDragged).getController().removeCard((KanbanCard) itemBeingDragged);
+                                previousColumnContainer.getController().makeNewCard(cardModel);
 
                                 int nextIndex = previousColumnContainer.getController().getColumnModel().getCards().indexOf(cardModel);
                                 cardModel.getParent().getParent().getActivityLogModel().addChange(

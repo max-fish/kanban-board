@@ -1,0 +1,238 @@
+[
+  {
+    "name": "Kanban Project",
+    "id": 1,
+    "columnModels": [
+      {
+        "name": "ToDo",
+        "id": 1,
+        "role": "BACKLOG",
+        "currentWip": 3,
+        "wipLimit": 0,
+        "cardModels": []
+      },
+      {
+        "name": "In Progress",
+        "id": 2,
+        "role": "WORK_IN_PROGRESS",
+        "currentWip": 7,
+        "wipLimit": 0,
+        "cardModels": [
+          {
+            "id": 1,
+            "title": "Develop an app",
+            "description": "Task description.",
+            "storyPoints": 3,
+            "creationDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 16
+            },
+            "completedDate": {
+              "year": 2019,
+              "month": 12,
+              "day": 16
+            }
+          }
+        ]
+      },
+      {
+        "name": "Done",
+        "id": 3,
+        "role": "COMPLETED_WORK",
+        "currentWip": 1,
+        "wipLimit": 0,
+        "cardModels": []
+      }
+    ],
+    "deletedColumns": [
+      {
+        "name": "New Column",
+        "id": 4,
+        "role": "BACKLOG",
+        "currentWip": 0,
+        "wipLimit": 0,
+        "cardModels": []
+      }
+    ],
+    "deletedCards": [
+      {
+        "id": 2,
+        "title": "New Card",
+        "description": "",
+        "storyPoints": 1,
+        "creationDate": {
+          "year": 2019,
+          "month": 12,
+          "day": 16
+        }
+      },
+      {
+        "id": 3,
+        "title": "New Card",
+        "description": "",
+        "storyPoints": 1,
+        "creationDate": {
+          "year": 2019,
+          "month": 12,
+          "day": 16
+        }
+      }
+    ],
+    "creationDate": {
+      "year": 2019,
+      "month": 12,
+      "day": 16
+    },
+    "activityLogModel": {
+      "changes": [
+        {
+          "CLASSNAME": "data.log.ColumnCreateChange",
+          "DATA": {
+            "columnId": 1
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnCreateChange",
+          "DATA": {
+            "columnId": 2
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnCreateChange",
+          "DATA": {
+            "columnId": 3
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnRoleChange",
+          "DATA": {
+            "prevRole": "BACKLOG",
+            "newRole": "WORK_IN_PROGRESS",
+            "columnId": 2
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnRoleChange",
+          "DATA": {
+            "prevRole": "BACKLOG",
+            "newRole": "COMPLETED_WORK",
+            "columnId": 3
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnNameChange",
+          "DATA": {
+            "prevName": "New Column",
+            "newName": "ToDo",
+            "columnId": 1
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnNameChange",
+          "DATA": {
+            "prevName": "New Column",
+            "newName": "In Progress",
+            "columnId": 2
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnNameChange",
+          "DATA": {
+            "prevName": "New Column",
+            "newName": "Done",
+            "columnId": 3
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardCreateChange",
+          "DATA": {
+            "cardId": 1
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardEditChange",
+          "DATA": {
+            "prevName": "New Card",
+            "newName": "Develop an app",
+            "prevDescription": "",
+            "newDescription": "Task description.",
+            "prevStoryPoint": 1,
+            "newStoryPoint": 3,
+            "cardId": 1
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardMoveChange",
+          "DATA": {
+            "prevPosition": 0,
+            "prevColumnId": 1,
+            "newPosition": 0,
+            "newColumnId": 2,
+            "cardId": 1
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardCreateChange",
+          "DATA": {
+            "cardId": 2
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardDeleteChange",
+          "DATA": {
+            "lastPosition": 0,
+            "cardId": 2
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnCreateChange",
+          "DATA": {
+            "columnId": 4
+          }
+        },
+        {
+          "CLASSNAME": "data.log.ColumnDeleteChange",
+          "DATA": {
+            "lastPosition": 3,
+            "columnId": 4
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardCreateChange",
+          "DATA": {
+            "cardId": 3
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardDeleteChange",
+          "DATA": {
+            "lastPosition": 0,
+            "cardId": 3
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardMoveChange",
+          "DATA": {
+            "prevPosition": 0,
+            "prevColumnId": 2,
+            "newPosition": 0,
+            "newColumnId": 3,
+            "cardId": 1
+          }
+        },
+        {
+          "CLASSNAME": "data.log.CardMoveChange",
+          "DATA": {
+            "prevPosition": 0,
+            "prevColumnId": 3,
+            "newPosition": 0,
+            "newColumnId": 2,
+            "cardId": 1
+          }
+        }
+      ],
+      "pointer": 18
+    }
+  }
+]

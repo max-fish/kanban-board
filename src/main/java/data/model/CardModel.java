@@ -1,11 +1,14 @@
 package data.model;
 
+import java.util.HashMap;
 import java.time.LocalDate;
 import ui.KanbanCard;
+import data.log.CardCreateChange;
 
 public class CardModel {
+    private static HashMap<Integer, CardModel> cards = new HashMap<>();
     // the id of the next card, ids increase chronologically
-    public static int nextId = 1;
+    private static int nextId = 1;
 
     private int id;
     private String title;
@@ -13,7 +16,7 @@ public class CardModel {
     private Integer storyPoints;
     private LocalDate creationDate;
     private LocalDate completedDate = null;
-    private ColumnModel parentColumn;
+    private transient ColumnModel parentColumn;
     private transient KanbanCard cardGUI;
 
     /**
@@ -24,12 +27,19 @@ public class CardModel {
         this.title = title;
         this.description = description;
         this.storyPoints = storyPoints;
+        creationDate = LocalDate.now();
+        this.parentColumn = parentColumn;
 
+        while(cards.containsKey(nextId))
+        {
+            nextId++;
+        }
         id = nextId;
         nextId++;
-        creationDate = LocalDate.now();
 
-        this.parentColumn = parentColumn;
+        cards.put(id, this);
+
+        parentColumn.getParent().getActivityLogModel().addChange(new CardCreateChange(this));
 
           System.out.println("The card was created: " + title + id);
     }
@@ -42,6 +52,15 @@ public class CardModel {
     public CardModel(ColumnModel parentColumn)
     {
         this(parentColumn, "New Card");
+    }
+
+    public void init(KanbanCard cardGUI, ColumnModel parentColumn)
+    {
+        this.cardGUI = cardGUI;
+        this.parentColumn = parentColumn;
+
+        if(!cards.containsValue(this))
+            cards.put(id, this);
     }
 
     public ColumnModel getParent()
@@ -96,5 +115,18 @@ public class CardModel {
     public KanbanCard getGUI()
     {
         return cardGUI;
+    }
+
+    public static CardModel getCardModelById(int cardId)
+    {
+        return cards.get(cardId);
+    }
+
+    public static void addToCards(CardModel cardToAdd)
+    {
+        if(!cards.containsValue(cardToAdd))
+            cards.put(cardToAdd.getID(), cardToAdd);
+
+          System.out.println("Deleted card added");
     }
 }

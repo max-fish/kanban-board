@@ -22,7 +22,6 @@ import javafx.scene.layout.StackPane;
 import ui.DeleteConfirmationPopup;
 import data.model.StatisticsModel;
 import data.log.ColumnMoveChange;
-import data.log.ColumnCreateChange;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
 import ui.Statistics;
@@ -98,8 +97,7 @@ public class KanbanBoardController implements Initializable {
         if (newColumnModel.hasCards())
             createCards(newColumnModel, toInsert);
 
-        newColumnModel.setGUI(toInsert);
-        boardModel.getActivityLogModel().addChange(new ColumnCreateChange(newColumnModel));
+        newColumnModel.init(toInsert, boardModel);
     }
 
     private void createCards(ColumnModel columnModel, KanbanColumn column) {

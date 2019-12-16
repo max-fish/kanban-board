@@ -13,6 +13,12 @@ public class ActivityLogModel{
         pointer = null;
     }
 
+    public void init()
+    {
+        for(Change change : changes)
+            change.init();
+    }
+
     public void addChange(Change change)
     {
         changes.add(change);

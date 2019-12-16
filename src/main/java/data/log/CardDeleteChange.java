@@ -18,6 +18,6 @@ public class CardDeleteChange extends CardChange{
 
     public String toString()
     {
-        return "Card " + cardModel.getTitle() + "deleted";
+        return "Card " + cardModel.getTitle() + " deleted";
     }
 }

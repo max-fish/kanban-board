@@ -22,6 +22,6 @@ public class ColumnRoleChange extends ColumnChange{
 
     public String toString()
     {
-        return columnModel.getName() + "column role changed to " + newRole.roleString;
+        return columnModel.getName() + " column role changed to " + newRole.roleString;
     }
 }

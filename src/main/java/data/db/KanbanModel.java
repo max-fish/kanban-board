@@ -52,8 +52,8 @@ public class KanbanModel{
 
         for(BoardModel board : newBoardModels)
         {
-            board.init();
             homePageController.makeNewBoard(board, board.getName());
+            board.getActivityLogModel().init();
         }
     }
 
@@ -65,8 +65,8 @@ public class KanbanModel{
 
         for(BoardModel board : newBoardModels)
         {
-            board.init();
             homePageController.makeNewBoard(board, board.getName());
+            board.getActivityLogModel().init();
         }
 
         System.out.println(boards.size());

@@ -87,7 +87,7 @@ public class HomePageController implements Initializable {
             if(boardModel.hasColumns())
                 createColumns(boardModel, board);
 
-            boardModel.setGUI(board);
+            boardModel.init(board);
 
             newBoardCard.setOnMouseClicked(event -> rootPane.setCenter(board));
 

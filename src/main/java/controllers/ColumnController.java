@@ -18,8 +18,6 @@ import data.model.CardModel;
 import data.log.ColumnDeleteChange;
 import data.log.ColumnNameChange;
 import data.log.ColumnRoleChange;
-import data.log.CardCreateChange;
-import data.log.CardDeleteChange;
 import data.log.CardMoveChange;
 import ui.KanbanCard;
 import ui.KanbanColumn;
@@ -119,9 +117,7 @@ public class ColumnController implements Initializable {
         System.out.println(columnModel.getCurrentWip());
         System.out.println(columnModel.getWipLimit());
 
-        newCardModel.setGUI(newCard);
-
-        columnModel.getParent().getActivityLogModel().addChange(new CardCreateChange(newCardModel));
+        newCardModel.init(newCard, columnModel);
     }
 
     public void deleteColumn() {
@@ -165,8 +161,15 @@ public class ColumnController implements Initializable {
         CardModel cardModelToDelete = kanbanCard.getController().getData();
         int position = columnModel.getCards().indexOf(cardModelToDelete);
         columnModel.deleteCard(cardModelToDelete);
+    }
 
-        columnModel.getParent().getActivityLogModel().addChange(new CardDeleteChange(cardModelToDelete, position));
+    public void removeCard(KanbanCard kanbanCard)
+    {
+        cards.getChildren().remove(kanbanCard);
+
+        CardModel cardModelToRemove = kanbanCard.getController().getData();
+        int position = columnModel.getCards().indexOf(cardModelToRemove);
+        columnModel.removeCard(cardModelToRemove);
     }
 
     @FXML

@@ -1,4 +1,6 @@
 import data.model.CardModel;
+import data.model.ColumnModel;
+import data.model.BoardModel;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,12 +14,12 @@ public class CardModelTest {
 
     @Before
     public void init(){
-        cardModel = new CardModel();
+        cardModel = new CardModel(new ColumnModel(new BoardModel("board")));
     }
 
     @Test
     public void TestDefaultName(){
-        assertEquals("", cardModel.getTitle());
+        assertEquals("New Card", cardModel.getTitle());
     }
 
     @Test
