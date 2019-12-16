@@ -1,3 +1,6 @@
+package integration;
+
+import data.model.BoardModel;
 import data.model.ColumnModel;
 import data.model.CardModel;
 
@@ -26,7 +29,10 @@ public class ColumnIntegrationTest extends ApplicationTest
     public void init(){
         KanbanBoard kanbanBoard = new KanbanBoard();
         kanbanColumn = new KanbanColumn(kanbanBoard);
-        kanbanColumn.getController().fillWithData(new ColumnModel("column"));
+        BoardModel boardModel = new BoardModel("test");
+        ColumnModel columnModel = new ColumnModel(boardModel);
+        columnModel.setName("column");
+        kanbanColumn.getController().fillWithData(columnModel);
         kanbanColumnContents = (VBox) kanbanColumn.getCenter();
     }
 
@@ -35,7 +41,9 @@ public class ColumnIntegrationTest extends ApplicationTest
      */
     @Test
     public void testAddCard() {
-        CardModel card = new CardModel();
+        BoardModel boardModel = new BoardModel("test");
+        ColumnModel columnModel = new ColumnModel(boardModel);
+        CardModel card = new CardModel(columnModel);
         kanbanColumn.getController().makeNewCard(card);
 
 
@@ -54,10 +62,13 @@ public class ColumnIntegrationTest extends ApplicationTest
      */
     @Test
     public void testCardSwap() {
-        CardModel card = new CardModel();
+        BoardModel boardModel = new BoardModel("test2");
+        ColumnModel columnModel = new ColumnModel(boardModel);
+
+        CardModel card = new CardModel(columnModel);
         kanbanColumn.getController().makeNewCard(card);
 
-        CardModel card2 = new CardModel();
+        CardModel card2 = new CardModel(columnModel);
         kanbanColumn.getController().makeNewCard(card2);
 
         kanbanColumn.getController().swapCards(0, 1);

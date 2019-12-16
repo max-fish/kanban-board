@@ -1,6 +1,9 @@
 package controllers;
 
 import com.jfoenix.controls.*;
+import data.log.CardMoveChange;
+import data.log.ColumnDeleteChange;
+import data.log.ColumnRoleChange;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -8,15 +11,10 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import data.model.CardModel;
 import data.model.ColumnModel;
-import data.model.CardModel;
-import data.log.ColumnDeleteChange;
-import data.log.ColumnNameChange;
-import data.log.ColumnRoleChange;
-import data.log.CardMoveChange;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 import utils.GUIMaker;
@@ -47,6 +45,9 @@ public class ColumnController implements Initializable {
     private JFXButton dragButton;
     @FXML
     private JFXComboBox<Label> wipLimitDropDown;
+
+    @FXML
+    private Label currentWip;
 
     private JFXPopup columnMenu;
 
@@ -137,6 +138,9 @@ public class ColumnController implements Initializable {
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
 
         newCardModel.init(newCard, columnModel);
+
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     public void makeNewCard(int index, CardModel newCardModel) {
@@ -148,6 +152,8 @@ public class ColumnController implements Initializable {
             columnModel.addCard(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
 
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     /**
@@ -186,7 +192,7 @@ public class ColumnController implements Initializable {
 
     /**
      * Sets the role of a column
-     * @param role - {@link utils.Constants.ColumnRole}
+     * @param newRole - {@link utils.Constants.ColumnRole}
      */
     public void setRole(Constants.ColumnRole newRole) {
 
@@ -195,6 +201,23 @@ public class ColumnController implements Initializable {
         columnModel.setRole(newRole);
 
         columnModel.getParent().getActivityLogModel().addChange(new ColumnRoleChange(columnModel, prevRole, newRole));
+    }
+
+    /**
+     * Create a new {@link KanbanCard} without incrementing the WIP count,
+     * as the wip count is already updated from persistent storage
+     * @param newCardModel - the {@link CardModel} that the ui is going to be inflated with
+     */
+    public void makeNewCardFromMemory(CardModel newCardModel){
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
+        cards.getChildren().add(newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     /**
@@ -252,6 +275,11 @@ public class ColumnController implements Initializable {
         );
     }
 
+    public void decrementCurrentWip(){
+        columnModel.setCurrentWip(columnModel.getCurrentWip() - 1);
+        currentWip.setText(columnModel.getCurrentWip() + "");
+    }
+
     @FXML
     public void editName()
     {
@@ -271,4 +299,5 @@ public class ColumnController implements Initializable {
     {
         return columnRole;
     }
+
 }

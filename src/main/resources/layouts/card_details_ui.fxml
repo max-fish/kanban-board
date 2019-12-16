@@ -35,12 +35,19 @@
             <Label minWidth="50.0" text="Task description:"/>
             <JFXTextArea fx:id="descriptionTextArea" VBox.vgrow="ALWAYS"/>
             <Label minWidth="50.0" text="Story Point:"/>
-            <JFXComboBox fx:id="storyPointCombo" VBox.vgrow="ALWAYS" promptText="choose" prefWidth="123.0">
+            <JFXComboBox id="StoryPointCombo" fx:id="storyPointCombo" VBox.vgrow="ALWAYS" promptText="choose" prefWidth="123.0" visibleRowCount="3">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <Integer fx:value="1"/>
                         <Integer fx:value="2"/>
                         <Integer fx:value="3"/>
+                        <Integer fx:value="4"/>
+                        <Integer fx:value="5"/>
+                        <Integer fx:value="6"/>
+                        <Integer fx:value="7"/>
+                        <Integer fx:value="8"/>
+                        <Integer fx:value="9"/>
+                        <Integer fx:value="10"/>
                     </FXCollections>
                 </items>
             </JFXComboBox>

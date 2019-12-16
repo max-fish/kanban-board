@@ -6,12 +6,12 @@
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.geometry.Insets?>
-<TabPane styleClass="root" xmlns="http://javafx.com/javafx"
+<TabPane xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
          fx:controller="controllers.StatisticsController"
          prefHeight="400" prefWidth="450.0" stylesheets="@../styling/statistics_styling.css">
-    <Tab text="Overall velocity">
-        <VBox  alignment="TOP_CENTER" spacing="10">
+    <Tab text="Overall velocity" closable="false">
+        <VBox alignment="TOP_CENTER" spacing="10">
             <padding>
                 <Insets top="10" bottom="10" right="10" left="10" />
             </padding>
@@ -30,7 +30,7 @@
             </AnchorPane>
         </VBox>
     </Tab>
-    <Tab text="Lead time">
+    <Tab text="Lead time" closable="false">
         <VBox  alignment="TOP_CENTER" spacing="10">
             <padding>
                 <Insets top="10" bottom="10" right="10" left="10" />
@@ -49,7 +49,7 @@
             </AnchorPane>
         </VBox>
     </Tab>
-    <Tab text="Average WIP">
+    <Tab text="Average WIP" closable="false">
         <VBox  alignment="TOP_CENTER" spacing="10">
             <padding>
                 <Insets top="10" bottom="10" right="10" left="10" />

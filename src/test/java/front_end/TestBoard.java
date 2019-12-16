@@ -1,3 +1,5 @@
+package front_end;
+
 import org.junit.Test;
 
 public class TestBoard extends BaseTest

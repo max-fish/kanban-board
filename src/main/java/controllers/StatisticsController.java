@@ -2,18 +2,12 @@ package controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import data.model.StatisticsModel;
-
 import java.net.URL;
-
 import java.text.DecimalFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 /**
@@ -54,9 +48,9 @@ public class StatisticsController implements Initializable {
 
     public void displayStats(){
         if(!statisticsModel.getBoard().hasCompleteColumn()){
-            overallVelocity.setText("To view the overall velocity you need to assign a role to your columns.");
-            leadTime.setText("To view the overall velocity you need to assign a role to your columns.");
-            averageWIP.setText("To view the overall velocity you need to assign a role to your columns.");
+            overallVelocity.setText("To view the overall velocity you need to assign a completed role.");
+            leadTime.setText("To view the overall velocity you need to assign a completed role.");
+            averageWIP.setText("To view the overall velocity you need to assign a completed role.");
         }
         else {
             double overallVelocityVal = -1;
@@ -99,44 +93,44 @@ public class StatisticsController implements Initializable {
     }
 
     public void displayLineChartOverallVelocity(){
-        XYChart.Series ovSeries = new XYChart.Series();
+        XYChart.Series<Number, Number> ovSeries = new XYChart.Series<>();
 
-        double weeks = statisticsModel.getBoard().getActiveWeeks();
+//        double weeks = statisticsModel.getBoard().getActiveWeeks();
 
         int visited = 0;
         for(int x= 1; x<overallVelocityWeekArray.length ; x++){
-            ovSeries.getData().add(new XYChart.Data(x-1,(overallVelocityWeekArray[x]+visited)/(double)x));
+            ovSeries.getData().add(new XYChart.Data<>(x-1,(overallVelocityWeekArray[x]+visited)/(double)x));
             visited += overallVelocityWeekArray[x];
         }
 
-        linechartOverallVelocity.getData().addAll(ovSeries);
+        linechartOverallVelocity.getData().add(ovSeries);
     }
 
     public void displayLineChartLeadTime(){
-        XYChart.Series leadTimeSeries = new XYChart.Series();
+        XYChart.Series<Number, Number> leadTimeSeries = new XYChart.Series<>();
         double week = statisticsModel.getBoard().getActiveWeeks();
         int visited = 0;
 
         for(int x= 1; x<= week ; x++){
             System.out.println("Week: "+ (x-1)+ ", Leadtime: "+ leadTimeWeekArray[x]);
-            leadTimeSeries.getData().add(new XYChart.Data(x-1, (leadTimeWeekArray[x]+visited)/(double)x));
+            leadTimeSeries.getData().add(new XYChart.Data<>(x - 1, (leadTimeWeekArray[x] + visited) / (double) x));
             visited += leadTimeWeekArray[x];
         }
 
-        linechartLeadTime.getData().addAll(leadTimeSeries);
+        linechartLeadTime.getData().add(leadTimeSeries);
     }
 
     public void displayLineChartAverageWIP(){
-        XYChart.Series wipSeries = new XYChart.Series();
+        XYChart.Series<Number, Number> wipSeries = new XYChart.Series<>();
 
         double week = statisticsModel.getBoard().getActiveWeeks();
         int visited = 0;
         for(int x= 1; x<= week ; x++){
-            wipSeries.getData().add(new XYChart.Data(x-1, (averageWIPWeekArray[x]+visited)/(double)(x)));
+            wipSeries.getData().add(new XYChart.Data<>(x - 1, (averageWIPWeekArray[x] + visited) / (double) (x)));
             visited += averageWIPWeekArray[x];
         }
 
-        linechartAverageWIP.getData().addAll(wipSeries);
+        linechartAverageWIP.getData().add(wipSeries);
     }
 
 
