@@ -62,7 +62,7 @@ public class BoardModelTest {
      */
     @Test
     public void TestHasColumns() {
-        boardModel.addColumn(new ColumnModel());
+        boardModel.addColumn(new ColumnModel(boardModel));
         assertTrue(boardModel.hasColumns());
     }
 
@@ -79,7 +79,7 @@ public class BoardModelTest {
      */
     @Test
     public void TestColumnListSize() {
-        boardModel.addColumn(new ColumnModel());
+        boardModel.addColumn(new ColumnModel(boardModel));
 
         assertEquals(1, boardModel.getColumns().size());
     }
@@ -97,8 +97,8 @@ public class BoardModelTest {
      */
     @Test
     public void TestWipColumnListSize() {
-        ColumnModel columnModel = new ColumnModel();
-        ColumnModel columnModel1 = new ColumnModel();
+        ColumnModel columnModel = new ColumnModel(boardModel);
+        ColumnModel columnModel1 = new ColumnModel(boardModel);
         columnModel.setRole(Constants.ColumnRole.WORK_IN_PROGRESS);
         boardModel.addColumn(columnModel);
         boardModel.addColumn(columnModel1);
@@ -119,8 +119,8 @@ public class BoardModelTest {
      */
     @Test
     public void TestCompletedColumnListSize() {
-        ColumnModel columnModel = new ColumnModel();
-        ColumnModel columnModel1 = new ColumnModel();
+        ColumnModel columnModel = new ColumnModel(boardModel);
+        ColumnModel columnModel1 = new ColumnModel(boardModel);
         columnModel.setRole(Constants.ColumnRole.COMPLETED_WORK);
         boardModel.addColumn(columnModel);
         boardModel.addColumn(columnModel1);
@@ -140,7 +140,7 @@ public class BoardModelTest {
      */
     @Test
     public void TestHasCompletedColumns() {
-        ColumnModel columnModel = new ColumnModel();
+        ColumnModel columnModel = new ColumnModel(boardModel);
         columnModel.setRole(Constants.ColumnRole.COMPLETED_WORK);
         boardModel.addColumn(columnModel);
         assertTrue(boardModel.hasCompleteColumn());
@@ -151,8 +151,8 @@ public class BoardModelTest {
      */
     @Test
     public void TestDeleteColumns() {
-        ColumnModel columnModel = new ColumnModel("test1");
-        ColumnModel columnModel1 = new ColumnModel("test2");
+        ColumnModel columnModel = new ColumnModel(boardModel, "test1");
+        ColumnModel columnModel1 = new ColumnModel(boardModel, "test2");
         boardModel.addColumn(columnModel);
         boardModel.addColumn(columnModel1);
         boardModel.deleteColumn(columnModel);
@@ -165,9 +165,9 @@ public class BoardModelTest {
      */
     @Test
     public void TestColumnList(){
-        ColumnModel columnModel = new ColumnModel("test1");
-        ColumnModel columnModel1 = new ColumnModel("test2");
-        ColumnModel columnModel2 = new ColumnModel("test3");
+        ColumnModel columnModel = new ColumnModel(boardModel, "test1");
+        ColumnModel columnModel1 = new ColumnModel(boardModel, "test2");
+        ColumnModel columnModel2 = new ColumnModel(boardModel, "test3");
         boardModel.addColumn(columnModel);
         boardModel.addColumn(columnModel1);
         boardModel.addColumn(columnModel2);

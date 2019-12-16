@@ -13,6 +13,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.ArrayList;
 import data.model.BoardModel;
+import data.log.Change;
+import utils.ChangeInterfaceAdapter;
 
 /**
  * Class for transforming java objects to and from JSON strings
@@ -23,7 +25,10 @@ public class JSONParser{
     {
         try
         {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            GsonBuilder builder = new GsonBuilder();
+            builder.setPrettyPrinting();
+            builder.registerTypeAdapter(Change.class, new ChangeInterfaceAdapter());
+            Gson gson = builder.create();
             Type collectionType = new TypeToken<ArrayList<BoardModel>>(){}.getType();
 
             return gson.<ArrayList<BoardModel>>fromJson(json, collectionType);
@@ -61,7 +66,12 @@ public class JSONParser{
 
     public static String toJson(List<BoardModel> boards)
     {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        return gson.toJson(boards);
+        GsonBuilder builder = new GsonBuilder();
+        builder.setPrettyPrinting();
+        builder.registerTypeAdapter(Change.class, new ChangeInterfaceAdapter());
+        Gson gson = builder.create();
+        String json = gson.toJson(boards);
+
+        return json;
     }
 }

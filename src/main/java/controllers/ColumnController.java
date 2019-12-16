@@ -16,6 +16,7 @@ import ui.KanbanColumn;
 import utils.GUIMaker;
 import utils.Constants;
 import utils.DragAndDrop;
+
 import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
@@ -31,7 +32,9 @@ public class ColumnController implements Initializable {
     @FXML
     private JFXButton columnMenuButton;
     @FXML
-    private JFXTextField columnName;
+    private StackPane nameContainer;
+    @FXML
+    private Label columnName;
     @FXML
     private JFXButton columnRole;
     @FXML
@@ -77,7 +80,13 @@ public class ColumnController implements Initializable {
 
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
 
-        wipLimitDropDown.setOnAction(event -> columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText())));
+        wipLimitDropDown.setOnAction(event -> {
+            try {
+                columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText()));
+            } catch (NumberFormatException e) {
+                columnModel.setWipLimit(0);
+            }
+        });
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
@@ -95,7 +104,6 @@ public class ColumnController implements Initializable {
      * @param newCardModel - {@link CardModel}
      */
     public void makeNewCard(CardModel newCardModel) {
-
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         newCard.getController().fillWithData(newCardModel);
         cards.getChildren().add(newCard);
@@ -103,42 +111,17 @@ public class ColumnController implements Initializable {
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
-        currentWip.setText(columnModel.getCurrentWip() + "");
-        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     public void makeNewCard(int index, CardModel newCardModel) {
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         newCard.getController().fillWithData(newCardModel);
-        if(index < cards.getChildren().size()) {
-            cards.getChildren().add(index, newCard);
-        }
-        else {
-            cards.getChildren().add(newCard);
-        }
+        cards.getChildren().add(index, newCard);
+
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
-
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
-        currentWip.setText(columnModel.getCurrentWip() + "");
-        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
-    }
 
-    /**
-     * Create a new {@link KanbanCard} without incrementing the WIP count,
-     * as the wip count is already updated from persistent storage
-     * @param newCardModel - the {@link CardModel} that the ui is going to be inflated with
-     */
-    public void makeNewCardFromMemory(CardModel newCardModel){
-        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
-        newCard.getController().fillWithData(newCardModel);
-        cards.getChildren().add(newCard);
-
-        if (!columnModel.contains(newCardModel))
-            columnModel.addCard(newCardModel);
-
-        currentWip.setText(columnModel.getCurrentWip() + "");
-        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     /**
@@ -214,11 +197,6 @@ public class ColumnController implements Initializable {
         Collections.swap(workingCollection, idx1, idx2);
         cards.getChildren().setAll(workingCollection);
         Collections.swap(columnModel.getCards(), idx1, idx2);
-    }
-
-    public void decrementCurrentWip(){
-        columnModel.setCurrentWip(columnModel.getCurrentWip() - 1);
-        currentWip.setText(columnModel.getCurrentWip() + "");
     }
 
 }

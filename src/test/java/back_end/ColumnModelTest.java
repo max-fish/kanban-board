@@ -2,6 +2,7 @@ package back_end;
 
 import data.model.CardModel;
 import data.model.ColumnModel;
+import data.model.BoardModel;
 import org.junit.Before;
 import org.junit.Test;
 import utils.Constants;
@@ -15,7 +16,7 @@ public class ColumnModelTest {
 
     @Before
     public void init(){
-        columnModel = new ColumnModel();
+        columnModel = new ColumnModel(new BoardModel("board"));
     }
 
     /**
@@ -23,7 +24,7 @@ public class ColumnModelTest {
      */
     @Test
     public void TestDefaultName(){
-        assertEquals("", columnModel.getName());
+        assertEquals("New Column", columnModel.getName());
     }
 
     /**
@@ -99,7 +100,7 @@ public class ColumnModelTest {
      */
     @Test
     public void TestCardAmount(){
-        columnModel.addCard(new CardModel());
+        columnModel.addCard(new CardModel(columnModel));
         assertEquals(1, columnModel.getCards().size());
     }
 
@@ -116,7 +117,7 @@ public class ColumnModelTest {
      */
     @Test
     public void TestHasCards(){
-        columnModel.addCard(new CardModel());
+        columnModel.addCard(new CardModel(columnModel));
         assertTrue(columnModel.hasCards());
     }
 
@@ -125,7 +126,7 @@ public class ColumnModelTest {
      */
     @Test
     public void TestDefaultContains(){
-        CardModel cardModel = new CardModel();
+        CardModel cardModel = new CardModel(columnModel);
         assertFalse(columnModel.contains(cardModel));
     }
 
@@ -134,12 +135,17 @@ public class ColumnModelTest {
      */
     @Test
     public void TestContains(){
-        CardModel cardModel = new CardModel();
-        CardModel cardModel1 = new CardModel();
+        CardModel cardModel = new CardModel(columnModel);
+        CardModel cardModel1 = new CardModel(columnModel);
+        CardModel cardModel2 = new CardModel(new ColumnModel(new BoardModel("board")));
+        CardModel cardModel3 = new CardModel(new ColumnModel(new BoardModel("board")));
         columnModel.addCard(cardModel);
+        columnModel.addCard(cardModel2);
 
         assertTrue(columnModel.contains(cardModel));
         assertFalse(columnModel.contains(cardModel1));
+        assertTrue(columnModel.contains(cardModel2));
+        assertFalse(columnModel.contains(cardModel3));
     }
 
     /**
@@ -147,8 +153,8 @@ public class ColumnModelTest {
      */
     @Test
     public void TestRemoveCards(){
-        CardModel cardModel = new CardModel("test");
-        CardModel cardModel1 = new CardModel("test1");
+        CardModel cardModel = new CardModel(columnModel, "test");
+        CardModel cardModel1 = new CardModel(columnModel, "test1");
         columnModel.addCard(cardModel);
         columnModel.addCard(cardModel1);
         columnModel.deleteCard(cardModel);
@@ -162,9 +168,9 @@ public class ColumnModelTest {
      */
     @Test
     public void TestCardList(){
-        CardModel cardModel = new CardModel("test");
-        CardModel cardModel1 = new CardModel("test1");
-        CardModel cardModel2 = new CardModel("test2");
+        CardModel cardModel = new CardModel(columnModel, "test");
+        CardModel cardModel1 = new CardModel(columnModel, "test1");
+        CardModel cardModel2 = new CardModel(columnModel, "test2");
         columnModel.addCard(cardModel);
         columnModel.addCard(cardModel1);
         columnModel.addCard(cardModel2);

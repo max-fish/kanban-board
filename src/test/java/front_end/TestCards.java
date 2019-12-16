@@ -12,7 +12,7 @@ public class TestCards extends BaseTest
         sleep(500);
     }
 
-    @Test
+    /*@Test
     public void TestIfCardNameCanBeEditied() {
         sleep(500);
         createCard();
@@ -24,7 +24,7 @@ public class TestCards extends BaseTest
         //Verify name has been changed
         moveTo("Test");
         sleep(500);
-    }
+    }*/
 
     @Test
     public void testIfExtraDetailsCanBeAddedToCard() {
@@ -32,7 +32,7 @@ public class TestCards extends BaseTest
         createCard();
 
         //Click on edit button
-        moveTo("Add Card Title");
+        moveTo("New Card");
         moveBy(-93, -53);
         clickOn(MouseButton.PRIMARY);
 
@@ -70,7 +70,7 @@ public class TestCards extends BaseTest
         createCard();
 
         //Move to delete button
-        moveTo("Add Card Title");
+        moveTo("New Card");
         moveBy(93, -53);
         clickOn(MouseButton.PRIMARY);
         sleep(500);
@@ -106,7 +106,7 @@ public class TestCards extends BaseTest
 
         clickOn("#addColumn");
 
-        moveTo("Add Card Title");
+        moveTo("New Card");
         moveBy(0,-20);
 
         press(MouseButton.PRIMARY);

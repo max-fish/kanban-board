@@ -6,8 +6,10 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.Label;
 
 import data.model.CardModel;
+import data.log.CardEditChange;
 
 import javafx.scene.layout.StackPane;
 import ui.CardDetailPopup;
@@ -24,7 +26,7 @@ import java.util.ResourceBundle;
  */
 public class CardController implements Initializable {
     @FXML
-    private JFXTextField cardTitle;
+    private Label cardTitle;
     @FXML
     private BorderPane rootPane;
 
@@ -36,7 +38,10 @@ public class CardController implements Initializable {
         KanbanCard card = (KanbanCard) rootPane;
         dragAnimation.setDragAnimation(card);
 
-        cardTitle.textProperty().addListener((observable, oldValue, newValue) -> cardModel.setTitle(newValue));
+        /*cardTitle.textProperty().addListener((observable, oldValue, newValue) -> {
+            cardModel.setTitle(newValue);
+            cardModel.getParent().getParent().getActivityLogModel().addChange(new CardEditChange(cardModel, oldValue, newValue));
+          });*/
     }
 
     /**
@@ -69,6 +74,8 @@ public class CardController implements Initializable {
             public void onSave(CardModel cardModel) {
                 CardController.this.cardModel = cardModel;
                 cardTitle.setText(cardModel.getTitle());
+                  System.out.println(cardTitle.getText());
+
                 homePage.setCenter(board);
             }
 
@@ -112,11 +119,10 @@ public class CardController implements Initializable {
 
     /**
      * Deletes a specific card without asking for user confirmation
-     * This method is only used in {@link utils.DragAndDropForCards}
      * @param cardToDelete - the specific card that the user wants to delete
      */
-    public void deleteCardDirectly(KanbanCard cardToDelete) {
-        cardToDelete.getColumn().getController().deleteCard(cardToDelete);
+    public void removeCard(KanbanCard cardToRemove){
+        cardToRemove.getColumn().getController().removeCard(cardToRemove);
     }
 
     /**
@@ -125,5 +131,14 @@ public class CardController implements Initializable {
      */
     public CardModel getCardModel() {
         return cardModel;
+    }
+
+    public CardModel getData() {
+        return cardModel;
+    }
+
+    public Label getTitle()
+    {
+        return cardTitle;
     }
 }
