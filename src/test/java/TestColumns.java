@@ -14,9 +14,9 @@ public class TestColumns extends BaseTest
     public void testIfColumnNameIsEditable() {
         sleep(500);
         createColumn();
-
+        
         //Add column name
-        clickOn("Add column name");
+        clickOn("New Column");
         write("Column1");
 
         //Verify name changed
@@ -90,7 +90,7 @@ public class TestColumns extends BaseTest
         sleep(500);
         //Add name to column
         createColumn();
-        clickOn("Add column name");
+        clickOn("New Column");
         eraseText(10);
         write("Column1");
 
