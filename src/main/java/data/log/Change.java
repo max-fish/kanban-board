@@ -8,6 +8,11 @@ public abstract class Change{
         applied = true;
     }
 
+    public boolean isApplied()
+    {
+        return applied;
+    }
+
     public abstract void apply();
     public abstract void revert();
     public abstract void init();

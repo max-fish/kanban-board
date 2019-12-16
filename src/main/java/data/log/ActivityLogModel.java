@@ -21,7 +21,7 @@ public class ActivityLogModel{
 
     public void addChange(Change change)
     {
-        if(pointer < changes.size() - 1)
+        if(pointer != null && pointer < changes.size() - 1)
         {
             int i = pointer + 1;
             while(i < changes.size())

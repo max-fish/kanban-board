@@ -4,33 +4,15 @@
     "id": 1,
     "columnModels": [
       {
-        "name": "ToDo",
+        "name": "New Column",
         "id": 1,
         "role": "BACKLOG",
-        "currentWip": 33,
+        "currentWip": 0,
         "wipLimit": 0,
         "cardModels": []
-      },
-      {
-        "name": "New Column",
-        "id": 2,
-        "role": "BACKLOG",
-        "currentWip": 19,
-        "wipLimit": 0,
-        "cardModels": [
-          {
-            "id": 1,
-            "title": "New Card",
-            "description": "",
-            "storyPoints": 1,
-            "creationDate": {
-              "year": 2019,
-              "month": 12,
-              "day": 16
-            }
-          }
-        ]
-      },
+      }
+    ],
+    "deletedColumns": [
       {
         "name": "New Column",
         "id": 3,
@@ -38,34 +20,35 @@
         "currentWip": 0,
         "wipLimit": 0,
         "cardModels": []
+      },
+      {
+        "name": "New Column",
+        "id": 4,
+        "role": "BACKLOG",
+        "currentWip": 0,
+        "wipLimit": 0,
+        "cardModels": []
+      },
+      {
+        "name": "New Column",
+        "id": 5,
+        "role": "BACKLOG",
+        "currentWip": 0,
+        "wipLimit": 0,
+        "cardModels": []
+      },
+      {
+        "name": "New Column",
+        "id": 2,
+        "role": "BACKLOG",
+        "currentWip": 7,
+        "wipLimit": 0,
+        "cardModels": []
       }
     ],
-    "deletedColumns": [],
     "deletedCards": [
       {
-        "id": 4,
-        "title": "New Card",
-        "description": "",
-        "storyPoints": 1,
-        "creationDate": {
-          "year": 2019,
-          "month": 12,
-          "day": 16
-        }
-      },
-      {
-        "id": 3,
-        "title": "New Card",
-        "description": "",
-        "storyPoints": 1,
-        "creationDate": {
-          "year": 2019,
-          "month": 12,
-          "day": 16
-        }
-      },
-      {
-        "id": 2,
+        "id": 1,
         "title": "New Card",
         "description": "",
         "storyPoints": 1,
@@ -98,30 +81,15 @@
           }
         },
         {
-          "CLASSNAME": "data.log.CardCreateChange",
+          "CLASSNAME": "data.log.ColumnDeleteChange",
           "DATA": {
-            "cardId": 1,
-            "applied": true
-          }
-        },
-        {
-          "CLASSNAME": "data.log.ColumnCreateChange",
-          "DATA": {
-            "columnId": 3,
-            "applied": true
-          }
-        },
-        {
-          "CLASSNAME": "data.log.ColumnNameChange",
-          "DATA": {
-            "prevName": "New Column",
-            "newName": "ToDo",
-            "columnId": 1,
+            "lastPosition": 1,
+            "columnId": 2,
             "applied": true
           }
         }
       ],
-      "pointer": 4
+      "pointer": 2
     }
   }
 ]

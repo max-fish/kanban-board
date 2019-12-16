@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 
 import data.model.BoardModel;
 import data.model.ColumnModel;
+import data.log.Change;
 
 public class GUIMaker {
 
@@ -101,9 +102,12 @@ public class GUIMaker {
         snackbar.enqueue(new JFXSnackbar.SnackbarEvent(snackbarLayout));
     }
 
-    public static Label makeChangeLabel(String labelText)
+    public static Label makeChangeLabel(Change change)
     {
-        return new Label(labelText);
+        Label changeLabel = new Label(change.toString());
+        if(!change.isApplied())
+            changeLabel.setStyle("-fx-background-color: rgba(210, 120, 255, 0.4)");
+        return changeLabel;
     }
 
     public static JFXTextField makeBoardEditField(Pane titleContainer, Label boardTitle, BoardModel boardModel)

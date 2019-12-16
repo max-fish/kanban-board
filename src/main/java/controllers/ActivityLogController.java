@@ -26,18 +26,20 @@ public class ActivityLogController{
         logContainer.getChildren().clear();
 
         for(Change change : Lists.reverse(activityLogModel.getChanges()))
-            logContainer.getChildren().add(GUIMaker.makeChangeLabel(change.toString()));
+            logContainer.getChildren().add(GUIMaker.makeChangeLabel(change));
     }
 
     @FXML
     public void undo()
     {
         activityLogModel.undo();
+        fillWithContent();
     }
 
     @FXML
     public void redo()
     {
         activityLogModel.redo();
+        fillWithContent();
     }
 }
