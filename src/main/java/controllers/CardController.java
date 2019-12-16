@@ -119,10 +119,10 @@ public class CardController implements Initializable {
 
     /**
      * Deletes a specific card without asking for user confirmation
-     * @param cardToDelete - the specific card that the user wants to delete
+     * @param cardToRemove - the specific card that the user wants to delete
      */
     public void removeCard(KanbanCard cardToRemove){
-        cardToRemove.getColumn().getController().removeCard(cardToRemove);
+        cardToRemove.getColumn().getController().deleteCard(cardToRemove);
     }
 
     /**

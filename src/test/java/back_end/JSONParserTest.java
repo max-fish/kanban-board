@@ -27,16 +27,18 @@ public class JSONParserTest {
 
         BoardModel boardModel = new BoardModel("test");
 
-        ColumnModel columnModel = new ColumnModel();
+        ColumnModel columnModel = new ColumnModel(boardModel);
         columnModel.setName("TODO");
         columnModel.setRole(Constants.ColumnRole.BACKLOG);
         columnModel.setCurrentWip(32);
 
 
-        CardModel cardModel = new CardModel("test");
+        CardModel cardModel = new CardModel(columnModel);
+        cardModel.setTitle("test");
         cardModel.setDescription("this is a test");
 
-        CardModel cardModel1 = new CardModel("test1");
+        CardModel cardModel1 = new CardModel(columnModel);
+        cardModel1.setTitle("test1");
         cardModel1.setDescription("this is also a test1");
 
 
@@ -45,11 +47,11 @@ public class JSONParserTest {
 
         boardModel.addColumn(columnModel);
 
-        ColumnModel columnModel1 = new ColumnModel();
+        ColumnModel columnModel1 = new ColumnModel(boardModel);
         columnModel1.setName("Developing");
         columnModel1.setRole(Constants.ColumnRole.WORK_IN_PROGRESS);
 
-        CardModel cardModel2 = new CardModel("test2");
+        CardModel cardModel2 = new CardModel(columnModel);
         cardModel2.setDescription("final test");
 
         columnModel1.addCard(cardModel2);
@@ -120,7 +122,7 @@ public class JSONParserTest {
 
         CardModel thirdCardModel = secondColumnModel.getCards().get(0);
 
-        assertEquals("test2", thirdCardModel.getTitle());
+        assertEquals("New Card", thirdCardModel.getTitle());
         assertEquals("final test", thirdCardModel.getDescription());
     }
 

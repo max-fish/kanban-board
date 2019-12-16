@@ -1,6 +1,9 @@
 package controllers;
 
 import com.jfoenix.controls.*;
+import data.log.CardMoveChange;
+import data.log.ColumnDeleteChange;
+import data.log.ColumnRoleChange;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
@@ -8,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import data.model.CardModel;
 import data.model.ColumnModel;
@@ -78,7 +82,10 @@ public class ColumnController implements Initializable {
             });
         }
 
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
+        /*columnName.textProperty().addListener((observable, oldValue, newValue) -> {
+            columnModel.setName(newValue);
+            columnModel.getParent().getActivityLogModel().addChange(new ColumnNameChange(columnModel, oldValue, newValue));
+          });*/
 
         wipLimitDropDown.setOnAction(event -> {
             try {
@@ -96,7 +103,7 @@ public class ColumnController implements Initializable {
     private void makeNewCard() {
         if (columnModel.getCurrentWip() >= columnModel.getWipLimit() && columnModel.getWipLimit() != 0) {
             GUIMaker.makeWipLimitSnackbar(((KanbanColumn) rootPane).getBoard());
-        } else makeNewCard(new CardModel());
+        } else makeNewCard(new CardModel(columnModel));
     }
 
     /**
@@ -110,7 +117,30 @@ public class ColumnController implements Initializable {
 
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
+        else
+            System.out.println("The card was created: " + newCardModel.getTitle() + newCardModel.getID());
+
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+        System.out.println(columnModel.getCurrentWip());
+        System.out.println(columnModel.getWipLimit());
+
+        newCardModel.init(newCard, columnModel);
+    }
+
+    public void insertCard(CardModel newCardModel, int position) {
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
+        cards.getChildren().add(position, newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+
+        columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+
+        newCardModel.init(newCard, columnModel);
+
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     public void makeNewCard(int index, CardModel newCardModel) {
@@ -122,6 +152,8 @@ public class ColumnController implements Initializable {
             columnModel.addCard(newCardModel);
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
 
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     /**
@@ -133,6 +165,9 @@ public class ColumnController implements Initializable {
             //if confirmed, delete column
             if (columnMenu.isShowing())
                 columnMenu.hide();
+
+            int lastPosition = columnModel.getParent().getColumns().indexOf(columnModel);
+            columnModel.getParent().getActivityLogModel().addChange(new ColumnDeleteChange(columnModel, lastPosition));
 
             columnToDelete.getBoard().getController().getBoardModel().deleteColumn(columnModel);
             columnModel = null;
@@ -157,11 +192,32 @@ public class ColumnController implements Initializable {
 
     /**
      * Sets the role of a column
-     * @param role - {@link utils.Constants.ColumnRole}
+     * @param newRole - {@link utils.Constants.ColumnRole}
      */
-    public void setRole(Constants.ColumnRole role) {
-        columnRole.setText(role.roleString);
-        columnModel.setRole(role);
+    public void setRole(Constants.ColumnRole newRole) {
+
+        Constants.ColumnRole prevRole = columnModel.getRole();
+        columnRole.setText(newRole.roleString);
+        columnModel.setRole(newRole);
+
+        columnModel.getParent().getActivityLogModel().addChange(new ColumnRoleChange(columnModel, prevRole, newRole));
+    }
+
+    /**
+     * Create a new {@link KanbanCard} without incrementing the WIP count,
+     * as the wip count is already updated from persistent storage
+     * @param newCardModel - the {@link CardModel} that the ui is going to be inflated with
+     */
+    public void makeNewCardFromMemory(CardModel newCardModel){
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
+        cards.getChildren().add(newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+
+        currentWip.setText(columnModel.getCurrentWip() + "");
+        wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
     /**
@@ -170,7 +226,19 @@ public class ColumnController implements Initializable {
      */
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
-        columnModel.deleteCard(kanbanCard.getController().getCardModel());
+
+        CardModel cardModelToDelete = kanbanCard.getController().getData();
+        int position = columnModel.getCards().indexOf(cardModelToDelete);
+        columnModel.deleteCard(cardModelToDelete);
+    }
+
+    public void removeCard(KanbanCard kanbanCard)
+    {
+        cards.getChildren().remove(kanbanCard);
+
+        CardModel cardModelToRemove = kanbanCard.getController().getData();
+        int position = columnModel.getCards().indexOf(cardModelToRemove);
+        columnModel.removeCard(cardModelToRemove);
     }
 
     @FXML
@@ -187,6 +255,10 @@ public class ColumnController implements Initializable {
         return columnModel;
     }
 
+    public ColumnModel getData() {
+        return columnModel;
+    }
+
     /**
      * swaps the cards while they are being dragged across a column
      * @param idx1 - index of the dragged card or the swapping card
@@ -197,6 +269,35 @@ public class ColumnController implements Initializable {
         Collections.swap(workingCollection, idx1, idx2);
         cards.getChildren().setAll(workingCollection);
         Collections.swap(columnModel.getCards(), idx1, idx2);
+
+        columnModel.getParent().getActivityLogModel().addChange(
+            new CardMoveChange(columnModel.getCards().get(idx2), idx1, columnModel, idx2, columnModel)
+        );
+    }
+
+    public void decrementCurrentWip(){
+        columnModel.setCurrentWip(columnModel.getCurrentWip() - 1);
+        currentWip.setText(columnModel.getCurrentWip() + "");
+    }
+
+    @FXML
+    public void editName()
+    {
+        nameContainer.getChildren().remove(columnName);
+        JFXTextField columnEdit = GUIMaker.makeColumnEditField(nameContainer, columnName, columnModel);
+        nameContainer.getChildren().add(columnEdit);
+        columnEdit.requestFocus();
+        columnEdit.selectAll();
+    }
+
+    public Label getName()
+    {
+        return columnName;
+    }
+
+    public JFXButton getRoleButton()
+    {
+        return columnRole;
     }
 
 }
