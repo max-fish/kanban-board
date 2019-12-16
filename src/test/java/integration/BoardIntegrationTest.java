@@ -1,3 +1,5 @@
+package integration;
+
 import data.model.BoardModel;
 import data.model.ColumnModel;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +9,8 @@ import org.junit.Test;
 import org.testfx.framework.junit.ApplicationTest;
 import ui.KanbanBoard;
 import ui.KanbanColumn;
+
+import java.awt.event.HierarchyBoundsAdapter;
 
 import static org.junit.Assert.*;
 
@@ -57,7 +61,8 @@ public class BoardIntegrationTest extends ApplicationTest {
      */
     @Test
     public void TestAddColumn(){
-        ColumnModel columnModel =  new ColumnModel("test");
+        BoardModel boardModel = new BoardModel("test");
+        ColumnModel columnModel =  new ColumnModel(boardModel);
 
         kanbanBoard.getController().makeNewColumn(columnModel);
 
@@ -75,8 +80,11 @@ public class BoardIntegrationTest extends ApplicationTest {
      */
     @Test
     public void TestSwapColumns(){
-        ColumnModel columnModel1 = new ColumnModel("test1");
-        ColumnModel columnModel2 = new ColumnModel("test2");
+        BoardModel boardModel = new BoardModel("test2");
+        ColumnModel columnModel1 = new ColumnModel(boardModel);
+        ColumnModel columnModel2 = new ColumnModel(boardModel);
+        columnModel1.setName("test1");
+        columnModel2.setName("test2");
         kanbanBoard.getController().makeNewColumn(columnModel1);
         kanbanBoard.getController().makeNewColumn(columnModel2);
         kanbanBoard.getController().swapColumns(0,1);

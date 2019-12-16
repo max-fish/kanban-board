@@ -1,3 +1,5 @@
+package front_end;
+
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.api.FxToolkit;
 
