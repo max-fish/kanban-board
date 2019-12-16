@@ -35,7 +35,7 @@
                              visibleRowCount="3">
                     <items>
                         <FXCollections fx:factory="observableArrayList">
-                            <Label text="N/A"/>
+                            <Label text="0"/>
                             <Label text="1"/>
                             <Label text="2"/>
                             <Label text="3"/>

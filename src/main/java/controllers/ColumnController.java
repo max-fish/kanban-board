@@ -77,13 +77,7 @@ public class ColumnController implements Initializable {
 
         columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
 
-        wipLimitDropDown.setOnAction(event -> {
-            try {
-                columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText()));
-            } catch (NumberFormatException e) {
-                columnModel.setWipLimit(0);
-            }
-        });
+        wipLimitDropDown.setOnAction(event -> columnModel.setWipLimit(Integer.parseInt(wipLimitDropDown.getValue().getText())));
 
         DragAndDrop dragAnimation = new DragAndDrop();
         KanbanColumn kanbanColumn = (KanbanColumn) rootPane;
@@ -116,8 +110,12 @@ public class ColumnController implements Initializable {
     public void makeNewCard(int index, CardModel newCardModel) {
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         newCard.getController().fillWithData(newCardModel);
-        cards.getChildren().add(index, newCard);
-
+        if(index < cards.getChildren().size()) {
+            cards.getChildren().add(index, newCard);
+        }
+        else {
+            cards.getChildren().add(newCard);
+        }
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
 
@@ -126,6 +124,11 @@ public class ColumnController implements Initializable {
         wipLimitDropDown.getSelectionModel().select(columnModel.getWipLimit());
     }
 
+    /**
+     * Create a new {@link KanbanCard} without incrementing the WIP count,
+     * as the wip count is already updated from persistent storage
+     * @param newCardModel - the {@link CardModel} that the ui is going to be inflated with
+     */
     public void makeNewCardFromMemory(CardModel newCardModel){
         KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
         newCard.getController().fillWithData(newCardModel);

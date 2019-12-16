@@ -1,6 +1,5 @@
 package data.model;
 
-import jdk.vm.ci.meta.Local;
 import ui.StatisticsPopup;
 
 import java.time.LocalDate;

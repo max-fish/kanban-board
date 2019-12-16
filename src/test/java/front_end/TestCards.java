@@ -50,7 +50,7 @@ public class TestCards extends BaseTest
         write("This is a test.");
 
         //Change story point
-        clickOn("1");
+        clickOn("#StoryPointCombo");
         clickOn("3");
 
         clickOn("Save");
