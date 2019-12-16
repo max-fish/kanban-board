@@ -7,6 +7,7 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Label?>
 <?import javafx.geometry.Insets?>
+
 <fx:root id="Column_root" fx:id="rootPane" minWidth="240" prefHeight="NaN" prefWidth="260"
          stylesheets="@../styling/column_styling.css" type="javafx.scene.layout.BorderPane"
          xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
@@ -49,9 +50,12 @@
                 </JFXButton>
             </HBox>
             <AnchorPane>
-                <JFXTextField styleClass="column-header" fx:id="columnName" id="ColumnName" maxWidth="210"
+                <!--<JFXTextField styleClass="column-header" fx:id="columnName" id="ColumnName" maxWidth="210"
                               prefHeight="40"
-                              promptText="Add column name" AnchorPane.leftAnchor="5.0"/>
+                              promptText="Add column name" AnchorPane.leftAnchor="5.0"/>-->
+                <StackPane fx:id="nameContainer">
+                    <Label fx:id="columnName" id="ColumnName" onMouseClicked="#editName" text="New column" styleClass="column-header" minWidth="200" maxWidth="210" prefHeight="40" AnchorPane.leftAnchor="5.0" />
+                </StackPane>
                 <JFXButton buttonType="FLAT" fx:id="columnMenuButton" onMouseClicked="#openColumnMenu"
                            maxHeight="30" maxWidth="30" prefHeight="20"
                            prefWidth="30" AnchorPane.rightAnchor="0.0">

@@ -5,6 +5,11 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.javafx.FontIcon;
+import javafx.scene.input.KeyCode;
+
+import data.model.BoardModel;
+import data.model.ColumnModel;
+import data.log.Change;
 
 /**
  * This class is designed to make light-weight gui components that have short life cycles
@@ -99,5 +104,71 @@ public class GUIMaker {
         JFXSnackbarLayout snackbarLayout = new JFXSnackbarLayout("WIP Limit exceeded");
         snackbarLayout.getStylesheets().add("/styling/wip_limit_snackbar_styling.css");
         snackbar.enqueue(new JFXSnackbar.SnackbarEvent(snackbarLayout));
+    }
+
+    public static Label makeChangeLabel(Change change)
+    {
+        Label changeLabel = new Label(change.toString());
+        if(!change.isApplied())
+            changeLabel.setStyle("-fx-background-color: rgba(210, 120, 255, 0.4)");
+        return changeLabel;
+    }
+
+    public static JFXTextField makeBoardEditField(Pane titleContainer, Label boardTitle, BoardModel boardModel)
+    {
+        JFXTextField boardEdit = new JFXTextField(boardTitle.getText());
+        boardEdit.setId("BoardEdit");
+        boardEdit.getStylesheets().add("/styling/board_name_edit_styling.css");
+        boardEdit.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER)
+            {
+                String newName = boardEdit.getText();
+                  System.out.println("New name: " + newName);
+
+
+                if(!newName.isEmpty())
+                {
+                    if(!newName.equals(boardModel.getName()))
+                    {
+                        boardTitle.setText(newName);
+                        boardModel.setName(newName);
+                    }
+                }
+
+                titleContainer.getChildren().remove(boardEdit);
+                titleContainer.getChildren().add(boardTitle);
+            }
+        });
+
+        return boardEdit;
+    }
+
+    public static JFXTextField makeColumnEditField(Pane nameContainer, Label columnName, ColumnModel columnModel)
+    {
+        JFXTextField columnEdit = new JFXTextField(columnName.getText());
+        columnEdit.setId("ColumnEdit");
+        columnEdit.getStylesheets().add("/styling/column_name_edit_styling.css");
+        columnEdit.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER)
+            {
+                String newName = columnEdit.getText();
+                  System.out.println("New name: " + newName);
+
+
+                if(!newName.isEmpty())
+                {
+                    if(!newName.equals(columnModel.getName()))
+                    {
+                        columnName.setText(newName);
+                        columnModel.setName(newName);
+                    }
+                }
+
+                nameContainer.getChildren().remove(columnEdit);
+                nameContainer.getChildren().add(columnName);
+            }
+        });
+
+        return columnEdit;
     }
 }

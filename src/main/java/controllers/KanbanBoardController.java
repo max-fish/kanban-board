@@ -16,10 +16,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.layout.StackPane;
 import ui.*;
 import data.model.StatisticsModel;
+import data.log.ColumnMoveChange;
+import ui.KanbanBoard;
+import ui.KanbanColumn;
+import ui.ActivityLog;
 import utils.AnimationMaker;
 import utils.GUIMaker;
 
@@ -33,7 +38,9 @@ public class KanbanBoardController implements Initializable {
     @FXML
     private BorderPane rootPane;
     @FXML
-    private JFXTextField boardTitle;
+    private StackPane titleContainer;
+    @FXML
+    private Label boardTitle;
     @FXML
     private HBox columns;
 
@@ -42,11 +49,15 @@ public class KanbanBoardController implements Initializable {
     private JFXButton addButton;
     @FXML
     private JFXButton statisticsButton;
+    @FXML
+    private JFXButton activityLogButton;
+
+    private ActivityLog activityLogPopup;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        boardTitle.textProperty().addListener((observable, oldValue, newValue) -> boardModel.setName(newValue));
+        //boardTitle.textProperty().addListener((observable, oldValue, newValue) -> boardModel.setName(newValue));
 
         statisticsButton.setOnMouseClicked(event -> getStatistics());
 
@@ -55,11 +66,14 @@ public class KanbanBoardController implements Initializable {
         addButton.setId("addColumn");
 
         columns.getChildren().add(addButton);
+
+        activityLogPopup = new ActivityLog();
+        activityLogButton.setOnMouseClicked(event -> displayActivityLog());
     }
 
     @FXML
     public void makeNewColumn() {
-        makeNewColumn(new ColumnModel());
+        makeNewColumn(new ColumnModel(boardModel));
     }
 
     /**
@@ -85,6 +99,30 @@ public class KanbanBoardController implements Initializable {
 
         if (newColumnModel.hasCards())
             createCards(newColumnModel, toInsert);
+
+        newColumnModel.init(toInsert, boardModel);
+    }
+
+    public void insertColumn(ColumnModel newColumnModel, int position) {
+        KanbanColumn toInsert = new KanbanColumn((KanbanBoard) rootPane);
+        toInsert.getController().fillWithData(newColumnModel);
+
+        TranslateTransition slideIn = AnimationMaker.makeAddColumnSlideInAnimation(toInsert);
+        TranslateTransition addButtonSlideIn = AnimationMaker.makeAddColumnSlideInAnimation(addButton);
+
+        columns.getChildren().add(position, toInsert);
+
+        AnimationMaker.playAnimations(slideIn, addButtonSlideIn);
+
+        HBox.setMargin(toInsert, new Insets(10));
+
+        if (!boardModel.contains(newColumnModel))
+            boardModel.addColumn(newColumnModel);
+
+        if (newColumnModel.hasCards())
+            createCards(newColumnModel, toInsert);
+
+        newColumnModel.init(toInsert, boardModel);
     }
 
     private void createCards(ColumnModel columnModel, KanbanColumn column) {
@@ -123,7 +161,7 @@ public class KanbanBoardController implements Initializable {
         deleteConfirmationPopup.show();
     }
 
-    private void deleteColumn(KanbanColumn column) {
+    public void deleteColumn(KanbanColumn column) {
         ParallelTransition parallelTransition = AnimationMaker.makeDeleteColumnParallelAnimation(columns, column);
         if (parallelTransition != null) {
             parallelTransition.play();
@@ -148,6 +186,7 @@ public class KanbanBoardController implements Initializable {
     public void fillWithData(BoardModel boardModel) {
         this.boardModel = boardModel;
         boardTitle.setText(boardModel.getName());
+        activityLogPopup.getController().setActivityLogModel(boardModel.getActivityLogModel());
     }
 
 
@@ -165,10 +204,38 @@ public class KanbanBoardController implements Initializable {
      * @param idx2 - the index of the {@link KanbanColumn} being dragged/swapped
      */
     public void swapColumns(int idx1, int idx2){
+        swapColumnsWithoutTracking(idx1, idx2);
+
+        boardModel.getActivityLogModel().addChange(new ColumnMoveChange(boardModel.getColumns().get(idx2), idx1, idx2));
+    }
+
+    public void swapColumnsWithoutTracking(int idx1, int idx2){
+        System.out.println(columns.getChildren().size());
         ObservableList<Node> workingCollection = FXCollections.observableArrayList(columns.getChildren());
         Collections.swap(workingCollection, idx1, idx2);
         columns.getChildren().setAll(workingCollection);
         Collections.swap(boardModel.getColumns(), idx1, idx2);
     }
 
+    @FXML
+    public void displayActivityLog()
+    {
+        activityLogPopup.getController().fillWithContent();
+        activityLogPopup.show(activityLogButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
+    }
+
+    public Label getTitle()
+    {
+        return boardTitle;
+    }
+
+    @FXML
+    public void editTitle()
+    {
+        titleContainer.getChildren().remove(boardTitle);
+        JFXTextField boardEdit = GUIMaker.makeBoardEditField(titleContainer, boardTitle, boardModel);
+        titleContainer.getChildren().add(boardEdit);
+        boardEdit.requestFocus();
+        boardEdit.selectAll();
+    }
 }

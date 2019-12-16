@@ -1,19 +1,31 @@
 package data.model;
 
 import utils.Constants;
+import data.log.ActivityLogModel;
+import data.log.BoardNameChange;
+import ui.KanbanBoard;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Data abstraction class for {@link ui.KanbanBoard}s
  */
 public class BoardModel {
+    private static HashMap<Integer, BoardModel> boards = new HashMap<>();
+    private static int nextId = 1;
+
     private String name;
+    private int id;
     private List<ColumnModel> columnModels;
+    private List<ColumnModel> deletedColumns;
+    private List<CardModel> deletedCards;
     private LocalDate creationDate;
+    private ActivityLogModel activityLogModel;
+    private transient KanbanBoard boardGUI;
 
     /**
      *
@@ -23,6 +35,36 @@ public class BoardModel {
         this.name = name;
         columnModels = new ArrayList<>();
         setCreationDate(LocalDate.now());
+        activityLogModel = new ActivityLogModel();
+
+        while(boards.containsKey(nextId))
+        {
+            nextId++;
+        }
+        id = nextId;
+        nextId++;
+
+        boards.put(id, this);
+
+        deletedColumns = new ArrayList<>();
+        deletedCards = new ArrayList<>();
+    }
+
+    public void init(KanbanBoard boardGUI)
+    {
+        this.boardGUI = boardGUI;
+
+        if(activityLogModel == null)
+            activityLogModel = new ActivityLogModel();
+
+        if(!boards.containsValue(this))
+            boards.put(id, this);
+
+        for(ColumnModel column : deletedColumns)
+            ColumnModel.addToColumns(column);
+
+        for(CardModel card : deletedCards)
+            CardModel.addToCards(card);
     }
 
     public void addColumn(ColumnModel columnModel)
@@ -33,6 +75,8 @@ public class BoardModel {
     public void deleteColumn(ColumnModel columnModel)
     {
         columnModels.remove(columnModel);
+        deletedColumns.add(columnModel);
+          System.out.println("Column deleted");
     }
 
     public boolean hasColumns()
@@ -62,9 +106,18 @@ public class BoardModel {
         return WIPcolumns;
     }
 
-    public boolean contains(ColumnModel columnModel) { return columnModels.contains(columnModel); }
+    public boolean contains(ColumnModel columnModel)
+    {
+        return columnModels.contains(columnModel);
+    }
 
-    public void setName(String name)
+    public void setName(String newName)
+    {
+        activityLogModel.addChange(new BoardNameChange(this, name, newName));
+        this.name = newName;
+    }
+
+    public void setNameWithoutTracking(String name)
     {
         this.name = name;
     }
@@ -74,11 +127,52 @@ public class BoardModel {
         return name;
     }
 
-    public LocalDate getCreationDate() { return creationDate; }
+    public LocalDate getCreationDate()
+    {
+        return creationDate;
+    }
 
-    public boolean hasCompleteColumn() { return !getCompletedColumns().isEmpty(); }
+    public boolean hasCompleteColumn()
+    {
+        return !getCompletedColumns().isEmpty();
+    }
+
+    public ActivityLogModel getActivityLogModel()
+    {
+        return activityLogModel;
+    }
 
     public void setCreationDate(LocalDate date){ creationDate = date; }
 
     public double getActiveWeeks() { return ChronoUnit.WEEKS.between(creationDate, LocalDate.now()) + 1;}
+
+    public void setGUI(KanbanBoard boardGUI)
+    {
+        this.boardGUI = boardGUI;
+    }
+
+    public KanbanBoard getGUI()
+    {
+        return boardGUI;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public List<CardModel> getDeletedCards()
+    {
+        return deletedCards;
+    }
+
+    public List<ColumnModel> getDeletedColumns()
+    {
+        return deletedColumns;
+    }
+
+    public static BoardModel getBoardModelById(int boardId)
+    {
+        return boards.get(boardId);
+    }
 }

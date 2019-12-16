@@ -9,8 +9,14 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.StackPane;
 import data.model.CardModel;
 import data.model.ColumnModel;
+import data.model.CardModel;
+import data.log.ColumnDeleteChange;
+import data.log.ColumnNameChange;
+import data.log.ColumnRoleChange;
+import data.log.CardMoveChange;
 import ui.KanbanCard;
 import ui.KanbanColumn;
 import utils.GUIMaker;
@@ -32,7 +38,9 @@ public class ColumnController implements Initializable {
     @FXML
     private JFXButton columnMenuButton;
     @FXML
-    private JFXTextField columnName;
+    private StackPane nameContainer;
+    @FXML
+    private Label columnName;
     @FXML
     private JFXButton columnRole;
     @FXML
@@ -73,7 +81,10 @@ public class ColumnController implements Initializable {
             });
         }
 
-        columnName.textProperty().addListener((observable, oldValue, newValue) -> columnModel.setName(newValue));
+        /*columnName.textProperty().addListener((observable, oldValue, newValue) -> {
+            columnModel.setName(newValue);
+            columnModel.getParent().getActivityLogModel().addChange(new ColumnNameChange(columnModel, oldValue, newValue));
+          });*/
 
         wipLimitDropDown.setOnAction(event -> {
             try {
@@ -91,7 +102,7 @@ public class ColumnController implements Initializable {
     private void makeNewCard() {
         if (columnModel.getCurrentWip() >= columnModel.getWipLimit() && columnModel.getWipLimit() != 0) {
             GUIMaker.makeWipLimitSnackbar(((KanbanColumn) rootPane).getBoard());
-        } else makeNewCard(new CardModel());
+        } else makeNewCard(new CardModel(columnModel));
     }
 
     /**
@@ -105,7 +116,27 @@ public class ColumnController implements Initializable {
 
         if (!columnModel.contains(newCardModel))
             columnModel.addCard(newCardModel);
+        else
+            System.out.println("The card was created: " + newCardModel.getTitle() + newCardModel.getID());
+
         columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+        System.out.println(columnModel.getCurrentWip());
+        System.out.println(columnModel.getWipLimit());
+
+        newCardModel.init(newCard, columnModel);
+    }
+
+    public void insertCard(CardModel newCardModel, int position) {
+        KanbanCard newCard = new KanbanCard((KanbanColumn) rootPane);
+        newCard.getController().fillWithData(newCardModel);
+        cards.getChildren().add(position, newCard);
+
+        if (!columnModel.contains(newCardModel))
+            columnModel.addCard(newCardModel);
+
+        columnModel.setCurrentWip(columnModel.getCurrentWip() + 1);
+
+        newCardModel.init(newCard, columnModel);
     }
 
     public void makeNewCard(int index, CardModel newCardModel) {
@@ -128,6 +159,9 @@ public class ColumnController implements Initializable {
             //if confirmed, delete column
             if (columnMenu.isShowing())
                 columnMenu.hide();
+
+            int lastPosition = columnModel.getParent().getColumns().indexOf(columnModel);
+            columnModel.getParent().getActivityLogModel().addChange(new ColumnDeleteChange(columnModel, lastPosition));
 
             columnToDelete.getBoard().getController().getBoardModel().deleteColumn(columnModel);
             columnModel = null;
@@ -154,9 +188,13 @@ public class ColumnController implements Initializable {
      * Sets the role of a column
      * @param role - {@link utils.Constants.ColumnRole}
      */
-    public void setRole(Constants.ColumnRole role) {
-        columnRole.setText(role.roleString);
-        columnModel.setRole(role);
+    public void setRole(Constants.ColumnRole newRole) {
+
+        Constants.ColumnRole prevRole = columnModel.getRole();
+        columnRole.setText(newRole.roleString);
+        columnModel.setRole(newRole);
+
+        columnModel.getParent().getActivityLogModel().addChange(new ColumnRoleChange(columnModel, prevRole, newRole));
     }
 
     /**
@@ -165,7 +203,19 @@ public class ColumnController implements Initializable {
      */
     public void deleteCard(KanbanCard kanbanCard) {
         cards.getChildren().remove(kanbanCard);
-        columnModel.deleteCard(kanbanCard.getController().getCardModel());
+
+        CardModel cardModelToDelete = kanbanCard.getController().getData();
+        int position = columnModel.getCards().indexOf(cardModelToDelete);
+        columnModel.deleteCard(cardModelToDelete);
+    }
+
+    public void removeCard(KanbanCard kanbanCard)
+    {
+        cards.getChildren().remove(kanbanCard);
+
+        CardModel cardModelToRemove = kanbanCard.getController().getData();
+        int position = columnModel.getCards().indexOf(cardModelToRemove);
+        columnModel.removeCard(cardModelToRemove);
     }
 
     @FXML
@@ -182,6 +232,10 @@ public class ColumnController implements Initializable {
         return columnModel;
     }
 
+    public ColumnModel getData() {
+        return columnModel;
+    }
+
     /**
      * swaps the cards while they are being dragged across a column
      * @param idx1 - index of the dragged card or the swapping card
@@ -192,6 +246,29 @@ public class ColumnController implements Initializable {
         Collections.swap(workingCollection, idx1, idx2);
         cards.getChildren().setAll(workingCollection);
         Collections.swap(columnModel.getCards(), idx1, idx2);
+
+        columnModel.getParent().getActivityLogModel().addChange(
+            new CardMoveChange(columnModel.getCards().get(idx2), idx1, columnModel, idx2, columnModel)
+        );
     }
 
+    @FXML
+    public void editName()
+    {
+        nameContainer.getChildren().remove(columnName);
+        JFXTextField columnEdit = GUIMaker.makeColumnEditField(nameContainer, columnName, columnModel);
+        nameContainer.getChildren().add(columnEdit);
+        columnEdit.requestFocus();
+        columnEdit.selectAll();
+    }
+
+    public Label getName()
+    {
+        return columnName;
+    }
+
+    public JFXButton getRoleButton()
+    {
+        return columnRole;
+    }
 }

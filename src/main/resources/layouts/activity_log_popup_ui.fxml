@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import com.jfoenix.controls.JFXPopup?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<fx:root type="com.jfoenix.controls.JFXPopup" fx:id="root" id="root"
+         xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
+         fx:controller="controllers.ActivityLogController">
+    <VBox>
+        <JFXToolbar>
+            <leftItems>
+                <JFXButton onMouseClicked="#undo" buttonType="RAISED" prefHeight="20" prefWidth="20">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi-undo" iconColor="black" iconSize="15"/>
+                    </graphic>
+                </JFXButton>
+            </leftItems>
+            <rightItems>
+                <JFXButton onMouseClicked="#redo" buttonType="RAISED" prefHeight="20" prefWidth="20">
+                    <graphic>
+                        <FontIcon iconLiteral="mdi-redo" iconColor="black" iconSize="15"/>
+                    </graphic>
+                </JFXButton>
+            </rightItems>
+        </JFXToolbar>
+        <ScrollPane fitToWidth="true" prefHeight="300" maxHeight="300" prefWidth="200" maxWidth="200">
+            <VBox fx:id="logContainer" spacing="2" />
+        </ScrollPane>
+    </VBox>
+</fx:root>

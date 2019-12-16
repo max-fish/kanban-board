@@ -3,6 +3,7 @@ package controllers;
 import callbacks.CardDetailPopupCallback;
 import com.jfoenix.controls.*;
 import data.model.CardModel;
+import data.log.CardEditChange;
 import javafx.fxml.FXML;
 
 /**
@@ -43,9 +44,22 @@ public class CardDetailController {
 
     @FXML
     private void saveDetails(){
+        String prevName = cardModel.getTitle();
+        String prevDescription = cardModel.getDescription();
+        int prevStoryPoint = cardModel.getStoryPoint();
+          System.out.println(prevName + " - " + prevDescription + " " + prevStoryPoint);
+
         cardModel.setTitle(titleTextField.getText());
         cardModel.setStoryPoint(storyPointCombo.getValue());
         cardModel.setDescription(descriptionTextArea.getText());
+
+        CardEditChange change = new CardEditChange(cardModel, prevName, cardModel.getTitle(),
+                                                    prevDescription, cardModel.getDescription(),
+                                                    prevStoryPoint, cardModel.getStoryPoint());
+
+        cardModel.getParent().getParent().getActivityLogModel().addChange(change);
+          System.out.println(cardModel.getTitle() + " - " + cardModel.getDescription() + " " + cardModel.getStoryPoint());
+
         callback.onSave(cardModel);
         dialog.close();
     }
