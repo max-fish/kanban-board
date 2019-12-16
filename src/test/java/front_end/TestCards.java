@@ -5,6 +5,22 @@ import javafx.scene.input.MouseButton;
 
 public class TestCards extends BaseTest
 {
+    private void nameCard() {
+        //Click on edit button
+        moveTo("New Card");
+        moveBy(-93, -53);
+        clickOn(MouseButton.PRIMARY);
+
+        moveTo("Title:");
+        moveBy(150, 0);
+        clickOn(MouseButton.PRIMARY);
+
+        eraseText(8);
+        write("Test");
+
+        clickOn("Save");
+    }
+
     @Test
     public void TestAddCard() {
         sleep(500);
@@ -12,19 +28,17 @@ public class TestCards extends BaseTest
         sleep(500);
     }
 
-    /*@Test
+    @Test
     public void TestIfCardNameCanBeEditied() {
         sleep(500);
         createCard();
 
-        clickOn("Add Card Title");
-
-        write("Test");
+        nameCard();
 
         //Verify name has been changed
         moveTo("Test");
         sleep(500);
-    }*/
+    }
 
     @Test
     public void testIfExtraDetailsCanBeAddedToCard() {
@@ -37,9 +51,10 @@ public class TestCards extends BaseTest
         clickOn(MouseButton.PRIMARY);
 
         moveTo("Title:");
-        moveBy(60, 0);
+        moveBy(150, 0);
         clickOn(MouseButton.PRIMARY);
 
+        eraseText(8);
         write("Test");
 
         //Move to description box
@@ -73,6 +88,10 @@ public class TestCards extends BaseTest
         moveTo("New Card");
         moveBy(93, -53);
         clickOn(MouseButton.PRIMARY);
+        
+        sleep(500);
+        clickOn("Delete");
+
         sleep(500);
     }
 
@@ -81,14 +100,11 @@ public class TestCards extends BaseTest
         sleep(500);
         createCard();
 
-        clickOn("Add Card Title");
-
-        write("Test");
+        nameCard();
 
         clickOn("#columnMenuButton");
 
         clickOn("Add card");
-
 
         moveTo("Test");
         moveBy(0,-20);
