@@ -40,7 +40,7 @@ Uses a robot mouse to test the user interface
 
 Unit testing library that is mainly used for the back end
 
-#Installation
+# Installation
 1. Make sure you have the latest version of gradle installed from here: https://gradle.org/install/ and that
 it works with the command line
 
