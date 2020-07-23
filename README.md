@@ -40,5 +40,15 @@ Uses a robot mouse to test the user interface
 
 Unit testing library that is mainly used for the back end
 
+#Installation
+1. Make sure you have the latest version of gradle installed from here: https://gradle.org/install/ and that
+it works with the command line
+
+2. Download the zip file of this repository and extract it.
+
+3. In cmd/terminal, navigate inside the root folder (kanban-board-gui-master).
+
+4. Run `gradle run` and the application should show up.
+
 ### Note:
 This project uses the latest version of JavaFX (13), and therefore requires Java 11 or higher to compile.
